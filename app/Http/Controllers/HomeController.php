@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Project;
-use App\Activity;
 use App\Opportunity;
+
 class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -27,6 +24,7 @@ class HomeController extends Controller
     {
         $projects = Project::all();
         $opportunities = Opportunity::all();
-        return view('home',compact('projects', 'opportunities'));
+
+        return view('home', compact('projects', 'opportunities'));
     }
 }

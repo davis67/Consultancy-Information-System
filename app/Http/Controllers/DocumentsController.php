@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Session;
 use Illuminate\Http\Request;
 use App\Document;
@@ -15,6 +16,7 @@ class DocumentsController extends Controller
     public function index()
     {
         $documents = Document::all();
+
         return view('documents.index', compact('documents'));
     }
 
@@ -31,7 +33,8 @@ class DocumentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,13 +50,13 @@ class DocumentsController extends Controller
             'team' => 'required',
             'category' => 'required',
             'description' => 'nullable',
-            'assigned_to' => 'required'
+            'assigned_to' => 'required',
         ]);
         $document_file = $request->document_file;
         $document_file_new_name = time().$document_file->getClientOriginalName();
         $document_file->move('uploads/documents/', $document_file_new_name);
 
-       Document::create([
+        Document::create([
             'document_file' => 'uploads/documents/'.$document_file_new_name,
             'status' => $request->status,
             'document_name' => $request->document_name,
@@ -63,54 +66,55 @@ class DocumentsController extends Controller
             'team' => $request->team,
             'category' => $request->category,
             'description' => $request->description,
-            'assigned_to' => $request->assigned_to
+            'assigned_to' => $request->assigned_to,
         ]);
-       Session::flash('success', 'You have successively saved a document');
+        Session::flash('success', 'You have successively saved a document');
+
         return redirect()->route('documents.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
     }
 }

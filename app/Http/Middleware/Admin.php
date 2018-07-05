@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Auth;
 use Session;
 use Closure;
@@ -15,12 +16,10 @@ class Admin
      * @return mixed
      */
     public function handle($request, Closure $next)
-
     {
-        if(!Auth::user()->admin){
+        if (!Auth::user()->admin) {
             Session::flash("info", "You have no rights.Contact the administrator");
             return redirect()->back();
-
         }
         return $next($request);
     }

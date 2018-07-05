@@ -8,7 +8,8 @@ class Activity extends Model
 {
     protected $guarded = [];
 
-    public function opportunity(){
+    public function opportunity()
+    {
         return $this->belongsTo(App\opportunity::class);
     }
 }
