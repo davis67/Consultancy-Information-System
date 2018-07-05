@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Session;
-use Illuminate\Http\Request;
 use App\Document;
+use Illuminate\Http\Request;
+use App\Http\Requests\DocumentsRequest;
 
 class DocumentsController extends Controller
 {
@@ -37,37 +38,10 @@ class DocumentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DocumentsRequest $request)
     {
-        // dd($request->all());
-        $this->validate($request, [
-            'document_file' => 'required|max:100000|mimes:doc,pdf,docx,odt,zip',
-            'status' => 'required',
-            'document_name' => 'required',
-            'revision' => 'required',
-            'publish_date' => 'required',
-            'expiration_date' => 'required',
-            'team' => 'required',
-            'category' => 'required',
-            'description' => 'nullable',
-            'assigned_to' => 'required',
-        ]);
-        $document_file = $request->document_file;
-        $document_file_new_name = time().$document_file->getClientOriginalName();
-        $document_file->move('uploads/documents/', $document_file_new_name);
+        Document::storeRequest($request);
 
-        Document::create([
-            'document_file' => 'uploads/documents/'.$document_file_new_name,
-            'status' => $request->status,
-            'document_name' => $request->document_name,
-            'revision' => $request->revision,
-            'publish_date' => $request->publish_date,
-            'expiration_date' => $request->expiration_date,
-            'team' => $request->team,
-            'category' => $request->category,
-            'description' => $request->description,
-            'assigned_to' => $request->assigned_to,
-        ]);
         Session::flash('success', 'You have successively saved a document');
 
         return redirect()->route('documents.index');

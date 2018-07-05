@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
 use Session;
+use App\Contact;
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactsRequest;
 
 class ContactController extends Controller
 {
@@ -38,35 +39,13 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param App\Http\Requests\ContactsRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactsRequest $request)
     {
-        Contact::create($request->validate([
-             'name_title' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'office_telephone' => 'required',
-            'mobile_telephone' => 'required',
-            'department' => 'required',
-            'job-title' => 'required',
-            'email' => 'required|email',
-            'client_name' => 'required',
-            'address_street' => 'nullable',
-            'address_city' => 'required',
-            'address_state' => 'required',
-            'address_postal_code' => 'required',
-            'address_country' => 'required',
-            'alt_address_street' => 'nullable',
-            'alt_address_city' => 'nullable',
-            'alt_address_state' => 'nullable',
-            'alt_postal_code' => 'nullable',
-            'alt_address_country' => 'nullable',
-            'description' => 'required',
-            'assigned_to' => 'required',
-        ]));
+        Contact::create($request->validated());
 
         Session::flash('success', 'You have successively created a contact');
 

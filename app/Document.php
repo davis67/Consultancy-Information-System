@@ -8,8 +8,25 @@ class Document extends Model
 {
     protected $guarded = [];
 
-    public function getDocument_fileAttribute($document_file)
+    /**
+     * Stores a given Document Request.
+     *
+     * @param App\Http\Requests\DocumentsRequest $request
+     *
+     * @return App\Document
+     */
+    public static function storeRequest($request)
     {
-        return asset($document_file);
+        $file = $request->file('document_file');
+
+        $name = time().$file->getClientOriginalName();
+
+        $file->move('uploads/documents', $name);
+
+        $data = $request->validated();
+
+        $data['document_file'] = $name;
+
+        return  static::create($data);
     }
 }
