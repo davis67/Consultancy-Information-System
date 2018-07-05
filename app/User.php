@@ -36,4 +36,33 @@ class User extends Authenticatable
     {
         return $this->hasMany(App\Activity::class);
     }
+
+    /**
+     * determines if a user has a given permision.
+     *
+     * @param array $permissions
+     *
+     * @return bool
+     */
+    public static function hasPermision($permissions)
+    {
+        $permision = array_get([
+            'Consultant',
+            'Managers',
+            'Assistant Managers',
+            'Directors',
+            'CEO',
+            'Deputy Managing Director',
+            'Chief Of Staffs',
+            'Managing Director',
+        ], auth()->user()->is_permitted, 'Intern');
+
+        foreach ($permissions as $key => $value) {
+            if ($value === $permision) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

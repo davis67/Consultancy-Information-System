@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Session;
-use App\Helpers;
+use App\User;
 
 class CheckPermission
 {
@@ -18,9 +18,7 @@ class CheckPermission
      */
     public function handle($request, Closure $next, $permission)
     {
-        $permission = explode('|', $permission);
-
-        if (Helpers::checkPermission($permission)) {
+        if (User::hasPermision(explode('|', $permission))) {
             return $next($request);
         }
         Session::flash('info', 'Oppps..!!!You are not Allowed to access this page.');
