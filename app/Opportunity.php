@@ -8,8 +8,8 @@ use DB;
 
 class Opportunity extends Model
 {
-    protected $table = 'opportunities';
     use RecordsActivity;
+
     protected $guarded = [];
 
     public function latestOmnumber()
@@ -27,16 +27,16 @@ class Opportunity extends Model
 
     public function project()
     {
-        return $this->hasOne(App\Project::class);
+        return $this->hasOne(Project::class);
     }
 
     public function opportunityHistory()
     {
-        return $this->hasMany(App\OpportunityHistory::class);
+        return $this->hasMany(OpportunityHistory::class);
     }
 
     public function activity()
     {
-        return $this->belongsTo(App\Activity::class);
+        return $this->belongsTo(Activity::class);
     }
 }

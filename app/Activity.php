@@ -10,6 +10,6 @@ class Activity extends Model
 
     public function opportunity()
     {
-        return $this->belongsTo(App\opportunity::class);
+        return $this->belongsTo(Opportunity::class);
     }
 }

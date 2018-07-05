@@ -29,12 +29,12 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne('App\Profile');
+        return $this->hasOne(Profile::class);
     }
 
     public function activities()
     {
-        return $this->hasMany(App\Activity::class);
+        return $this->hasMany(Activity::class);
     }
 
     /**

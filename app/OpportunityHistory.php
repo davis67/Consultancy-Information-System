@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class OpportunityHistory extends Model
 {
-    protected $table = 'opportunity_histories';
-
     protected $guarded = [];
 
     public static function boot()
@@ -27,6 +25,6 @@ class OpportunityHistory extends Model
 
     public function opportunity()
     {
-        return $this->belongsTo(App\Opportunity::class);
+        return $this->belongsTo(Opportunity::class);
     }
 }
