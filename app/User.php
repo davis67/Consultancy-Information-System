@@ -27,13 +27,42 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function profile(){
-
-        return $this->hasOne('App\Profile');
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
-     public function activities(){
 
-        return $this->hasMany(App\Activity::class);
-
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
     }
+
+    /**
+     * determines if a user has a given permision.
+     *
+     * @param array $permissions
+     *
+     * @return bool
+     */
+    public static function hasPermision($permissions)
+    {
+        $permision = array_get([
+            'Consultant',
+            'Managers',
+            'Assistant Managers',
+            'Directors',
+            'CEO',
+            'Deputy Managing Director',
+            'Chief Of Staffs',
+            'Managing Director',
+        ], auth()->user()->is_permitted, 'Intern');
+
+        foreach ($permissions as $key => $value) {
+            if ($value === $permision) {
+                return true;
+            }
         }
+
+        return false;
+    }
+}

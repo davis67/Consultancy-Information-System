@@ -10,39 +10,15 @@ Route::resource('contacts', 'ContactController')->middleware('check-permission:C
 Route::resource('opportunities', 'OpportunityController');
 Route::resource('tasks', 'TasksController');
 Route::resource('documents', 'DocumentsController');
-Route::get('/projects/create/{id}/', [
-	'uses' =>'ProjectsController@createProject',
-	'as'=>'projects.create'
-]);
-Route::get('/projects/store', [
-	'uses' =>'ProjectsController@store',
-	'as'=>'projects.store'
-]);
-Route::get('/projects/index', [
-	'uses' =>'ProjectsController@index',
-	'as'=>'projects'
-]);
-Route::get('/users',[
-		'uses' => 'UsersController@index',
-		'as' => 'users'
+Route::get('/projects/create/{id}/', 'ProjectsController@createProject')->name('projects.create');
+Route::get('/projects/store', 'ProjectsController@store')->name('projects.store');
+Route::get('/projects/index', 'ProjectsController@index')->name('projects');
+Route::get('/users', 'UsersController@index')->name('users');
+Route::get('/users/create', 'UsersController@create')->name('users.create');
+Route::post('/users/store', 'UsersController@store')->name('users.store');
+Route::get('/users/admin/{id}', 'UsersController@admin')->name('users.admin');
+Route::get('/users/not-admin/{id}', 'UsersController@not_admin')->name('users.not.admin');
 
-	]);
-	Route::get('/users/create', [
-		'uses' => 'UsersController@create',
-		'as' =>'users.create'
-	]);
-	Route::post('/users/store', [
-		'uses' => 'UsersController@store',
-		'as' =>'users.store'
-	]);
-	Route::get('/users/admin/{id}', [
-		'uses' => 'UsersController@admin',
-		'as' =>'users.admin'
-	]);
-	Route::get('/users/not-admin/{id}', [
-		'uses' => 'UsersController@not_admin',
-		'as' =>'users.not.admin'
-	]);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

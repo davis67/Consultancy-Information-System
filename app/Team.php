@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
-   protected $guarded=[];
+    protected $guarded = [];
 
-   public function users(){
-   	return $this->hasMany('App\User');
-   }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }
