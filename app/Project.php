@@ -10,7 +10,7 @@ class Project extends Model
 
     public function opportunity()
     {
-        return $this->belongsTo(App\Opportunity::class);
+        return $this->belongsTo(Opportunity::class);
     }
 
     public static function boot()
