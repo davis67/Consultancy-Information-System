@@ -49,7 +49,7 @@
 							<td>{{$task->assigned_to}}</td>
 							<td><i>finished</i></td>
 							<td>
-							<a href="{{ route('tasks.show', $task->id) }}" id="{{ $task->id }}" style="color: 000000;" class="view-task" data-toggle="modal" data-target="#taskModal"><i class="fa fa-eye text-dark" style="font-size: 20px;">i</i></a>
+							<a href="{{ route('tasks.show', $task->id) }}" id="{{ $task->id }}" style="color: 000000;" class="view-task" data-toggle="modal" data-target="#taskModal"><i class="fa fa-eye text-dark" style="font-size: 20px;"></i></a>
 							<a href="{{ route('tasks.update', $task->id) }}" id="{{ $task->id }}" class="edit-modal" data-toggle="modal" data-target="#UpdatetaskModal" style="color: 000000;"><i class="mdi mdi-file-check md-18 text-dark" style="font-size: 20px;"></i></a>
 							<a href="" style="color: 000000;"><i class="mdi mdi-delete text-dark" style="font-size: 20px;"></i></a
 							</div>
@@ -65,7 +65,7 @@
           	
 	</div>
 
-	<!-- View Modal -->
+	 <-- View Modal -->
 <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -132,7 +132,7 @@
 									<select  class="form-control {{ $errors->has('task_status') ? 'is-invalid' : '' }} form-control-sm" name="task_status">
 									  <option value="">Choose...</option>
 									  @foreach(['Not started', 'In Progress', 'Completed', 'Pending input', 'Deffered'] as $item => $value)
-									  <option value="{{$item}}">{{$value}}</option>
+									  <option value="{{$value}}">{{$value}}</option>
 									  @endforeach
 									</select>
 								  </div>
@@ -143,9 +143,9 @@
 												<label for="inputState">Priority</label>
 												<select id="inputState" name="priority" class="form-control {{ $errors->has('priority') ? ' is-invalid' : '' }}">
 												  <option value="">Choose...</option>
-												  <option value="1">High</option>
-												  <option value="2">Medium</option>
-												  <option value="3">Low</option>
+												  <option value="High">High</option>
+												  <option value="Medium">Medium</option>
+												  <option value="Low">Low</option>
 												</select>
 											  </div>
 											  <div class="form-group col-md-6">
@@ -153,7 +153,7 @@
 											<select id="inputState" name="service_line" class="form-control {{ $errors->has('service_line') ? ' is-invalid' : '' }} form-control-sm">
 											   <option value="">Choose...</option>
 											  @foreach(['Monitoring and Evaluation', 'Recruitment Services', 'HR Services', 'TCB Services', 'Outsourced Financial Services', 'ICT or MIS Services', 'Procurement Services', 'Public Sector Management Services', 'IS Audits', 'ACL', 'Enterprise Risk Management', 'Local Government', 'Management consultancy', 'Financial Advisory', 'Prequalification for Consultancy Services', 'Business Development', 'Infrastructure Consultancy', 'Service Activities(Indirect Services)'] as $item => $value)
-											  <option value="{{$item}}">{{$value}}</option>
+											  <option value="{{$value}}">{{$value}}</option>
 											  @endforeach
 										  </select>
 										 </div>
@@ -161,7 +161,7 @@
 								<div class="form-row">
 								  <div class="form-group col-md-4">
 									<label for="inputCity">Start Date</label>
-									<input type="date" class="form-control {{ $errors->has('start_date') ? ' is-invalid' : '' }} form-control-sm" name="start_date" id="start_date">
+									<input type="date" class="form-control {{ $errors->has('start_date') ? ' is-invalid' : '' }} form-control-sm" name="start_date">
 									
 								  </div>
 								  <div class="form-group col-md-5">
@@ -173,7 +173,7 @@
 										<select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
 											<option value="">Choose...</option>
 											@foreach(['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
-											<option value="{{$value}}">{{$item}}</option>
+											<option value="{{$item}}">{{$item}}</option>
 											@endforeach
 										  </select>     
 								  </div>
@@ -194,7 +194,7 @@
 												<select  name="related_to" class="form-control {{ $errors->has('related_to') ? ' is-invalid' : '' }} form-control-sm">
 												  <option value="">Choose...</option>
 												  @foreach(['Bug', 'Case', 'Client', 'Contact', 'Lead', 'Opportunity','Project', 'project task', 'Target', 'Task'] as $value => $item)
-												  <option id="related_to" value="{{$value}}">{{$item}}</option>
+												  <option id="related_to" value="{{$item}}">{{$item}}</option>
 												  @endforeach
 												</select>
 											  </div>  
@@ -208,9 +208,9 @@
 									<label for="inputProject">Assigned To: </label>
 									<input type="text" name="assigned_to" class="form-control form-control-sm" id="assigned_to">
 								</div>
-								{{-- <div class="pull-left">
+								<div class="pull-left">
 								<button type="button" class="btn btn-outline-danger  btn-sm">Update a task</button>
-								</div> --}}
+								</div> 
 								<div class="modal-footer">
 										<button type="button" class="btn btn-outline-danger  btn-sm">Update a task</button>
 
@@ -220,7 +220,7 @@
             
         </div>
     </div>
-</div>					
+ </div>					 
 
 		
 </div>
