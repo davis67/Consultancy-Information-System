@@ -15,6 +15,6 @@ class Team extends Model
 
     public static function names()
     {
-        return ['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'];
+        return ['TCS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'];
     }
 }

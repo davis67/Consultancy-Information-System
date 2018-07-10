@@ -14,4 +14,6 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" >
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css" >
   <title>COINS</title>
+  <!-- stack anything in the head -->
+  @stack("head")
 </head>
