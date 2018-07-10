@@ -12,4 +12,9 @@ class Team extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public static function names()
+    {
+        return ['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'];
+    }
 }

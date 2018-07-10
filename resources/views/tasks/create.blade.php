@@ -35,7 +35,7 @@
                                         <label for="inputState">Service Line</label>
                                 <select id="inputState" name="service_line" class="form-control {{ $errors->has('service_line') ? ' is-invalid' : '' }} form-control-sm">
                                    <option value="">Choose...</option>
-		                          @foreach(['Monitoring and Evaluation', 'Recruitment Services', 'HR Services', 'TCB Services', 'Outsourced Financial Services', 'ICT or MIS Services', 'Procurement Services', 'Public Sector Management Services', 'IS Audits', 'ACL', 'Enterprise Risk Management', 'Local Government', 'Management consultancy', 'Financial Advisory', 'Prequalification for Consultancy Services', 'Business Development', 'Infrastructure Consultancy', 'Service Activities(Indirect Services)'] as $item => $value)
+		                          @foreach(App\Task::serviceLines() as $item => $value)
                                   <option value="{{$item}}">{{$value}}</option>
 		                          @endforeach
 		                      </select>
@@ -55,7 +55,7 @@
                             <label for="inputTeam">Team </label>
                             <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
                                 <option value="">Choose...</option>
-                                @foreach(['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
+                                @foreach(App\Team::names() as $value => $item)
                                 <option value="{{$value}}">{{$item}}</option>
                                 @endforeach
                               </select>     
