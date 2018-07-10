@@ -53,10 +53,10 @@
                       </div>
                       <div class="form-group col-md-6">
                             <label for="inputTeam">Team </label>
-                            <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
+                            <select id="inputTeam" onchange="getValue()" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
                                 <option value="">Choose...</option>
-                                @foreach(['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
-                                <option value="{{$value}}">{{$item}}</option>
+                                @foreach(['TCS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
+                                <option value="{{$item}}">{{$item}}</option>
                                 @endforeach
                               </select>     
                       </div>
@@ -77,7 +77,7 @@
                                     <select id="inputState" name="related_to" class="form-control {{ $errors->has('related_to') ? ' is-invalid' : '' }} form-control-sm">
                                       <option value="">Choose...</option>
                                       @foreach(['Bug', 'Case', 'Client', 'Contact', 'Lead', 'Opportunity','Project', 'project task', 'Target', 'Task'] as $value => $item)
-                                      <option value="{{$value}}">{{$item}}</option>
+                                      <option value="{{$item}}">{{$item}}</option>
                                       @endforeach
                                     </select>
                                   </div>  
@@ -89,7 +89,13 @@
                     </div>
                     <div class="form-group ">
                         <label for="inputProject">Assigned To: </label>
-                        <input type="text" name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" placeholder="Enter name of a consultant">
+                        {{-- <input type="text" name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" placeholder="Enter name of a consultant"> --}}
+                        <select name="assigned_to" id="" class="form-control">
+                          <option value="Davis Agaba">Choose ..</option>
+                          @foreach(Helpers::assigned('TCS') as $assign)                         
+                          <option value="{{ $assign }}">{{ $assign }}</option>
+                          @endforeach
+                        </select>
                     </div>
                     <div class="pull-left">
                     <button type="submit" class="btn btn-outline-danger btn-lg">Save a task</button>
@@ -100,3 +106,12 @@
       </div>
       	
 @endSection
+@section('script')
+<script>
+  function getValue(){
+    let team =document.getElementById('inputTeam').value;
+    return team;
+  }
+</script>
+
+@stop
