@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
-use Illuminate\Http\Request;
 use Session;
+use App\Task;
+use App\User;
+use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
@@ -32,7 +33,9 @@ class TasksController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        $users = User::all();
+
+        return view('tasks.create', compact('users'));
     }
 
     /**
