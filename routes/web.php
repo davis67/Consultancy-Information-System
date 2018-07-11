@@ -4,7 +4,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', function () {
-    return App\User::find(2)->profile;
+    return App\User::find(1)->activities;
 });
 Route::resource('contacts', 'ContactController')->middleware('check-permission:CEO');
 Route::resource('opportunities', 'OpportunityController');

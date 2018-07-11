@@ -11,7 +11,9 @@ class Opportunity extends Model
     use RecordsActivity;
 
     protected $guarded = [];
-
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+    ];
     public function latestOmnumber()
     {
         $last = DB::table('opportunities')->latest('id')->first();
@@ -30,13 +32,8 @@ class Opportunity extends Model
         return $this->hasOne(Project::class);
     }
 
-    public function opportunityHistory()
+    public function activities()
     {
-        return $this->hasMany(OpportunityHistory::class);
-    }
-
-    public function activity()
-    {
-        return $this->belongsTo(Activity::class);
+        return $this->hasMany(Activity::class);
     }
 }

@@ -1,4 +1,9 @@
 @extends('layouts.app')
+@push("head")
+<script>
+  window.APP_USERS={!! $users->toJson() !!}
+</script>
+@endpush
 @section('content')
       <div class="page-header">
             <nav aria-label="breadcrumb">
@@ -92,15 +97,15 @@
                               <label for="inputZip">Internal Deadline</label>
                               <input type="date" class="form-control {{ $errors->has('internal_deadline') ? ' is-invalid' : '' }} form-control-sm " name = "internal_deadline" id="inputZip" value="{{old('internal_deadline')}}">
                         </div>
-                        <div class="form-group col-md-3">
-                              <label for="inputTeam">Team </label>
-                              <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm " name="team">
+                        <div class="form-group col-md-6">
+                            <label for="inputTeam">Team </label>
+                            <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
                                 <option value="">Choose...</option>
-                                @foreach(['TCS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
-                                <option value="{{ $item }}" {{old('team')==$item? 'selected':''}}>{{$item}}</option>
+                                @foreach(App\Team::names() as  $team)
+                                <option value="{{$team}}">{{$team}}</option>
                                 @endforeach
-                              </select>                      
-                        </div>
+                              </select>     
+                      </div>
                         <div class="form-group col-3">
                                 <label for="inputRef">Probability(%)</label>
                                 <input type="number" class="form-control {{ $errors->has('probability') ? ' is-invalid' : '' }} form-control-sm" name="probability" id="inputRevenue" placeholder="Enter Probability in %." value="{{old('probability')}}">
@@ -144,13 +149,8 @@
                               <textarea name="description" class="form-control form-control-sm" rows="3"  placeholder="Enter description of the project" value="{{old('description')}}"></textarea>
                       </div>
                       <div class="form-group ">
-                          <label for="inputProject">Assigned To:</label>
-                          <input type="text" class="form-control form-control-sm" name="assigned_to" placeholder="Enter name of a consultant" value="{{old('assigned_to')}}">
-                          @if($errors->has('assigned_to'))
-                            <span class="text-danger">
-                              {{$errors->first('assigned_to')}}
-                            </span>
-                          @endif
+                          <label for="assignees">Assigned To: </label>
+                          <select  name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees"></select>
                       </div>
                       <div class="pull-left">
                       <button type="submit" class="btn btn-outline-danger ">Save Opportunity</button>
@@ -160,3 +160,34 @@
         </div>
       </div>
 @endSection
+@push("scripts")
+<script>
+var team = document.getElementById("inputTeam");
+var assignees = document.getElementById("assignees");
+var options = document.createDocumentFragment();
+//add an empty option
+options.appendChild(createOption("--select--", ""));
+
+team.addEventListener("change", updateAssignees);
+
+function updateAssignees(event) {
+  //bail out for empty selections
+  if (!team.value) return;
+  console.log(team.value)
+  window.APP_USERS.forEach(function(user) {
+    if (user.team === team.value) {
+      //add an option to the assigns
+      options.appendChild(createOption(user.name, user.name));
+    }
+  });
+  assignees.appendChild(options);
+}
+function createOption(text, value) {
+  var option = document.createElement("option");
+  option.text = text;
+  option.value = value;
+  return option;
+}
+</script>
+
+@endpush

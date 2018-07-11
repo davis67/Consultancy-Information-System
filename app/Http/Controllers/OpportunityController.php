@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Opportunity;
 use Session;
-
+use App\User;
 class OpportunityController extends Controller
 {
     public function __construct(){
@@ -31,7 +31,8 @@ class OpportunityController extends Controller
     public function create()
     {
         
-        return view('opportunities.create');
+        $users = User::all();
+        return view('opportunities.create', compact('users'));
     }
 
     /**

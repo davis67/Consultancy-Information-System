@@ -51,7 +51,11 @@
 							<td>
 							<a href="{{ route('tasks.show', $task->id) }}"style="color: 000000;" class="view-task"><i class="fa fa-eye text-dark" style="font-size: 20px;"></i></a>
 							<a href="{{ route('tasks.edit', $task->id) }}" style="color: 000000;"><i class="mdi mdi-file-check md-18 text-dark" style="font-size: 20px;"></i></a>
-							<a href="" style="color: 000000;"><i class="mdi mdi-delete text-dark" style="font-size: 20px;"></i></a
+							<form action="{{ route('tasks.destroy', $task->id)}}" method="post">
+									@csrf
+									<input name="_method" type="hidden" value="DELETE">
+									<button type="submit" style="color: 000000;"><i class="mdi mdi-delete text-dark"></i></button>
+								</form>
 							</div>
 							</td>
 							</tr>

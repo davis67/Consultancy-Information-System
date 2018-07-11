@@ -7,7 +7,7 @@
         <div class="col-md-7">
           <div class="card shadow">
             <div class="card-body">
-                <h2 class="card-title">Project Progress</h2>
+                <h2 class="card-title text-center">Project Progress</h2>
               <div class="table-responsive">
                     <table class="table">
                       <thead>
@@ -135,10 +135,12 @@
             <div class="card-body">
                 <div class="">
                 <span class="card-title">Opportunities<span style="border-radius:50%;" class="badge badge-danger">{{ $opportunities->count() }}</span></span>
-                <span class="btn btn-outline-danger btn-sm" style="float: right">+ Add</span>
+                <span style="float: right"><a class="btn btn-outline-danger btn-sm" style="text-decoration:none; color:black;" href="{{ route('opportunities.create') }}">+ Add</a></span>
                 </div>
                 <div class="">
-                 no opportunities   
+                 @foreach($activities as $activity)
+                 <p>{{ $activity->user->name }} {{ $activity->type  }} on {{ $activity->created_at->diffForHumans() }}</p><br/>  
+                 @endforeach
                 </div>
                 
             </div>
@@ -149,16 +151,19 @@
       <div class="row">
         <div class="col-md-4">
           <div class="card shadow">
-          <div class="card-header">
+          <div class="card-header text-center">
               My opportunities
             </div>
             <div class="card-body">
+              @foreach ($doneopportunities as $opportunity)
+                 <p> You were assigned this {{ $opportunity->opportunity_name }} with <b><i>0M-{{ $opportunity->OM_number }}-AH</i></b> on {{ $opportunity->created_at }}</p>
+              @endforeach
             </div>
           </div>  
         </div>
         <div class="col-md-4">
           <div class="card shadow">
-              <div class="card-header">
+              <div class="card-header text-center">
                 My Projects
               </div>
             <div class="card-body">
@@ -168,11 +173,17 @@
         </div>
               <div class="col-md-4">
           <div class="card shadow">
-              <div class="card-header">
-                Who is on leave
+              <div class="card-header text-center">
+                My Tasks
               </div>
             <div class="card-body">
-
+              @if($donetasks->count() > 0)
+                @foreach ($donetasks as $task)
+                <p> You were assigned this {{ $task->task_name }} on {{ $task->created_at }}</p>
+             @endforeach
+             @else
+             <p><i>No Tasks done so far</i></p>
+             @endif
             </div>
           </div>
         </div>

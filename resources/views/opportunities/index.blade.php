@@ -50,7 +50,7 @@
 							        <form action="{{ route('opportunities.destroy', $opportunity->id)}}" method="post">
 													@csrf
 													<input name="_method" type="hidden" value="DELETE">
-													<button type="submit" style="color: 000000;"><i class="mdi mdi-delete md-18 text-dark" style="font-size: 20px;"></i></button>
+													<button type="submit" style="color: 000000;"><i class="mdi mdi-delete text-dark"></i></button>
 												</form>
 							</td>
 							</tr>
