@@ -45,9 +45,13 @@
 							<td>{{$opportunity->funded_by}}</td>
 							<td>{{$opportunity->assigned_to}}</td>
 							<td>
-							        <a href="#"><i class="fa fa-eye"></i></a>
-							        <a href="#"><i class="fa fa-edit"></i></a>
-							        <a href="#"><i class=" fa fa-trash"></i></a>
+							        <a href="#"><i class="fa fa-eye md-18 text-dark" style="font-size: 20px;"></i></a>
+							        <a href="{{ route('opportunities.edit', $opportunity->id) }}"><i class="mdi mdi-file-check md-18 text-dark" style="font-size: 20px;"></i></a>
+							        <form action="{{ route('opportunities.destroy', $opportunity->id)}}" method="post">
+													@csrf
+													<input name="_method" type="hidden" value="DELETE">
+													<button type="submit" style="color: 000000;"><i class="mdi mdi-delete md-18 text-dark" style="font-size: 20px;"></i></button>
+												</form>
 							</td>
 							</tr>
 							@endforeach

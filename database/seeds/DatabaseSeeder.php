@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Davis Agaba',
             'email' => 'dora@gmail.com',
             'title' => 'consultant',
-            'team' => 'TCS',
+            'team' => 'BDS',
             'status' => 'active',
             'reportsTo' => 'Ek',
             'password' => bcrypt('password'),
