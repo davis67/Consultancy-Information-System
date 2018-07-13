@@ -7,6 +7,7 @@ use App\User;
 use App\Profile;
 use Session;
 use Admin;
+use App\Usergroup;
 
 class UsersController extends Controller
 {
@@ -35,7 +36,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $usergroups = Usergroup::all();
+        return view('users.create', compact('usergroups'));
     }
 
     /**

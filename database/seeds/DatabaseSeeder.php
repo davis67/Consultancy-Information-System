@@ -50,26 +50,6 @@ class DatabaseSeeder extends Seeder
 
         App\Team::Insert(static::addTimeStamps($teams));
 
-        $user = App\User::create([
-            'name' => 'Davis Agaba',
-            'email' => 'dora@gmail.com',
-            'title' => 'consultant',
-            'team' => 'BDS',
-            'status' => 'active',
-            'reportsTo' => 'Ek',
-            'password' => bcrypt('password'),
-            'admin' => 1,
-            'is_permitted' => 5,
-            'employeeNo' => 192,
-        ]);
-
-        App\Profile::create([
-            'user_id' => $user->id,
-            'avatar' => 'uploads/1.jpeg',
-            'telephone' => '078965433',
-            'primary_address' => 'Kampala',
-        ]);
-
         $groups = [
             [
                 'name' => 'intern',
@@ -87,8 +67,28 @@ class DatabaseSeeder extends Seeder
         ];
 
         App\Usergroup::insert(static::addTimeStamps($groups));
-    }
 
+        $user = App\User::create([
+            'name' => 'Davis Agaba',
+            'email' => 'dora@gmail.com',
+            'title' => 'consultant',
+            'team' => 'BDS',
+            'reportsTo' => 'Ek',
+            'password' => bcrypt('password'),
+            'admin' => 1,
+            'is_permitted' => 5,
+            'employeeNo' => 192,
+        ]);
+
+        App\Profile::create([
+            'user_id' => $user->id,
+            'avatar' => 'uploads/1.jpeg',
+            'telephone' => '078965433',
+            'primary_address' => 'Kampala',
+        ]);
+
+    }
+    
     public static function addTimeStamps($data)
     {
         return collect($data)->map(function ($datum) {

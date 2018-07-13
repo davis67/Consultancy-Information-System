@@ -1,12 +1,14 @@
 @extends('layouts.app')
 @section('content')
-	<div class="card">
-		<div class="card-header">
+	<div class="card d-flex">
+		<div class="card-body ">
 			<h4 class="">Showing all Users</h4>
-		</div>
-		<div class="card-body">
-			<table class="table table-bordered table-hover">
-		<thead>
+			<div style="float:right; margin-bottom:20px;">
+			<a href="{{ route('users.create')}}" class="btn btn-sm btn-outline-danger">+create</a>
+			</div>
+			<div class="table-responsive">
+			<table class="table">
+			<thead>
 			<tr>
 				<th>Image</th>
 				<th>Name</th>
@@ -44,6 +46,7 @@
 			@endif
 		</tbody>
 	</table>
+			</div>
 		</div>
 	
 @endsection

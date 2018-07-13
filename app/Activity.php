@@ -10,12 +10,12 @@ class Activity extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',
     ];
-    public function opportunity()
-    {
-        return $this->belongsTo(Opportunity::class);
-    }
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function activity_histories()
+    {
+        return $this->hasMany(Activity_history::class);
     }
 }

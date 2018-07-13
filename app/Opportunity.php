@@ -32,8 +32,8 @@ class Opportunity extends Model
         return $this->hasOne(Project::class);
     }
 
-    public function activities()
+    public function activity_histories()
     {
-        return $this->hasMany(Activity::class);
+        return $this->hasMany(Activity_history::class);
     }
 }

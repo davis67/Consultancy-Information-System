@@ -132,14 +132,14 @@
         <div class="col-md-5">
           <div class="card shadow">
           
-            <div class="card-body">
+            <div class="card-body"  style="height:420px; overflow-y:scroll;">
                 <div class="">
                 <span class="card-title">Opportunities<span style="border-radius:50%;" class="badge badge-danger">{{ $opportunities->count() }}</span></span>
                 <span style="float: right"><a class="btn btn-outline-danger btn-sm" style="text-decoration:none; color:black;" href="{{ route('opportunities.create') }}">+ Add</a></span>
                 </div>
                 <div class="">
                  @foreach($activities as $activity)
-                 <p>{{ $activity->user->name }} {{ $activity->type  }} on {{ $activity->created_at->diffForHumans() }}</p><br/>  
+                 <p>{{ $activity->user->name }} {{ $activity->type  }} on {{ $activity->created_at->diffForHumans() }}</p>  
                  @endforeach
                 </div>
                 
@@ -154,7 +154,7 @@
           <div class="card-header text-center">
               My opportunities
             </div>
-            <div class="card-body">
+            <div class="card-body"  style="height:350px; overflow-y:scroll;">
               @foreach ($doneopportunities as $opportunity)
                  <p> You were assigned this {{ $opportunity->opportunity_name }} with <b><i>0M-{{ $opportunity->OM_number }}-AH</i></b> on {{ $opportunity->created_at }}</p>
               @endforeach
@@ -176,7 +176,7 @@
               <div class="card-header text-center">
                 My Tasks
               </div>
-            <div class="card-body">
+            <div class="card-body" style="height:350px; overflow-y:scroll;">
               @if($donetasks->count() > 0)
                 @foreach ($donetasks as $task)
                 <p> You were assigned this {{ $task->task_name }} on {{ $task->created_at }}</p>
@@ -189,29 +189,6 @@
         </div>
       </div>
 <br>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card shadow">
-            <div class="card-header">
-              Competitor Scores
-            </div>
-            <div class="card-body">
-             <canvas id="visit-sale-chart" class="mt-4"></canvas>
-            </div>
-          </div>  
-        </div>
-        <div class="col-md-6">
-          <div class="card shadow">
-          <div class="card-header">
-              Opportunity History
-            </div>
-            <div class="card-body">
-            <canvas id="secondchart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    <br>
     <div class="row">
           </div>
                 </div>
