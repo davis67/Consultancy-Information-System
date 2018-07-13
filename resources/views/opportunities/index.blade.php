@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-        <div class="page-header">
+        {{-- <div class="page-header">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Opportunities</a></li>
@@ -8,20 +8,27 @@
               </ol>
             </nav>
             <h3 class="page-title">
-             {{--  <span class="page-title-icon bg-gradient-danger text-white mr-2">
+              <span class="page-title-icon bg-gradient-danger text-white mr-2">
                 <i class="mdi mdi-folder-outline"></i>                 
-              </span> --}}
+              </span> 
               <a class="btn btn-sm btn-gradient-danger mt-2" href="{{ route('opportunities.create') }}">+Create Opportunity</a>
             </h3>
-          </div>
+          </div> --}}
           <div class="row">
           	<div class="col-lg-12 grid-margin stretch-card">
           	<div class="card">
 			
 			<div class="card-body">
-				<div class="card-title">
-				Showing all Opportunities
-			   </div>
+				<div class="card-title row">
+					<div class="text col-md-4">
+							Showing all Opportunities
+					</div>
+				
+				<div class=" col-md-8">
+						<a href="{{ route('opportunities.create') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>Create Opportunity</a>
+					</div>
+				 </div>
+				 
 				<table class="table example" >
 					<thead>
 						<tr>
@@ -45,13 +52,15 @@
 							<td>{{$opportunity->funded_by}}</td>
 							<td>{{$opportunity->assigned_to}}</td>
 							<td>
-							        <a href="#"><i class="fa fa-eye md-18 text-dark" style="font-size: 20px;"></i></a>
-							        <a href="{{ route('opportunities.edit', $opportunity->id) }}"><i class="mdi mdi-file-check md-18 text-dark" style="font-size: 20px;"></i></a>
-							        <form action="{{ route('opportunities.destroy', $opportunity->id)}}" method="post">
-													@csrf
-													<input name="_method" type="hidden" value="DELETE">
-													<button type="submit" style="color: 000000;"><i class="mdi mdi-delete text-dark"></i></button>
-												</form>
+									<form action="{{ route('opportunities.destroy', $opportunity->id)}}" method="post">
+											@csrf
+										<input name="_method" type="hidden" value="DELETE">
+										<div class="btn-group">
+												<a href="{{ route('opportunities.edit', $opportunity->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-eye"></i></a>
+												<a href="{{ route('opportunities.edit', $opportunity->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-edit"></i></a>
+												<button type="submit" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button>
+												</div>
+									</form>
 							</td>
 							</tr>
 							@endforeach

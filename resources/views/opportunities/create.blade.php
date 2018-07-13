@@ -5,22 +5,18 @@
 </script>
 @endpush
 @section('content')
-      <div class="page-header">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Opportunities</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Create Opportunities</li>
-              </ol>
-            </nav>
-           <h3 class="page-title"> 
-              <a class="btn btn-sm btn-gradient-danger mt-2" href="{{ route('opportunities.index') }}">
-              <i class="mdi mdi-share-outline menu-icon"></i>
-            View Opportunities
-          </a>
-            </h3>
-          </div>
+
             <div  class="card">
               <div class="card-body">
+                  <div class="card-title row">
+                      <div class="text col-md-4">
+                          Create a Opportunity
+                      </div>
+                    
+                    <div class=" col-md-8">
+                        <a href="{{ route('opportunities.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Opportunities</a>
+                      </div>
+                     </div>
               <form class="form" method="post" action="{{route('opportunities.store')}}">
                       @csrf
                       <div class="form-group">

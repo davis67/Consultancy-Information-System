@@ -133,14 +133,23 @@
           <div class="card shadow">
           
             <div class="card-body"  style="height:420px; overflow-y:scroll;">
-                <div class="">
-                <span class="card-title">Opportunities<span style="border-radius:50%;" class="badge badge-danger">{{ $opportunities->count() }}</span></span>
-                <span style="float: right"><a class="btn btn-outline-danger btn-sm" style="text-decoration:none; color:black;" href="{{ route('opportunities.create') }}">+ Add</a></span>
-                </div>
+                <div class="card-title row">
+                    <div class="text col-md-6">
+                        Opportunity<span style="border-radius:50%;" class="badge badge-danger">{{ $opportunities->count() }}</span></span>
+                    </div>
+                  
+                  <div class=" col-md-6">
+                      <a href="{{ route('opportunities.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>Add</a>
+                    </div>
+                   </div>
                 <div class="">
                  @foreach($activities as $activity)
-                 <p>{{ $activity->user->name }} {{ $activity->type  }} on {{ $activity->created_at->diffForHumans() }}</p>  
+                    <p>{{ $activity->user->name }} {{ $activity->type  }} on {{ $activity->created_at->diffForHumans() }}</p>  
+                    
                  @endforeach
+                 <a href="" class="btn btn-outline-danger btn-xs">Read More..</a>
+
+                 
                 </div>
                 
             </div>
@@ -156,8 +165,12 @@
             </div>
             <div class="card-body"  style="height:350px; overflow-y:scroll;">
               @foreach ($doneopportunities as $opportunity)
-                 <p> You were assigned this {{ $opportunity->opportunity_name }} with <b><i>0M-{{ $opportunity->OM_number }}-AH</i></b> on {{ $opportunity->created_at }}</p>
-              @endforeach
+              <p> You were assigned this {{ $opportunity->opportunity_name }} with <b><i>0M-{{ $opportunity->OM_number }}-AH</i></b> on {{ $opportunity->created_at }}</p>
+
+                @if(strlen(strip_tags($opportunity->opportunity_name)) <= 6)
+              <a href="" class="btn btn-outline-danger">Read More..</a>
+                @endif
+                 @endforeach
             </div>
           </div>  
         </div>

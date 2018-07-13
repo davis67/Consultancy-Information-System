@@ -2,8 +2,16 @@
 @section('content')
     <div class="card">
       <div class="card-body">
-         <h3 class="card-title">Document</h3>
-         {{-- {{var_dump($errors)}} --}}
+         <div class="card-title row">
+            <div class="text col-md-4">
+                Create a document
+            </div>
+          
+          <div class=" col-md-8">
+              <a href="{{ route('documents.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Documents</a>
+            </div>
+           </div>
+          {{-- {{  var_dump($errors)}} --}}
             <form action="{{route('documents.store')}}" method="post" enctype="multipart/form-data">
               @csrf
                     <div class="form-row ">
@@ -19,7 +27,7 @@
                         <select id="inputState"name="status" class="form-control form-control-sm">
                           <option value="">Choose...</option>
                           @foreach(['Active', 'Draft', 'Draft', 'FAQ', 'Expired', 'Under Review', 'Pending'] as $item => $value)
-                          <option value="{{$item}}">{{$value}}</option>
+                          <option value="{{ $value }}">{{$value}}</option>
                           @endforeach
                         </select>
                       </div>
@@ -51,7 +59,7 @@
                             <select id="inputTeam" name="team" class="form-control form-control-sm">
                               <option value="">Choose...</option>
                               @foreach(['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
-                                <option value="{{$value}}">{{$item}}</option>
+                                <option value="{{$item}}">{{$item}}</option>
                                 @endforeach
                             </select>
                         
@@ -61,7 +69,7 @@
                             <select id="inputTeam" name="category" class="form-control form-control-sm">
                               <option value="">Choose...</option>
                               @foreach(['Marketing', 'Knowledge Base', 'Sales', 'Inception report', 'Terms of Reference', 'CV', 'Financial Proposal', 'Technical report', 'Request for Proposal'] as $item =>$value)
-                              <option value="{{$item}}">{{$value}}</option>
+                              <option value="{{$value}}">{{$value}}</option>
                               @endforeach
                             </select>
                         

@@ -2,10 +2,16 @@
 @section('content')
     <div class="card card-block">
         <div class="card-body">
-        	<h3 class="">create a new User</h3>
-			<div >
-			<a href="{{ route('users')}}" class="btn btn-sm btn-outline-danger pull-right">View All Users</a>
-			</div>
+            {{-- {{ var_dump($errors) }} --}}
+            <div class="card-title row">
+                    <div class="text col-md-4">
+                        Create a User
+                    </div>
+                  
+                  <div class=" col-md-8">
+                      <a href="{{ route('users') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Users</a>
+                    </div>
+                   </div>
             <form action="{{route('users.store')}}" method="post">
                 @csrf
                 <div class="row">
@@ -31,24 +37,29 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="inputTeam">Title </label>
-                            <select id="inputtitle" class="form-control form-control-sm {{ $errors->has('title') ? ' is-invalid' : '' }} form-control-sm" name="title">
+                            <select id="inputtitle" class="form-control form-control-sm {{ $errors->has('is_permitted') ? ' is-invalid' : '' }} form-control-sm" name="is_permitted">
                                 <option value="">Choose...</option>
-                                @foreach($usergroups as  $usergroup)
-                                <option value="{{$usergroup->name}}">{{$usergroup->name}}</option>
-                                @endforeach
+                                <option value=0>Consultant</option>
+                                <option value=1>Manager</option>
+                                <option value=2>Assistant Manager</option>
+                                <option value=3>Director</option>
+                                <option value=4>CEO</option>
+                                <option value=5>Deputy Managing Director</option>
+                                <option value=6>Chief Of Staffs</option>
+                                <option value=7>Managing Director</option>
                               </select>     
                       </div>
                       <div class="form-group">
                         <label>EmployeeNo</label>
-                        <input type="text" name="employeeNo" class="form-control form-control-sm">
+                        <input type="number" name="employeeNo" class="form-control form-control-sm">
                       </div>
                     <div class="form-group">
                         <label>Assigned to</label>
-                        <input type="text" name="assigned_to" class="form-control form-control-sm">
+                        <input type="text" name="reportsTo" class="form-control form-control-sm">
                       </div>
                     </div>
                 </div>
-                </div>
+                
                 
               <div class="form-group">
                 <div class="text-center">

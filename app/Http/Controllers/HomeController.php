@@ -27,7 +27,7 @@ class HomeController extends Controller
         $projects = Project::all();
         $opportunities = Opportunity::all();
         $activities = Activity::with('user')->get();
-        $doneopportunities = DB::table('opportunities')->where('assigned_To', Auth::user()->name)->get();
+        $doneopportunities = DB::table('opportunities')->where('assigned_To', Auth::user()->name)->paginate(5);
         $donetasks = DB::table('tasks')->where('assigned_To', Auth::user()->name)->get();
 
         // dd($doneopportunities);

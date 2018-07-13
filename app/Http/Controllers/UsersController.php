@@ -49,16 +49,24 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        //  dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
+            'employeeNo'=>'required',
+            'reportsTo' =>'required',
+            'team'=>'required',
+            'is_permitted'=>'required'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt('password'),
+            'employeeNo'=>$request->employeeNo,
+            'reportsTo' =>$request->reportsTo,
+            'team'=>$request->team,
+            'is_permitted'=>$request->is_permitted
         ]);
         $profile = Profile::create([
             'user_id' => $user->id,

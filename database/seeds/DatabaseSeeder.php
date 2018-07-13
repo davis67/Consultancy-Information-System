@@ -71,12 +71,11 @@ class DatabaseSeeder extends Seeder
         $user = App\User::create([
             'name' => 'Davis Agaba',
             'email' => 'dora@gmail.com',
-            'title' => 'consultant',
             'team' => 'BDS',
             'reportsTo' => 'Ek',
             'password' => bcrypt('password'),
             'admin' => 1,
-            'is_permitted' => 5,
+            'is_permitted' => 2,
             'employeeNo' => 192,
         ]);
 

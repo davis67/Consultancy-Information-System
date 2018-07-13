@@ -8,7 +8,15 @@
 @section('content')
 	 	<div class="card">
          <div class="card-body">
-           <h2 class="card-title">Create Tasks</h2>
+            <div class="card-title row">
+                <div class="text col-md-4">
+                    Create a Task
+                </div>
+              
+              <div class=" col-md-8">
+                  <a href="{{ route('documents.create') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Tasks</a>
+                </div>
+               </div>
             <form action="{{route('tasks.store')}}" method="post">
             	@csrf
                     <div class="form-row ">
