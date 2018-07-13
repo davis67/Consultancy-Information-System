@@ -8,15 +8,7 @@
 @section('content')
 	 	<div class="card">
          <div class="card-body">
-            <div class="card-title row">
-                <div class="text col-md-4">
-                    Create a Task
-                </div>
-              
-              <div class=" col-md-8">
-                  <a href="{{ route('documents.create') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Tasks</a>
-                </div>
-               </div>
+           <h2 class="card-title">Create Tasks</h2>
             <form action="{{route('tasks.store')}}" method="post">
             	@csrf
                     <div class="form-row ">
@@ -29,7 +21,7 @@
                         <select  class="form-control {{ $errors->has('task_status') ? 'is-invalid' : '' }} form-control-sm" name="task_status">
                           <option value="">Choose...</option>
                           @foreach(['Not started', 'In Progress', 'Completed', 'Pending input', 'Deffered'] as $item => $value)
-                          <option value="{{$value}}">{{$value}}</option>
+                          <option value="{{$item}}">{{$value}}</option>
                           @endforeach
                         </select>
                       </div>
@@ -40,9 +32,9 @@
                                     <label for="inputState">Priority</label>
                                     <select id="inputState" name="priority" class="form-control {{ $errors->has('priority') ? ' is-invalid' : '' }}">
                                       <option value="">Choose...</option>
-                                      <option value="High">High</option>
-                                      <option value="Medium">Medium</option>
-                                      <option value="Low">Low</option>
+                                      <option value="1">High</option>
+                                      <option value="2">Medium</option>
+                                      <option value="3">Low</option>
                                     </select>
                                   </div>
                                   <div class="form-group col-md-6">
@@ -50,7 +42,7 @@
                                 <select id="inputState" name="service_line" class="form-control {{ $errors->has('service_line') ? ' is-invalid' : '' }} form-control-sm">
                                    <option value="">Choose...</option>
 		                          @foreach(App\Task::serviceLines() as $item => $value)
-                                  <option value="{{ $value }}}">{{$value}}</option>
+                                  <option value="{{$item}}">{{$value}}</option>
 		                          @endforeach
 		                      </select>
                              </div>
@@ -91,7 +83,7 @@
                                     <select id="inputState" name="related_to" class="form-control {{ $errors->has('related_to') ? ' is-invalid' : '' }} form-control-sm">
                                       <option value="">Choose...</option>
                                       @foreach(['Bug', 'Case', 'Client', 'Contact', 'Lead', 'Opportunity','Project', 'project task', 'Target', 'Task'] as $value => $item)
-                                      <option value="{{$item}}">{{$item}}</option>
+                                      <option value="{{$value}}">{{$item}}</option>
                                       @endforeach
                                     </select>
                                   </div>  
@@ -119,20 +111,21 @@
 <script>
 var team = document.getElementById("inputTeam");
 var assignees = document.getElementById("assignees");
-var options = document.createDocumentFragment();
-//add an empty option
-options.appendChild(createOption("--select--", ""));
+
 
 team.addEventListener("change", updateAssignees);
 
 function updateAssignees(event) {
+  assignees.innerHTML=null;
+  var options = document.createDocumentFragment();
+  //add an empty option
+  options.appendChild(createOption("--select--", ""));
   //bail out for empty selections
   if (!team.value) return;
-  console.log(team.value)
   window.APP_USERS.forEach(function(user) {
     if (user.team === team.value) {
       //add an option to the assigns
-      options.appendChild(createOption(user.name, user.name));
+      options.appendChild(createOption(user.name, user.id));
     }
   });
   assignees.appendChild(options);
