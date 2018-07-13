@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOpportunityHistoriesTable extends Migration
+class CreateActivityHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateOpportunityHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('opportunity_histories', function(Blueprint $table) {
+        Schema::create('activity_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('opportunity_id');
-            $table->integer('action');
-            $table->timestamp('date');
+            $table->integer('activity_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateOpportunityHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('opportunity_histories');
+        Schema::dropIfExists('activity_histories');
     }
 }

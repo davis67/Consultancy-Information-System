@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -14,10 +14,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
+    protected $fillable = ['name', 'email', 'is_permitted','team','assigned_to','employeeNo','password'];
+       
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,7 +34,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Activity::class);
     }
-
+    public function usergroup(){
+        return $this->belongsTo(Usergroup::class);
+    }
     /**
      * determines if a user has a given permision.
      *
@@ -48,14 +48,14 @@ class User extends Authenticatable
     {
         $permision = array_get([
             'Consultant',
-            'Managers',
-            'Assistant Managers',
-            'Directors',
+            'Manager',
+            'Assistant Manager',
+            'Director',
             'CEO',
             'Deputy Managing Director',
             'Chief Of Staffs',
             'Managing Director',
-        ], auth()->user()->is_permitted, 'Intern');
+        ],auth()->user()->is_permitted, 'Intern');
 
         foreach ($permissions as $key => $value) {
             if ($value === $permision) {

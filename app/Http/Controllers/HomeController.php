@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Activity;
 use App\Opportunity;
-
+use DB;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -24,7 +26,11 @@ class HomeController extends Controller
     {
         $projects = Project::all();
         $opportunities = Opportunity::all();
+        $activities = Activity::with('user')->get();
+        $doneopportunities = DB::table('opportunities')->where('assigned_To', Auth::user()->name)->paginate(5);
+        $donetasks = DB::table('tasks')->where('assigned_To', Auth::user()->name)->get();
 
-        return view('home', compact('projects', 'opportunities'));
+        // dd($doneopportunities);
+        return view('home', compact('projects', 'opportunities','activities', 'doneopportunities', 'donetasks'));
     }
 }

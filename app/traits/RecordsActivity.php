@@ -1,7 +1,7 @@
 <?php
 
 namespace App\traits;
-
+use App\Opportunity;
 use App\Activity;
 use Illuminate\Support\Carbon;
 
@@ -29,7 +29,6 @@ trait RecordsActivity
     protected function getType($event)
     {
         $type = strtolower((new \ReflectionClass($this))->getShortName());
-
         return "{$event}_{$type}";
     }
 }

@@ -18,12 +18,12 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->boolean('admin')->default(0);
             $table->string('email')->unique();
-            $table->string('title');
+            // $table->string('title');
             $table->string('team');
-            $table->integer('status');
             $table->string('employeeNo');
-            $table->string('reportsTo')->nullable;
+            $table->string('reportsTo')->nullable();
             $table->integer('is_permitted');
+            // $table->integer('usergroup_id');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

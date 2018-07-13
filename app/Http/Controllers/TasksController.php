@@ -75,9 +75,7 @@ class TasksController extends Controller
      */
     public function show(Task $task)
     {
-        return response()->json($task);
-
-        //return $task;
+      return view('tasks.show', compact('task'));
     }
 
     /**
@@ -89,7 +87,8 @@ class TasksController extends Controller
      */
     public function edit(Task $task)
     {
-        return response()->json($task);
+        $users = User::all();
+      return view('tasks.edit', compact(['task','users']));
     }
 
     /**
@@ -130,5 +129,9 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
+        $task = Task::find($id);
+        $task->delete();
+        Session::flash('success', "You have successively deleted a task");
+        return view('tasks.index');
     }
 }

@@ -4,14 +4,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', function () {
-    return App\User::find(2)->profile;
+    return App\User::find(1)->activities;
 });
-Route::resource('contacts', 'ContactController')->middleware('check-permission:CEO');
+// Route::resource('contacts', 'ContactController')->middleware('check-permission:CEO');
+Route::resource('contacts', 'ContactController');
 Route::resource('opportunities', 'OpportunityController');
 Route::resource('tasks', 'TasksController');
 Route::resource('documents', 'DocumentsController');
 Route::get('/projects/create/{id}/', 'ProjectsController@createProject')->name('projects.create');
-Route::get('/projects/store', 'ProjectsController@store')->name('projects.store');
+Route::post('/projects/store', 'ProjectsController@store')->name('projects.store');
 Route::get('/projects/index', 'ProjectsController@index')->name('projects');
 Route::get('/users', 'UsersController@index')->name('users');
 Route::get('/users/create', 'UsersController@create')->name('users.create');

@@ -7,6 +7,7 @@ use App\User;
 use App\Profile;
 use Session;
 use Admin;
+use App\Usergroup;
 
 class UsersController extends Controller
 {
@@ -35,7 +36,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $usergroups = Usergroup::all();
+        return view('users.create', compact('usergroups'));
     }
 
     /**
@@ -47,16 +49,24 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        //  dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
+            'employeeNo'=>'required',
+            'reportsTo' =>'required',
+            'team'=>'required',
+            'is_permitted'=>'required'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt('password'),
+            'employeeNo'=>$request->employeeNo,
+            'reportsTo' =>$request->reportsTo,
+            'team'=>$request->team,
+            'is_permitted'=>$request->is_permitted
         ]);
         $profile = Profile::create([
             'user_id' => $user->id,

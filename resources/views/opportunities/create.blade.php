@@ -1,21 +1,22 @@
 @extends('layouts.app')
+@push("head")
+<script>
+  window.APP_USERS={!! $users->toJson() !!}
+</script>
+@endpush
 @section('content')
-      <div class="page-header">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Opportunities</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Create Opportunities</li>
-              </ol>
-            </nav>
-           <h3 class="page-title"> 
-              <a class="btn btn-sm btn-gradient-danger mt-2" href="{{ route('opportunities.index') }}">
-              <i class="mdi mdi-share-outline menu-icon"></i>
-            View Opportunities
-          </a>
-            </h3>
-          </div>
+
             <div  class="card">
               <div class="card-body">
+                  <div class="card-title row">
+                      <div class="text col-md-4">
+                          Create a Opportunity
+                      </div>
+                    
+                    <div class=" col-md-8">
+                        <a href="{{ route('opportunities.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Opportunities</a>
+                      </div>
+                     </div>
               <form class="form" method="post" action="{{route('opportunities.store')}}">
                       @csrf
                       <div class="form-group">
@@ -69,12 +70,12 @@
                             <input type="text" class="form-control form-control-sm " name="revenue" id="inputRevenue" placeholder="Enter Revenue.">
                           </div>
                           <div class="form-group col-md-6">
-                                <label for="inputType">Currency</label>
+                              <label for="inputType">Currency</label>
                                 <select id="inputType" name="currency" class="form-control form-control-sm ">
-                                  <option value="">Choose...</option>
-                                  <option value="0">Euro: € </option>
-                                  <option value="1">Dollar: $</option>
-                                  <option value="2">Uganda Shillings: UGX</option>
+                                  <option value="">Choose..</option>
+                                  @foreach(['Euro: €', 'Dollar: $', 'Uganda Shillings: UGX'] as $value =>$item)
+                                  <option value="{{ $item }}">{{ $item }} </option>
+                                  @endforeach
                                 </select>
                               </div>
                       </div> 
@@ -92,18 +93,18 @@
                               <label for="inputZip">Internal Deadline</label>
                               <input type="date" class="form-control {{ $errors->has('internal_deadline') ? ' is-invalid' : '' }} form-control-sm " name = "internal_deadline" id="inputZip" value="{{old('internal_deadline')}}">
                         </div>
-                        <div class="form-group col-md-3">
-                              <label for="inputTeam">Team </label>
-                              <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm " name="team">
+                        <div class="form-group col-md-6">
+                            <label for="inputTeam">Team </label>
+                            <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
                                 <option value="">Choose...</option>
-                                @foreach(['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
-                                <option value="{{$value}}" {{old('team')==$value? 'selected':''}}>{{$item}}</option>
+                                @foreach(App\Team::names() as  $team)
+                                <option value="{{$team}}">{{$team}}</option>
                                 @endforeach
-                              </select>                      
-                        </div>
+                              </select>     
+                      </div>
                         <div class="form-group col-3">
                                 <label for="inputRef">Probability(%)</label>
-                                <input type="text" class="form-control {{ $errors->has('probability') ? ' is-invalid' : '' }} form-control-sm" name="probability" id="inputRevenue" placeholder="Enter Probability in %." value="{{old('probability')}}">
+                                <input type="number" class="form-control {{ $errors->has('probability') ? ' is-invalid' : '' }} form-control-sm" name="probability" id="inputRevenue" placeholder="Enter Probability in %." value="{{old('probability')}}">
                          </div>
                       </div>            
                       <div class="form-row">
@@ -144,13 +145,8 @@
                               <textarea name="description" class="form-control form-control-sm" rows="3"  placeholder="Enter description of the project" value="{{old('description')}}"></textarea>
                       </div>
                       <div class="form-group ">
-                          <label for="inputProject">Assigned To:</label>
-                          <input type="text" class="form-control form-control-sm" name="assigned_to" placeholder="Enter name of a consultant" value="{{old('assigned_to')}}">
-                          @if($errors->has('assigned_to'))
-                            <span class="text-danger">
-                              {{$errors->first('assigned_to')}}
-                            </span>
-                          @endif
+                          <label for="assignees">Assigned To: </label>
+                          <select  name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees"></select>
                       </div>
                       <div class="pull-left">
                       <button type="submit" class="btn btn-outline-danger ">Save Opportunity</button>
@@ -160,3 +156,34 @@
         </div>
       </div>
 @endSection
+@push("scripts")
+<script>
+var team = document.getElementById("inputTeam");
+var assignees = document.getElementById("assignees");
+var options = document.createDocumentFragment();
+//add an empty option
+options.appendChild(createOption("--select--", ""));
+
+team.addEventListener("change", updateAssignees);
+
+function updateAssignees(event) {
+  //bail out for empty selections
+  if (!team.value) return;
+  console.log(team.value)
+  window.APP_USERS.forEach(function(user) {
+    if (user.team === team.value) {
+      //add an option to the assigns
+      options.appendChild(createOption(user.name, user.name));
+    }
+  });
+  assignees.appendChild(options);
+}
+function createOption(text, value) {
+  var option = document.createElement("option");
+  option.text = text;
+  option.value = value;
+  return option;
+}
+</script>
+
+@endpush

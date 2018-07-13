@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Mail;
+use Session;
+use App\Mail\TaskMail;
 class Task extends Model
 {
     protected $table = 'tasks';
@@ -30,5 +32,29 @@ class Task extends Model
             'Infrastructure Consultancy',
             'Service Activities(Indirect Services)',
         ];
+    }
+    public static function boot(){
+    	parent::boot();
+    	static::creating(function($task){
+            $users = User::all();
+            // dd($task);
+    		foreach ($users as $user) {
+                # code...
+    			if($user->name == $task->assigned_to && $user->team == $task->team){
+    				return Task::sendMail($user->email);
+    			}else{
+                    Session::flash('info','opps!!!I dont know the person that you are looking for....');
+                    return redirect()->back();
+    			}
+    		}
+    		
+    	});
+    }
+
+    public static function sendMail($email){
+
+    	return  Mail::to($email)->send(new TaskMail());
+
+
     }
 }
