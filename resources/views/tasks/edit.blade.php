@@ -104,16 +104,17 @@
 <script>
 var team = document.getElementById("inputTeam");
 var assignees = document.getElementById("assignees");
-var options = document.createDocumentFragment();
-//add an empty option
-options.appendChild(createOption("--select--", ""));
+
 
 team.addEventListener("change", updateAssignees);
 
 function updateAssignees(event) {
+  assignees.innerHTML=null;
+  var options = document.createDocumentFragment();
+  //add an empty option
+  options.appendChild(createOption("--select--", ""));
   //bail out for empty selections
   if (!team.value) return;
-  console.log(team.value)
   window.APP_USERS.forEach(function(user) {
     if (user.team === team.value) {
       //add an option to the assigns

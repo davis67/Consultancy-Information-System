@@ -36,4 +36,11 @@ class Opportunity extends Model
     {
         return $this->hasMany(Activity_history::class);
     }
+    // public static function boot(){
+    //     parent::boot();
+
+    //     static::creating(function($opportunity){
+    //         dd($opportunity()->id);
+    //     });
+    // }
 }
