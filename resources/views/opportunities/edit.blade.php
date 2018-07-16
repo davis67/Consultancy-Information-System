@@ -1,21 +1,16 @@
 @extends('layouts.app')
 @section('content')
-      <div class="page-header">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Opportunities</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Create Opportunities</li>
-              </ol>
-            </nav>
-           <h3 class="page-title"> 
-              <a class="btn btn-sm btn-gradient-danger mt-2" href="{{ route('opportunities.index') }}">
-              <i class="mdi mdi-share-outline menu-icon"></i>
-            View Opportunities
-          </a>
-            </h3>
-          </div>
             <div  class="card">
               <div class="card-body">
+                  <div class="card-title row">
+                      <div class="text-dark col-md-4">
+                          Edit an Opportunity
+                      </div>
+                    
+                    <div class=" col-md-8">
+                        <a href="{{ route('opportunities.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View all Opportunities</a>
+                      </div>
+                     </div>
               <form method="post" action="{{ route('opportunities.update', $opportunity->id)}}">
                       @csrf
                       @method('PUT')
@@ -142,13 +137,8 @@
                               <textarea name="description" class="form-control form-control-sm" rows="3">{{ $opportunity->description}}</textarea>
                       </div>
                       <div class="form-group ">
-                          <label for="inputProject">Assigned To:</label>
-                          <input type="text" class="form-control form-control-sm" name="assigned_to" value="{{ $opportunity->assigned_to }}">
-                          @if($errors->has('assigned_to'))
-                            <span class="text-danger">
-                              {{$errors->first('assigned_to')}}
-                            </span>
-                          @endif
+                          <label for="assignees">Assigned To: </label>
+                          <select  name="assigned_to[]" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees" multiple></select>
                       </div>
                       <div class="pull-left">
                       <button type="submit" class="btn btn-outline-danger ">Update Opportunity</button>
@@ -158,3 +148,36 @@
         </div>
       </div>
 @endSection
+
+@push("scripts")
+<script>
+var team = document.getElementById("inputTeam");
+var assignees = document.getElementById("assignees");
+
+
+team.addEventListener("change", updateAssignees);
+
+function updateAssignees(event) {
+  assignees.innerHTML=null;
+  var options = document.createDocumentFragment();
+  //add an empty option
+  options.appendChild(createOption("--select--", ""));
+  //bail out for empty selections
+  if (!team.value) return;
+  window.APP_USERS.forEach(function(user) {
+    if (user.team === team.value) {
+      //add an option to the assigns
+      options.appendChild(createOption(user.name, user.name));
+    }
+  });
+  assignees.appendChild(options);
+}
+function createOption(text, value) {
+  var option = document.createElement("option");
+  option.text = text;
+  option.value = value;
+  return option;
+}
+</script>
+
+@endpush

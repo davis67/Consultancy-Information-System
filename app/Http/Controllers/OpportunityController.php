@@ -44,8 +44,10 @@ class OpportunityController extends Controller
     public function store(Request $request)
     {
         $opportunity = new Opportunity();
-        $latest = $opportunity->latestOmnumber();          
-
+        $latest = $opportunity->latestOmnumber();   
+        $assigned= $request->input('assigned_to'); 
+        $assigned = implode(',', $assigned);     
+        //  dd($assigned);
       Opportunity::create(request()->validate([
            'opportunity_name'=>'required',
             'business_number'=>'required',
@@ -65,10 +67,9 @@ class OpportunityController extends Controller
            'partners'=>'required',
            'funded_by'=>'required',
            'year'=>'required',
-           'description'=>'nullable',
-           'assigned_to'=>'required'
+           'description'=>'nullable'
            
-        ])+['OM_number'=>$latest + 1]);
+        ])+['OM_number'=>$latest + 1, 'assigned_to' => $assigned]);
         Session::flash('success', "You have successively created an opportunity");
         return redirect()->route('opportunities.index');
     }
@@ -92,7 +93,8 @@ class OpportunityController extends Controller
      */
     public function edit(Opportunity $opportunity)
     {
-        return view('opportunities.edit', compact('opportunity'));
+        $users = User::all();
+        return view('opportunities.edit', compact('opportunity', 'users'));
     }
 
     /**

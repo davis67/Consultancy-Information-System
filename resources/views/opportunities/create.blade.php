@@ -93,7 +93,7 @@
                               <label for="inputZip">Internal Deadline</label>
                               <input type="date" class="form-control {{ $errors->has('internal_deadline') ? ' is-invalid' : '' }} form-control-sm " name = "internal_deadline" id="inputZip" value="{{old('internal_deadline')}}">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label for="inputTeam">Team </label>
                             <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
                                 <option value="">Choose...</option>
@@ -146,7 +146,7 @@
                       </div>
                       <div class="form-group ">
                           <label for="assignees">Assigned To: </label>
-                          <select  name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees"></select>
+                          <select  multiple="multiple" name="assigned_to[]" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees"></select>
                       </div>
                       <div class="pull-left">
                       <button type="submit" class="btn btn-outline-danger ">Save Opportunity</button>
@@ -156,20 +156,22 @@
         </div>
       </div>
 @endSection
+
 @push("scripts")
 <script>
 var team = document.getElementById("inputTeam");
 var assignees = document.getElementById("assignees");
-var options = document.createDocumentFragment();
-//add an empty option
-options.appendChild(createOption("--select--", ""));
+
 
 team.addEventListener("change", updateAssignees);
 
 function updateAssignees(event) {
+  assignees.innerHTML=null;
+  var options = document.createDocumentFragment();
+  //add an empty option
+  options.appendChild(createOption("--select--", ""));
   //bail out for empty selections
   if (!team.value) return;
-  console.log(team.value)
   window.APP_USERS.forEach(function(user) {
     if (user.team === team.value) {
       //add an option to the assigns

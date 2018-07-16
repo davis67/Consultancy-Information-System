@@ -54,7 +54,7 @@
                         <input type="number" name="employeeNo" class="form-control form-control-sm">
                       </div>
                     <div class="form-group">
-                        <label>Assigned to</label>
+                        <label>Assigned to(Supervisor)</label>
                         <input type="text" name="reportsTo" class="form-control form-control-sm">
                       </div>
                     </div>

@@ -43,9 +43,9 @@
           </a>
         </div>
       </li>
-      <li class="nav-item d-none d-lg-block full-screen-link">
-        <a class="nav-link">
-          <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+      <li class="nav-item">
+        <a href="" class="nav-link">
+          Leave
         </a>
       </li>
       <li class="nav-item dropdown">
