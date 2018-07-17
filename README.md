@@ -10,6 +10,6 @@ Then <br/>
 
 Register the package
 <h5>NPM</h5>
-<i>npm update</i>
+<i>npm install</i>
 <h5>Yarn</h5>
 <i>yarn add</i>
