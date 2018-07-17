@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Leave;
+use App\User;
+use Auth;
+use Session;
 use Illuminate\Http\Request;
 
 class leavesController extends Controller
 {
+    public function __construct(){
+
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,8 @@ class leavesController extends Controller
      */
     public function index()
     {
-        //
+        $leaves = Leave::all();
+        return view('leaves.index', compact('leaves'));
     }
 
     /**
@@ -23,7 +32,7 @@ class leavesController extends Controller
      */
     public function create()
     {
-        //
+        return view('leaves.create');
     }
 
     /**
@@ -32,9 +41,17 @@ class leavesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+       
+       $leave = Leave::create($request->validate([
+            'description'=>'required',
+            'start_date'=>'required',
+            'end_date'=>'required'
+        ])+['user_id' =>auth()->id()]);
+        Session::flash('success', "You have successfully requested for a leave");
+
+        return redirect()->route('leaves.create');
     }
 
     /**

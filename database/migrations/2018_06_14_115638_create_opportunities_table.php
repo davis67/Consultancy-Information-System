@@ -19,9 +19,9 @@ class CreateOpportunitiesTable extends Migration
             $table->integer('business_number');
             $table->string('client_name');
             $table->string('country');
-            $table->integer('sales_stage');
+            $table->string('sales_stage')->default('submitted');
             $table->string('date');
-            $table->integer('OM_number')->default(600);
+            $table->integer('OM_number');
             $table->double('revenue');
             $table->integer('currency');
             $table->integer('leads_name');

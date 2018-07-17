@@ -8,6 +8,7 @@
 
             <div  class="card">
               <div class="card-body">
+               {{   var_dump($errors)}}
                   <div class="card-title row">
                       <div class="text col-md-4">
                           Create a Opportunity
@@ -48,16 +49,6 @@
                             <div class="form-group col-md-4">
                               <label for="inputCountry">Country</label>
                               <input type="text" class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }} form-control-sm " name="country" placeholder="Enter country name" value="{{old('country')}}">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="inputSalesStage">Sales Stage</label>
-                              <select id="inputSalesStage" name="sales_stage" class="form-control {{ $errors->has('sales_stage') ? ' is-invalid' : '' }} form-control-sm ">
-                                <option value="">Choose...</option>
-                                @foreach(['Prospecting', 'Qualification', 'EOI', 'Needs Analysis', 'Value Proposition', 'Id Decision Makers', 'Perception Analysis', 'Proposal/Price Quote',
-                                'Negotiation/Review', 'Closed Won', 'Closed Lost', 'Submitted', 'Did Not Persue', 'Not Submitted'] as $value => $text)
-                              <option value="{{$value}}" {{ old('sales_stage')==$value? 'selected':'' }}>{{$text}}</option>
-                              @endforeach       
-                              </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputDate">Expected Close Date</label>

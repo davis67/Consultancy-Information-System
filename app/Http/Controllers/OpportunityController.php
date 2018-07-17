@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Opportunity;
 use Session;
 use App\User;
+use DB;
 class OpportunityController extends Controller
 {
     public function __construct(){
@@ -20,9 +21,9 @@ class OpportunityController extends Controller
      */
     public function index()
     {
-        return view('opportunities.index')->with('opportunities', Opportunity::all());
+        $opportunities = Opportunity::all(); 
+        return view('opportunities.index', compact('opportunities'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -32,6 +33,7 @@ class OpportunityController extends Controller
     {
         
         $users = User::all();
+
         return view('opportunities.create', compact('users'));
     }
 
@@ -53,7 +55,6 @@ class OpportunityController extends Controller
             'business_number'=>'required',
            'client_name'=>'required',
            'country'=>'required',
-            'sales_stage'=>'required',
             'date'=>'required',
             'revenue'=>'required',
             'currency'=>'required',
@@ -106,7 +107,7 @@ class OpportunityController extends Controller
      */
     public function update(Request $request, Opportunity $opportunity)
     {
-        // dd(request()->all());
+         dd(request()->all());
         // $opportunity = new Opportunity();
         $latest = $opportunity->latestOmnumber();          
       $opportunity->update(request()->validate([
@@ -114,7 +115,6 @@ class OpportunityController extends Controller
             'business_number'=>'required',
            'client_name'=>'required',
            'country'=>'required',
-            'sales_stage'=>'required',
             'date'=>'required',
             'revenue'=>'required',
             'currency'=>'required',
@@ -149,4 +149,16 @@ class OpportunityController extends Controller
         return redirect()->route('opportunities.index');
     }
   
+     public function changeStatus(Request $request, Opportunity $opportunity){
+            $opportunityName= $request->input('opportunity_name');
+            $salesStage= $request->input('sales_stage');
+            DB::table('opportunities') 
+            ->where('opportunity_name',$opportunityName)
+            ->update([
+               'sales_stage' => $salesStage
+            ]);
+            
+            Session::flash('success', 'You have successively saved an opportunity');
+             return redirect()->back();
+     }
 }

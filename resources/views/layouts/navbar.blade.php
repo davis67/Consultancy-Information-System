@@ -43,10 +43,21 @@
           </a>
         </div>
       </li>
-      <li class="nav-item">
-        <a href="" class="nav-link">
-          Leave
+      <li class="nav-item nav-link dropdown">
+        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+       Leave
         </a>
+        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+          <a class="dropdown-item" href="{{ route('leaves.create') }}">
+            <i class="mdi mdi-plus text-danger"></i>
+            Request Leave
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{ route('leaves.index') }}">
+            <i class="mdi mdi-eye text-danger"></i>
+            View Leave details
+          </a>
+        </div>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">

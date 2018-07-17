@@ -21,9 +21,15 @@ class User extends Authenticatable
      *
      * @var array
      */
+   
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function leaves(){
+
+        return $this->hasMany(Leave::class);
+
+    }
 
     public function profile()
     {
@@ -65,4 +71,5 @@ class User extends Authenticatable
 
         return false;
     }
+ 
 }

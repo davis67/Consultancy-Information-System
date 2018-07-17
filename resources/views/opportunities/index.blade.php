@@ -19,6 +19,33 @@
           	<div class="card">
 			
 			<div class="card-body">
+			<form class="form-inline" method="post" action="opportunities/changeStatus">
+				@csrf
+				<div class="form-row" style="margin-bottom:30px;">
+						<div class="form-group mb-2">
+								<label for="inputSalesStage"><h4><b>Opportunity Name</b></h4></label>
+								<select id="inputSalesStage" name="opportunity_name" class="form-control {{ $errors->has('opportunity_name') ? ' is-invalid' : '' }}" style="width:400px;">
+									<option value="">Choose...</option>
+									@foreach( $opportunities as $opportunity)
+								<option value="{{ $opportunity->opportunity_name }}" {{ old('opportunity_name')==$opportunity->opportunity_name? 'selected':'' }}>{{ $opportunity->opportunity_name }}</option>
+								@endforeach       
+								</select>
+						</div>
+					<div class="form-group mb-2">
+							<label for="inputSalesStage"><h4><b>Sales Stage:</b></h4></label>
+							<select id="inputSalesStage" name="sales_stage" class="form-control {{ $errors->has('sales_stage') ? ' is-invalid' : '' }}" style="width:400px;">
+								<option value="">Choose...</option>
+								@foreach(['Prospecting', 'Qualification', 'EOI', 'Needs Analysis', 'Value Proposition', 'Id Decision Makers', 'Perception Analysis', 'Proposal/Price Quote',
+								'Negotiation/Review', 'Closed Won', 'Closed Lost', 'Submitted', 'Did Not Persue', 'Not Submitted'] as $value => $text)
+							<option value="{{ $text }}" {{ old('sales_stage')==$value? 'selected':'' }}>{{$text}}</option>
+							@endforeach       
+							</select>
+					</div>
+					<div class="form-group mx-sm-2 mb-3">
+								<button type="submit" class="btn btn-outline-danger btn-sm ">Update</button>
+								</div>
+				</div>
+			</form>
 				<div class="card-title row">
 					<div class="text col-md-4">
 							Showing all Opportunities
@@ -35,6 +62,7 @@
 							<th>Opportunity Name</th>
 							<th>Expected Close Date</th>
 							<th>OM_number</th>
+							<th>Status</th>
 							<th>Team</th>
 							<th>Funded By</th>
 							<th>Assigned To</th>
@@ -48,6 +76,7 @@
 							<td>{{$opportunity->opportunity_name}}</td>
 							<td>{{$opportunity->date}}</td>
 							<td><strong>AH-{{$opportunity->OM_number}}-OM</strong></td>
+							<td class="text-success"><i>{{ $opportunity->sales_stage }}</i></td>
 							<td>{{$opportunity->team}}</td>
 							<td>{{$opportunity->funded_by}}</td>
 							<td>{{$opportunity->assigned_to}}</td>
