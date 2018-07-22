@@ -3,93 +3,65 @@
 @section('content')
 <div class="card">
               <div class="card-body">
-                 <h3 class="card-title">Create Project</h3>
-              <form  method="post" action="{{ route('projects.store') }}">
+                 <h3 class="card-title text-center">Create a Project</h3>
+              <form  method="post" action="">
                       @csrf
-                      <div class="form-row ">
-                        <div class="form-group col-md-4">
-                          <label for="inputProject">Project Name</label>
-                          <input type="text" name="project_name" class="form-control form-control-sm " value="{{$project->opportunity_name}}" disabled>
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label for="inputType">Type</label>
-                          <select id="inputType" name="business_number" class="form-control form-control-sm ">
-                            <option value="">Choose...</option>
-                            <option value="0">Existing Business</option>
-                            <option value="1">New Business</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                                <label for="inputClient">Client Name</label>
-                                <input type="text" class="form-control form-control-sm" name="client_name" placeholder="Enter Client name" value="{{$project->client_name}}" disabled>
+                        <div class="form-group row">
+                            <label for="date" class="col-md-2 col-form-label text-md-right">Team:</label>
+  
+                            <div class="col-md-8">
+                                <select id="inputTeam" class="form-control" name="team">
+                                    <option value="">Choose...</option>
+                                    @foreach(App\Team::names() as  $team)
+                                    <option value="{{$team}}">{{$team}}</option>
+                                    @endforeach
+                                  </select>  
                               </div>
-                      </div>
+                        </div>
+                      <div class="form-group row">
+                          <label for="date" class="col-md-2 col-form-label text-md-right">Start Date:</label>
 
-                      <div class="form-row ">
-                            <div class="form-group col-md-4">
-                              <label for="inputCountry">Country</label>
-                              <input type="text" class="form-control form-control-sm" name="country" placeholder="Enter country name" value="{{$project->country}}">
+                          <div class="col-md-8">
+                              <input id="date" type="date" class="form-control" name="start_date">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="date" class="col-md-2 col-form-label text-md-right">End Date:</label>
+
+                          <div class="col-md-8">
+                              <input id="date" type="date" class="form-control" name="End_date">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="date" class="col-md-2 col-form-label text-md-right">Contract Ref No:</label>
+
+                          <div class="col-md-8">
+                              <input id="contract" type="text" class="form-control" name="contract_ref">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="password" class="col-md-2 col-form-label text-md-right">Assigned To:</label>
+
+                          <div class="col-md-8">
+                              <select  multiple="multiple" name="assigned_to[]" class="form-control form-control-sm"  id="assignees"></select>
                             </div>
-                            <div class="form-group col-md-4">
-                              <label for="inputSalesStage">Sales Stage</label>
-                              <select id="inputSalesStage" name="sales_stage" class="form-control form-control-sm">
-                                <option value="">Choose...</option>
-                                @foreach(['Prospecting', 'Qualification', 'EOI', 'Needs Analysis', 'Value Proposition', 'Id Decision Makers', 'Perception Analysis', 'Proposal/Price Quote',
-                                'Negotiation/Review', 'Closed Won', 'Closed Lost', 'Submitted', 'Did Not Persue', 'Not Submitted'] as $value => $text)
-                              <option value="{{$value}}">{{$text}}</option>
-                              @endforeach       
+                      </div>
+                      <div class="form-group row">
+                          <label for="stages" class="col-md-2 col-form-label text-md-right">Project Manager:</label>
+
+                          <div class="col-md-8">
+                              <select  name="manager[]" class="form-control form-control-sm"  id="stages">
                               </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputDate">Expected Close Date</label>
-                                <input type="date" name="date" class="form-control form-control-sm" value="{{$project->date}}">  
-                             </div>                       
-                          </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-3">
-                              <label for="inputZip">Internal Deadline</label>
-                              <input type="date" class="form-control form-control-sm" name = "internal_deadline" id="inputZip" value="{{$project->internal_deadline}}">
-                        </div>
-                        <div class="form-group col-md-3">
-                              <label for="inputTeam">Team </label>
-                              <select id="inputTeam" class="form-control form-control-sm" name="team">
-                                <option value="">Choose...</option>
-                                @foreach(['TSS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
-                                <option value="{{$value}}" {{old('team')==$value? 'selected':''}}>{{$item}}</option>
-                                @endforeach
-                              </select>                      
-                        </div>
-                        <div class="form-group col-md-3">
-                              <label for="inputZip">OM Number</label>
-                              <input type="text" class="form-control form-control-sm" name = "OM_number" id="inputZip" value="OM{{$project->OM_number}}AM" disabled>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputProject">Funded By</label>
-                            <input type="text" class="form-control form-control-sm" name="funded_by" placeholder="Enter Funder's name" value="{{$project->funded_by}}" disabled>
-                        </div>
-                    </div> 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                              <label for="inputZip">Start Date</label>
-                              <input type="date" class="form-control form-control-sm" name = "start_date" id="inputZip" value="" >
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputProject">End Date</label>
-                            <input type="date" class="form-control form-control-sm" name="end_date" value="">
-                        </div>
-                    </div>
-                      <div class="form-group ">
-                          <label for="inputProject">Assigned To:</label>
-                          <input type="text" class="form-control form-control-sm" name="assigned_to" placeholder="Enter name of a consultant" value="{{$project->assigned_to}}" disabled>
-                          @if($errors->has('assigned_to'))
-                            <span class="text-danger">
-                              {{$errors->first('assigned_to')}}
-                            </span>
-                          @endif
                       </div>
-                      <div class="pull-left">
-                      <button type="submit" class="btn btn-outline-success ">Save Project</button>
+                      <div class="form-group row">
+                          <label  class="col-md-3 col-form-label text-md-right"></label>
+
+                          <div class="col-md-8">
+                          <button type="submit" class="btn btn-md btn-outline-danger" style="border-radius:none;">Save Project</button>                            
                       </div>
+                      </div>
+
                     </form>
           </div>
         </div>

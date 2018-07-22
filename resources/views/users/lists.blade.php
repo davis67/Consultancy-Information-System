@@ -2,9 +2,9 @@
 @section('content')
 	<div class="card d-flex">
 		<div class="card-body ">
-			<h4 class="">Showing all Users</h4>
+			<h4 class="">Showing all Trashed Users</h4>
 			<div style="float:right; margin-bottom:20px;">
-			<a href="{{ route('users.create')}}" class="btn btn-sm btn-outline-danger">+create a User</a>
+			<a href="{{ route('users.create')}}" class="btn btn-sm btn-outline-danger"><i class="fa fa-fw fa-reply-all"></i>back</a>
 			</div>
 			<div class="table-responsive">
 			<table class="table example">
@@ -14,8 +14,7 @@
 				<th>Name</th>
 				<th>Team</th>
 				<th>Title</th>
-				<th>Role</th>
-				<th>Trash</th>
+				<th>Restore users</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -48,18 +47,15 @@
 								<i>Consultant</i>
 							@endif
 						</td>
-						<td>
-							@if($user->admin)
-								<a href="{{ route('users.not.admin',['id' => $user->id]) }}" class="btn btn-xs btn-danger">Admin</a>
-							@else
-								<a href="{{ route('users.admin',['id' => $user->id]) }}" class="btn btn-xs btn-success">User</a>
-							@endif
-						</td>
+						
 						<td>
 							<form action="{{ route('users.destroy', $user->id)}}" method="post">
 									@csrf
 								<input name="_method" type="hidden" value="DELETE">
 								<div class="btn-group">
+										<a href="" class="btn btn-outline-danger btn-xs"><i class="fa fa-eye"></i></a>
+										<a href="" class="btn btn-outline-danger btn-xs"><i class="fa fa-edit"></i></a>
+
 										<button type="submit" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button>
 										</div>
 							</form>

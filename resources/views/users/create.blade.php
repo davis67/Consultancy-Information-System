@@ -9,7 +9,7 @@
                     </div>
                   
                   <div class=" col-md-8">
-                      <a href="{{ route('users') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Users</a>
+                      <a href="{{ route('users.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Users</a>
                     </div>
                    </div>
             <form action="{{route('users.store')}}" method="post">
@@ -63,7 +63,7 @@
                 
               <div class="form-group">
                 <div class="text-center">
-                    <button type="submit" class="btn btn-outline-success">Add User</button>
+                    <button type="submit" class="btn btn-outline-danger">Add User</button>
                 </div>
         </div>        
             </form>

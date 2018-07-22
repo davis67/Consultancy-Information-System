@@ -1,7 +1,7 @@
 // import jquery from "jquery";
 import Popper from "popper.js";
 import toastr from "toastr";
-import axios from "axios";
+// import axios from "axios";
 // import 'datatables.net';
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

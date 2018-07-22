@@ -158,7 +158,7 @@
       </div>
       <br>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card shadow">
           <div class="card-header text-center">
               My opportunities
@@ -174,17 +174,7 @@
             </div>
           </div>  
         </div>
-        <div class="col-md-4">
-          <div class="card shadow">
-              <div class="card-header text-center">
-                My Projects
-              </div>
-            <div class="card-body">
-
-            </div>
-          </div>
-        </div>
-              <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card shadow">
               <div class="card-header text-center">
                 My Tasks
