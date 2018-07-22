@@ -18,6 +18,7 @@ class CreateLeavesTable extends Migration
             $table->string('status')->default('submitted');
             $table->string('description');
             $table->string('start_date');
+            $table->string('leave_type');
             $table->string('end_date');
             $table->integer('user_id');
             $table->timestamps();

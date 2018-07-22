@@ -7,7 +7,7 @@ use App\User;
 use Auth;
 use Session;
 use Illuminate\Http\Request;
-
+use DB;
 class leavesController extends Controller
 {
     public function __construct(){
@@ -22,6 +22,7 @@ class leavesController extends Controller
     public function index()
     {
         $leaves = Leave::all();
+        
         return view('leaves.index', compact('leaves'));
     }
 
@@ -47,7 +48,8 @@ class leavesController extends Controller
        $leave = Leave::create($request->validate([
             'description'=>'required',
             'start_date'=>'required',
-            'end_date'=>'required'
+            'end_date'=>'required',
+            'leave_type'=>'required'
         ])+['user_id' =>auth()->id()]);
         Session::flash('success', "You have successfully requested for a leave");
 
@@ -97,5 +99,37 @@ class leavesController extends Controller
     public function destroy($id)
     {
         //
+    }
+    /**
+     * Approve reject or acccept.
+     * 
+     * This will be done by the supervisor, CEO, and the executive Director
+     */
+    public function acceptLeave(){
+        DB::table('leaves') 
+        ->where('status','submitted')
+        ->update([
+           'status' => 'Endorsed'
+        ]);
+    }
+    public function reviewLeave(){
+        DB::table('leaves') 
+        ->where('status','Endorsed')
+        ->update([
+           'status' => 'Reviewed'
+        ]);
+    }
+    public function approveLeave(){
+        DB::table('leaves') 
+        ->where('status','Reviewed')
+        ->update([
+           'status' => 'Approved'
+        ]);
+    }
+    public function rejectLeave($id){
+        $leave = Leave::find($id);
+        $leave->status = 'rejected';
+        $leave->save();
+      
     }
 }

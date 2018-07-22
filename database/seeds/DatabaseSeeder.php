@@ -68,24 +68,74 @@ class DatabaseSeeder extends Seeder
 
         App\Usergroup::insert(static::addTimeStamps($groups));
 
-        $user = App\User::create([
+        $user1 = App\User::create([
             'name' => 'Davis Agaba',
             'email' => 'dora@gmail.com',
             'team' => 'BDS',
-            'reportsTo' => 'Ek',
+            'reportsTo' => 'Viva Mugisha',
             'password' => bcrypt('password'),
             'admin' => 1,
-            'is_permitted' => 2,
+            'is_permitted' => 1,
             'employeeNo' => 192,
         ]);
 
         App\Profile::create([
-            'user_id' => $user->id,
+            'user_id' => $user1->id,
             'avatar' => 'uploads/1.jpeg',
             'telephone' => '078965433',
             'primary_address' => 'Kampala',
         ]);
+        $user2 = App\User::create([
+            'name' => 'Viva Mugisha',
+            'email' => 'viva@gmail.com',
+            'team' => 'TCS',
+            'reportsTo' => 'EK',
+            'password' => bcrypt('password'),
+            'admin' => 1,
+            'is_permitted' => 3,
+            'employeeNo' => 003,
+        ]);
 
+        App\Profile::create([
+            'user_id' => $user2->id,
+            'avatar' => 'uploads/1.jpeg',
+            'telephone' => '070989877',
+            'primary_address' => 'Kampala',
+        ]);
+        $user3 = App\User::create([
+            'name' => 'Kean Shan',
+            'email' => 'keanshan@gmail.com',
+            'team' => 'MCS',
+            'reportsTo' => 'HR',
+            'password' => bcrypt('password'),
+            'admin' => 1,
+            'is_permitted' => 4,
+            'employeeNo' => 001,
+        ]);
+
+        App\Profile::create([
+            'user_id' => $user3->id,
+            'avatar' => 'uploads/1.jpeg',
+            'telephone' => '078965433',
+            'primary_address' => 'Kampala',
+        ]);
+        $user4 = App\User::create([
+            'name' => 'HR',
+            'email' => 'hr@gmail.com',
+            'team' => 'MCS',
+            'reportsTo' => 'None',
+            'password' => bcrypt('password'),
+            'admin' => 1,
+            'is_permitted' => 7,
+            'employeeNo' => 192,
+        ]);
+
+        App\Profile::create([
+            'user_id' => $user4->id,
+            'avatar' => 'uploads/1.jpeg',
+            'telephone' => '078965433',
+            'primary_address' => 'Kampala',
+        ]);
     }
     
     public static function addTimeStamps($data)
