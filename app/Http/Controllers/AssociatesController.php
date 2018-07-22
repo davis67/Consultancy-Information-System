@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Associate;
 class AssociatesController extends Controller
 {
     /**
@@ -13,7 +13,9 @@ class AssociatesController extends Controller
      */
     public function index()
     {
-        //
+        $associates = Associate::all();
+
+        return view('associates.index', compact('associates'));
     }
 
     /**
@@ -23,7 +25,7 @@ class AssociatesController extends Controller
      */
     public function create()
     {
-        //
+        return view('associates.create');
     }
 
     /**

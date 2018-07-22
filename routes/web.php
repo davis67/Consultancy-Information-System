@@ -47,3 +47,7 @@ Route::resource('users','UsersController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('associates', 'AssociatesController');
+
+Route::resource('projectmanagers', 'ProjectmanagersController');
