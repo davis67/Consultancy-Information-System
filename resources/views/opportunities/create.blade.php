@@ -8,7 +8,7 @@
 
             <div  class="card">
               <div class="card-body">
-               {{   var_dump($errors)}}
+               {{-- {{   var_dump($errors)}} --}}
                   <div class="card-title row">
                       <div class="text col-md-4">
                           Create a Opportunity

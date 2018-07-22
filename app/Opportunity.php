@@ -4,16 +4,16 @@ namespace App;
 
 use App\traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 class Opportunity extends Model
 {
     use RecordsActivity;
-
+    use SoftDeletes;
     protected $guarded = [];
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
-    ];
+    protected $dates = ['deleted_at'];
+    protected $table ='opportunities';
     public function latestOmnumber()
     {
         $last = DB::table('opportunities')->latest('id')->first();

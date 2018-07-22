@@ -28,14 +28,15 @@ class CreateOpportunitiesTable extends Migration
             $table->integer('internal_deadline');
             $table->integer('team');
             $table->string('probability');
-            $table->integer('reference_number')->nullable;
+            $table->integer('reference_number')->nullable();
             $table->string('next_step');
-            $table->integer('number_of_licence')->nullable;
+            $table->integer('number_of_licence')->nullable();
             $table->string('partners');
             $table->string('funded_by');
             $table->string('year');
-            $table->string('description')->nullable;
+            $table->string('description')->nullable();
             $table->string('assigned_to');
+            $table->SoftDeletes();
             $table->timestamps();
         });
     }

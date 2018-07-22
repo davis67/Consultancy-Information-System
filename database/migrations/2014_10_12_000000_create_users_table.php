@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('employeeNo');
             $table->string('reportsTo')->nullable();
             $table->integer('is_permitted');
-            // $table->integer('usergroup_id');
             $table->string('password');
+            $table->SoftDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

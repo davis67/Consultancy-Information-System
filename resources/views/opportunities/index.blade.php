@@ -19,11 +19,11 @@
           	<div class="card">
 			
 			<div class="card-body">
-			<form class="form-inline" method="post" action="opportunities/changeStatus">
+			<form method="post" action="opportunities/changeStatus">
 				@csrf
 				<div class="form-row" style="margin-bottom:30px;">
-						<div class="form-group mb-2">
-								<label for="inputSalesStage"><h4><b>Opportunity Name</b></h4></label>
+						<div class="form-group col-md-6">
+								<label for="inputSalesStage"><b>Opportunity Name</b></label>
 								<select id="inputSalesStage" name="opportunity_name" class="form-control {{ $errors->has('opportunity_name') ? ' is-invalid' : '' }}" style="width:400px;">
 									<option value="">Choose...</option>
 									@foreach( $opportunities as $opportunity)
@@ -31,17 +31,17 @@
 								@endforeach       
 								</select>
 						</div>
-					<div class="form-group mb-2">
-							<label for="inputSalesStage"><h4><b>Sales Stage:</b></h4></label>
+					<div class="form-group col-md-6">
+							<label for="inputSalesStage"><b>Sales Stage:</b></label>
 							<select id="inputSalesStage" name="sales_stage" class="form-control {{ $errors->has('sales_stage') ? ' is-invalid' : '' }}" style="width:400px;">
 								<option value="">Choose...</option>
 								@foreach(['Prospecting', 'Qualification', 'EOI', 'Needs Analysis', 'Value Proposition', 'Id Decision Makers', 'Perception Analysis', 'Proposal/Price Quote',
-								'Negotiation/Review', 'Closed Won', 'Closed Lost', 'Submitted', 'Did Not Persue', 'Not Submitted'] as $value => $text)
-							<option value="{{ $text }}" {{ old('sales_stage')==$value? 'selected':'' }}>{{$text}}</option>
+								'Negotiation/Review', 'Closed Won', 'Closed Lost','Did Not Persue', 'Not Submitted'] as $value => $text)
+							<option value="{{ $text }}" {{ old('sales_stage')==$text? 'selected':'' }}>{{$text}}</option>
 							@endforeach       
 							</select>
 					</div>
-					<div class="form-group mx-sm-2 mb-3">
+					<div class="form-group">
 								<button type="submit" class="btn btn-outline-danger btn-sm ">Update</button>
 								</div>
 				</div>
@@ -53,6 +53,8 @@
 				
 				<div class=" col-md-8">
 						<a href="{{ route('opportunities.create') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>Create Opportunity</a>
+						{{-- <a href="{{ asset('lists') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View Trashed Opportunity</a> --}}
+
 					</div>
 				 </div>
 				 

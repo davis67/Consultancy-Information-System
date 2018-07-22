@@ -107,7 +107,7 @@ class OpportunityController extends Controller
      */
     public function update(Request $request, Opportunity $opportunity)
     {
-         dd(request()->all());
+        //  dd(request()->all());
         // $opportunity = new Opportunity();
         $latest = $opportunity->latestOmnumber();          
       $opportunity->update(request()->validate([
@@ -149,16 +149,38 @@ class OpportunityController extends Controller
         return redirect()->route('opportunities.index');
     }
   
-     public function changeStatus(Request $request, Opportunity $opportunity){
+     public function changeStatus(Request $request){
             $opportunityName= $request->input('opportunity_name');
             $salesStage= $request->input('sales_stage');
-            DB::table('opportunities') 
-            ->where('opportunity_name',$opportunityName)
-            ->update([
+            $opportunity = DB::table('opportunities') 
+            ->where('opportunity_name',$opportunityName);
+            $opportunity->update([
                'sales_stage' => $salesStage
             ]);
-            
-            Session::flash('success', 'You have successively saved an opportunity');
-             return redirect()->back();
+            if($salesStage == 'Closed Lost'||$salesStage == 'Did Not Persue' ||$salesStage == 'Not Submitted'){
+                $opportunity->delete();
+                return redirect()->back();
+            }elseif($salesStage == 'Closed Won'){
+                return view('projects.create');
+            }
+            Session::flash('success', 'You have successively updated an opportunity');
+            return redirect()->back();
+             
+     }
+     public function trashed(){
+        $users = Opportunity::onlyTrashed()->get();
+        return view('users.lists', compact('users'));
+    }
+     public function removeOpportunity($id){
+        $opportunity = Opportunity::withTrashed()->where('id', $id);
+        $opportunity->forceDelete();
+        Session::flash('success', 'You have Completely deleted an opportunity');
+        return view('opportunities.lists');
+     }
+     public function restoreOpportunity($id){
+        $opportunity = Opportunity::withTrashed()->where('id', $id);
+        $opportunity->restore();
+        Session::flash('success', 'You have Completely restored an opportunity');
+        return view('opportunities.lists');
      }
 }
