@@ -6,6 +6,7 @@
   @if(!Auth::guest())
   @include("layouts.navbar")
   <div class="container-fluid page-body-wrapper">
+    @include('partials.todo')
     @include('layouts.sidebar')
     @endif
     <!-- partial -->

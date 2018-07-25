@@ -36,12 +36,12 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+      <a class="nav-link" data-toggle="collapse" href="#opportunity" aria-expanded="false" aria-controls="opportunity">
         <span class="menu-title">Opportunities</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-crosshairs-gps menu-icon"></i>
       </a>
-      <div class="collapse" id="ui-basic">
+      <div class="collapse" id="opportunity">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> 
             <a class="nav-link" href="{{ route('opportunities.create') }}">
@@ -57,12 +57,12 @@
      </div>
    </li>
    <li class="nav-item">
-    <a class="nav-link" data-toggle="collapse" href="#ui-basics" aria-expanded="false" aria-controls="ui-basics">
+    <a class="nav-link" data-toggle="collapse" href="#document" aria-expanded="false" aria-controls="document">
       <span class="menu-title">Documents</span>
       <i class="menu-arrow"></i>
       <i class="mdi mdi-file-document menu-icon"></i>
     </a>
-    <div class="collapse" id="ui-basics">
+    <div class="collapse" id="document">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item"> 
           <a class="nav-link" href="{{ route('documents.create') }}">
