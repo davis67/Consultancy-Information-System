@@ -18,8 +18,9 @@
  </div>
 </div>
 @include('layouts.footer')
-@include("partials.flash")
+
 @yield('script')
 @include('partials.scripts')
+@include("partials.flash")
 </body>
 </html>

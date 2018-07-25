@@ -15,7 +15,7 @@
  <!-- Custom js for this page-->
  <script src="/js/dashboard.js"></script>
  <!-- End custom js for this page-->
- <script src="{{ asset('/js/toastr.min.js')}}" ></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" ></script>
 <script src="{{ asset('/js/script.js')}}" ></script>
 <script>
     $(document).ready(function() {
