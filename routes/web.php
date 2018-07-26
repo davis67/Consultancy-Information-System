@@ -21,8 +21,8 @@ Route::resource('opportunities', 'OpportunityController');
 /**
  * contacts
  */
- Route::resource('contacts', 'ContactController')->middleware('check-permission:CEO');
-//Route::resource('contacts', 'ContactController');
+ //Route::resource('contacts', 'ContactController')->middleware('check-permission:CEO');
+Route::resource('contacts', 'ContactController');
 
 /**
  * leaves

@@ -23,7 +23,6 @@ class TasksController extends Controller
     {
        
         $tasks = Task::all();
-        // dd($tasks);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -146,11 +145,10 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        $task = Task::find($id);
         $task->delete();
         Session::flash('success', "You have successively deleted a task");
-        return view('tasks.index');
+        return redirect()->route('tasks.index');
     }
 }

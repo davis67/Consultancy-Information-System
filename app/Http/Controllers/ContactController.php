@@ -59,8 +59,8 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show(Contact $contact)
+    { return view('contacts.show', compact('contact'));
     }
 
     /**
@@ -70,8 +70,9 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contact $contact)
     {
+        return view('contacts.index', compact('contact'));
     }
 
     /**
@@ -82,8 +83,13 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContactsRequest $request, Contact $contact)
     {
+        $contact->update($request->validated());
+
+        Session::flash('success', 'You have successively updated a contact');
+
+        return redirect()->route('contacts.index');
     }
 
     /**
@@ -93,7 +99,9 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
+        $contact->delete();
+        return redirect()->route('contacts.index');
     }
 }

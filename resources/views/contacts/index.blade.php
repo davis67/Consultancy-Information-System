@@ -38,9 +38,16 @@
 							<td>{{$contact->email}}</td>
 							<td>{{$contact->address_street}}<br/>{{$contact->address_code}}<br/>{{$contact->address_state}}<br/>{{$contact->country}}</td>
 							<td>
-							<a href="" style="color: 000000;"><i class="mdi mdi-file-check md-18 text-dark" style="font-size: 25px;"></i></a>
-							<a href="" style="color: 000000;"><i class="mdi mdi-delete text-dark" style="font-size: 25px;"></i></a>
-							</td>
+							<form action="{{ route('contacts.destroy', $contact->id)}}" method="post">
+									@csrf
+								<input name="_method" type="hidden" value="DELETE">
+								<div class="btn-group">
+										<a href="{{ route('contacts.edit', $contact->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-eye"></i></a>
+										<a href="{{ route('contacts.edit', $contact->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-edit"></i></a>
+										<button type="submit" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button>
+										</div>
+							</form>
+						</td>
 							</tr>
 							@endforeach
 						

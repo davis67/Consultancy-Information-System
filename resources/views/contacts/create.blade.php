@@ -4,32 +4,33 @@
       <div class="col-md-12">
        <div class="card">
           <div class="card-body">
-                        <div class="card-title row">
-                                <div class="text col-md-4">
-                                    Create a Contacts
-                                </div>
-                              
-                              <div class=" col-md-8">
-                                  <a href="{{ route('opportunities.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Contacts</a>
-                                </div>
-                               </div>
+            <div class="card-title row">
+                    <div class="text col-md-4">
+                        Create a Contacts
+                    </div>
+                    
+                    <div class=" col-md-8">
+                        <a href="{{ route('contacts.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Contacts</a>
+                    </div>
+                    </div>
+                    {{var_dump($errors)}} 
               <form action="{{route('contacts.store')}}" method="post">
               	@csrf
-              	{{-- {{var_dump($errors)}} --}}
+            
 
                         <p class="form-text"><strong>Organisation's information</strong></p>
                         <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputProject">Organisation Name</label>
-                            <input type="text" class="form-control {{ $errors->has('department') ? ' is-invalid' : '' }} form-control-sm" name="department" placeholder="Enter department name">
+                            <input type="text" class="form-control {{ $errors->has('organisation_name') ? ' is-invalid' : '' }} form-control-sm" name="organisation_name" placeholder="Enter department name">
                          </div>
                          <div class="form-group col-md-4">
                             <label for="inputProject">Country</label>
-                            <input type="text" class="form-control {{ $errors->has('job-title') ? ' is-invalid' : '' }} form-control-sm" name="job-title" placeholder="Enter job Title ">
+                            <input type="text" class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }} form-control-sm" name="country" placeholder="Enter country name ">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputProject">Email Address</label>
-                            <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }} form-control-sm" name="email" placeholder="Enter Email Address ">
+                            <input type="email" class="form-control {{ $errors->has('company_email') ? ' is-invalid' : '' }} form-control-sm" name="company_email" placeholder="Enter Email Address ">
                          </div>
                                       
                         </div>
@@ -83,7 +84,7 @@
                       <div class="form-row ">
                         <div class="form-group col-md-4">
                           <label for="inputProject">Full Name</label>
-                          <input type="text" class="form-control {{ $errors->has('first_name') ? ' is-invalid' : '' }} form-control-sm" name="first_name" placeholder="Enter First name">
+                          <input type="text" class="form-control {{ $errors->has('contactperson_name') ? ' is-invalid' : '' }} form-control-sm" name="contactperson_name" placeholder="Enter First name">
                         </div>                       
                         <div class="form-group col-md-4">
                           <label for="inputProject">Office Phone</label>
@@ -104,7 +105,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputProject">Title</label>
-                                <input type="text" class="form-control {{ $errors->has('job-title') ? ' is-invalid' : '' }} form-control-sm" name="job-title" placeholder="Enter job Title ">
+                                <input type="text" class="form-control {{ $errors->has('job_title') ? ' is-invalid' : '' }} form-control-sm" name="job_title" placeholder="Enter job Title ">
                             </div>
                             <div class="form-group col-md-4">
                                     <label for="inputProject">Email-Address</label>

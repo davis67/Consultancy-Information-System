@@ -15,25 +15,26 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('contacts_name');
+            $table->string('organisation_name');
+            $table->string('country');
+            $table->string('company_email')->unique;
+            $table->string('address_street')->nullable();
+            $table->string('address_city')->nullable();
+            $table->string('address_state')->nullable();
+            $table->string('address_postal_code')->nullable();
+            $table->string('address_country')->nullable();
+            $table->string('alt_address_street')->nullable();
+            $table->string('alt_address_city')->nullable();
+            $table->string('alt_address_state')->nullable();
+            $table->string('alt_postal_code')->nullable();
+            $table->string('alt_address_country')->nullable();
+            $table->string('description')->nullable();
             $table->string('office_telephone')->unique();
             $table->string('mobile_telephone')->unique();
-            $table->string('department');
-            $table->string('job_title');
-            $table->string('email');
-            $table->string('client_name');
-            $table->string('address_street')->nullable;
-            $table->string('address_city');
-            $table->string('address_state');
-            $table->string('address_postal_code');
-            $table->string('address_country');
-            $table->string('alt_address_street')->nullable;
-            $table->string('alt_address_city')->nullable;
-            $table->string('alt_address_state')->nullable;
-            $table->string('alt_postal_code')->nullable;
-            $table->string('alt_address_country')->nullable;
-            $table->string('description');
-            $table->string('assigned_to');
+            $table->string('contactperson_name')->nullable();
+            $table->string('job_title')->nullable();
+            $table->string('email')->nullable();
+            $table->string('department')->nullable();
             $table->timestamps();
         });
     }
