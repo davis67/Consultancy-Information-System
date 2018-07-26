@@ -53,27 +53,15 @@
                             <label for="inputZip">End Date</label>
                             <input type="date" name="end_date" class="form-control {{ $errors->has('end_time') ? ' is-invalid' : '' }} form-control-sm" value="{{ $task->end_date }}">
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-3">
                             <label for="inputTeam">Team </label>
-                            <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
+                            <select  class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team" id="inputTeam">
                                 @foreach(App\Team::names() as  $team)
-                                <option value="{{$team}} @if($task->team==$team) selected @endif">{{$team}}</option>
+                                <option value="{{$team}}" @if($task->team==$team) selected @endif>{{$team}}</option>
                                 @endforeach
                               </select>     
                       </div>
-                    </div>
-
-                    <div class="form-row">
                             <div class="form-group col-md-3">
-                              <label for="inputCity">Start Time</label>
-                              <input type="time" name="start_time" class="form-control {{ $errors->has('start_time') ? ' is-invalid' : '' }} form-control-sm" value="{{ $task->start_time }}">  
-                            </div>
-                            <div class="form-group col-md-3">
-                                  <label for="inputZip">End Time</label>
-                                  <input type="time" name="end_time" class="form-control {{ $errors->has('end_time') ? ' is-invalid' : '' }} form-control-sm"  value="{{ $task->end_time }}">
-                            </div>
-
-                            <div class="form-group col-md-4">
                                 <label for="inputState">Related To:</label>
                                     <select id="inputState" name="related_to" class="form-control {{ $errors->has('related_to') ? ' is-invalid' : '' }} form-control-sm">
                                       @foreach(['Bug', 'Case', 'Client', 'Contact', 'Lead', 'Opportunity','Project', 'project task', 'Target', 'Task'] as $value => $item)
@@ -89,7 +77,7 @@
                     </div>
                     <div class="form-group ">
                         <label for="assignees">Assigned To: </label>
-                        <select  name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees"></select>
+                        <select  name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees"multiple></select>
                     </div>
                     <div class="pull-left">
                     <button type="submit" class="btn btn-outline-danger btn-lg">Save a task</button>

@@ -5,20 +5,20 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- csss -->
-  <link rel="stylesheet" href="/css/style.css" >
-  <link rel="stylesheet" href="/css/app.css" >
-  <link rel="stylesheet" href="{{ asset('/css/toastr.min.css') }}" >
+  <link rel="stylesheet" href="{{ asset('/css/style.css')}}" >
+  {{-- <link rel="stylesheet" href="{{ asset('/css/app.css')}}" > --}}
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="/vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+
   <!-- endinject -->
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="/css/style.css">
   <!-- endinject -->
   <title>COINS</title>
   <!-- stack anything in the head -->

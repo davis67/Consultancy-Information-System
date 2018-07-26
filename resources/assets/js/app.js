@@ -1,3 +1,3 @@
 // import 'datatables.net';
 
- require('./bootstrap');
+// require('./bootstrap');

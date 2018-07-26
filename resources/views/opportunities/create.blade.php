@@ -53,11 +53,11 @@
                            
                             <div class="form-group col-md-4">
                                 <label for="inputDate">Expected Close Date</label>
-                                <input type="date" name="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }} form-control-sm " value="{{old('date')}}">  
+                                <input type="date" name="expected_date" class="form-control {{ $errors->has('expected_date') ? ' is-invalid' : '' }} form-control-sm " value="{{old('date')}}">  
                              </div>                       
                           <div class="form-group col-4">
                             <label for="inputRef">Revenue</label>
-                            <input type="text" class="form-control form-control-sm " name="revenue" id="inputRevenue" placeholder="Enter Revenue.">
+                            <input type="number" class="form-control form-control-sm " name="revenue" id="inputRevenue" placeholder="Enter Revenue.">
                           </div>
                           <div class="form-group col-md-4">
                               <label for="inputType">Currency</label>
@@ -165,7 +165,7 @@ function updateAssignees(event) {
   window.APP_USERS.forEach(function(user) {
     if (user.team === team.value) {
       //add an option to the assigns
-      options.appendChild(createOption(user.name, user.name));
+      options.appendChild(createOption(user.name, user.id));
     }
   });
   assignees.appendChild(options);

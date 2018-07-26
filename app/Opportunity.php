@@ -36,4 +36,8 @@ class Opportunity extends Model
     {
         return $this->hasMany(Activity_history::class);
     }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }

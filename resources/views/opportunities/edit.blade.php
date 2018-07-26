@@ -1,4 +1,9 @@
 @extends('layouts.app')
+@push("head")
+<script>
+  window.APP_USERS={!! $users->toJson() !!}
+</script>
+@endpush
 @section('content')
             <div  class="card">
               <div class="card-body">
@@ -11,7 +16,8 @@
                         <a href="{{ route('opportunities.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View all Opportunities</a>
                       </div>
                      </div>
-              <form method="post" action="{{ route('opportunities.update', $opportunity->id)}}">
+                     {{ var_dump($errors) }}
+                       <form method="post" action="{{ route('opportunities.update', $opportunity->id)}}">
                       @csrf
                       @method('PUT')
                       <div class="form-group">
@@ -55,7 +61,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputDate">Expected Close Date</label>
-                                <input type="date" name="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }} form-control-sm " value="{{  $opportunity->date}}">  
+                                <input type="date" name="expected_date" class="form-control {{ $errors->has('expected_date') ? ' is-invalid' : '' }} form-control-sm " value="{{  $opportunity->expected_date}}">  
                              </div>                       
                           </div>
                               <div class="form-row ">
@@ -88,7 +94,7 @@
                         </div>
                         <div class="form-group col-md-3">
                               <label for="inputTeam">Team </label>
-                              <select class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm " name="team">
+                              <select class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm " name="team" id="inputTeam">
                                 @foreach(['TCS', 'DCS', 'MCS', 'CSS', 'BDS', 'HTA', 'HCM', 'SPS', 'HillGroove'] as $value => $item)
                                 <option value="{{$item}}" @if($opportunity->team==$item) selected @endif>{{$item}}</option>
                                 @endforeach
@@ -167,7 +173,7 @@ function updateAssignees(event) {
   window.APP_USERS.forEach(function(user) {
     if (user.team === team.value) {
       //add an option to the assigns
-      options.appendChild(createOption(user.name, user.name));
+      options.appendChild(createOption(user.name, user.id));
     }
   });
   assignees.appendChild(options);

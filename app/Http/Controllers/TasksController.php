@@ -21,8 +21,9 @@ class TasksController extends Controller
      */
     public function index()
     {
+       
         $tasks = Task::all();
-
+        // dd($tasks);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -47,7 +48,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        Task::create(request()->validate([
+        $this->validate($request,[
             'task_name' => 'required',
             'task_status' => 'required',
             'priority' => 'required',
@@ -55,12 +56,21 @@ class TasksController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'team' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
             'related_to' => 'required',
             'description' => 'nullable',
-            'assigned_to' => 'required',
-           ]));
+           ]);
+           $task = Task::create([
+            'task_name' => $request->task_name,
+            'task_status' => $request->task_status,
+            'priority' => $request->priority,
+            'service_line' => $request->service_line,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'team' => $request->team,
+            'related_to' => $request->related_to,
+            'description' => $request->description
+           ]);
+            $task->users()->attach($request->assigned_to);
         Session::flash('success', 'You have successfully created a task');
 
         return redirect()->route('tasks.index');
@@ -88,7 +98,7 @@ class TasksController extends Controller
     public function edit(Task $task)
     {
         $users = User::all();
-      return view('tasks.edit', compact(['task','users']));
+      return view('tasks.edit', compact('task','users'));
     }
 
     /**
@@ -101,7 +111,7 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Task::update(request()->validate([
+        $this->validate($request,[
             'task_name' => 'required',
             'task_status' => 'required',
             'priority' => 'required',
@@ -109,13 +119,22 @@ class TasksController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'team' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
             'related_to' => 'required',
             'description' => 'nullable',
-            'assigned_to' => 'required',
-           ]));
-        Session::flash('success', 'You have successfully created a task');
+           ]);
+           $task ->update([
+            'task_name' => $request->task_name,
+            'task_status' => $request->task_status,
+            'priority' => $request->priority,
+            'service_line' => $request->service_line,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'team' => $request->team,
+            'related_to' => $request->related_to,
+            'description' => $request->description
+           ]);
+            $task->users()->sync($request->assigned_to);
+        Session::flash('success', 'You have successfully updated a task');
 
         return redirect()->route('tasks.index');
     }

@@ -16,17 +16,16 @@ class CreateOpportunitiesTable extends Migration
         Schema::create('opportunities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('opportunity_name');
-            $table->integer('business_number');
             $table->string('client_name');
             $table->string('country');
             $table->string('sales_stage')->default('submitted');
-            $table->string('date');
+            $table->date('expected_date');
             $table->integer('OM_number');
             $table->double('revenue');
-            $table->integer('currency');
-            $table->integer('leads_name');
-            $table->integer('internal_deadline');
-            $table->integer('team');
+            $table->string('currency');
+            $table->string('leads_name');
+            $table->date('internal_deadline');
+            $table->string('team');
             $table->string('probability');
             $table->integer('reference_number')->nullable();
             $table->string('next_step');
@@ -35,7 +34,6 @@ class CreateOpportunitiesTable extends Migration
             $table->string('funded_by');
             $table->string('year');
             $table->string('description')->nullable();
-            $table->string('assigned_to');
             $table->SoftDeletes();
             $table->timestamps();
         });

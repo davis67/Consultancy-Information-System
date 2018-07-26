@@ -21,7 +21,7 @@
                         <select  class="form-control {{ $errors->has('task_status') ? 'is-invalid' : '' }} form-control-sm" name="task_status">
                           <option value="">Choose...</option>
                           @foreach(['Not started', 'In Progress', 'Completed', 'Pending input', 'Deffered'] as $item => $value)
-                          <option value="{{$item}}">{{$value}}</option>
+                          <option value="{{$value}}">{{$value}}</option>
                           @endforeach
                         </select>
                       </div>
@@ -32,9 +32,9 @@
                                     <label for="inputState">Priority</label>
                                     <select id="inputState" name="priority" class="form-control {{ $errors->has('priority') ? ' is-invalid' : '' }}">
                                       <option value="">Choose...</option>
-                                      <option value="1">High</option>
-                                      <option value="2">Medium</option>
-                                      <option value="3">Low</option>
+                                      <option value="High">High</option>
+                                      <option value="Medium">Medium</option>
+                                      <option value="Low">Low</option>
                                     </select>
                                   </div>
                                   <div class="form-group col-md-6">
@@ -42,7 +42,7 @@
                                 <select id="inputState" name="service_line" class="form-control {{ $errors->has('service_line') ? ' is-invalid' : '' }} form-control-sm">
                                    <option value="">Choose...</option>
 		                          @foreach(App\Task::serviceLines() as $item => $value)
-                                  <option value="{{$item}}">{{$value}}</option>
+                                  <option value="{{$value}}">{{$value}}</option>
 		                          @endforeach
 		                      </select>
                              </div>
@@ -57,7 +57,7 @@
                             <label for="inputZip">End Date</label>
                             <input type="date" name="end_date" class="form-control {{ $errors->has('end_time') ? ' is-invalid' : '' }} form-control-sm" id="inputZip">
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-3">
                             <label for="inputTeam">Team </label>
                             <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
                                 <option value="">Choose...</option>
@@ -66,24 +66,13 @@
                                 @endforeach
                               </select>     
                       </div>
-                    </div>
 
-                    <div class="form-row">
                             <div class="form-group col-md-3">
-                              <label for="inputCity">Start Time</label>
-                              <input type="time" name="start_time" class="form-control {{ $errors->has('start_time') ? ' is-invalid' : '' }} form-control-sm" id="inputCity">  
-                            </div>
-                            <div class="form-group col-md-3">
-                                  <label for="inputZip">End Time</label>
-                                  <input type="time" name="end_time" class="form-control {{ $errors->has('end_time') ? ' is-invalid' : '' }} form-control-sm" id="inputZip">
-                            </div>
-
-                            <div class="form-group col-md-4">
                                 <label for="inputState">Related To:</label>
                                     <select id="inputState" name="related_to" class="form-control {{ $errors->has('related_to') ? ' is-invalid' : '' }} form-control-sm">
                                       <option value="">Choose...</option>
                                       @foreach(['Bug', 'Case', 'Client', 'Contact', 'Lead', 'Opportunity','Project', 'project task', 'Target', 'Task'] as $value => $item)
-                                      <option value="{{$value}}">{{$item}}</option>
+                                      <option value="{{$item}}">{{$item}}</option>
                                       @endforeach
                                     </select>
                                   </div>  
@@ -95,7 +84,7 @@
                     </div>
                     <div class="form-group ">
                         <label for="assignees">Assigned To: </label>
-                        <select  name="assigned_to" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees"></select>
+                        <select  name="assigned_to[]" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees" multiple></select>
                     </div>
                     <div class="pull-left">
                     <button type="submit" class="btn btn-outline-danger btn-lg">Save a task</button>

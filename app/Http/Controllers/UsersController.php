@@ -121,6 +121,7 @@ class UsersController extends Controller
     public function destroy($id){
         $user = User::find($id);
         $user->delete();
+        Session::flash('sucess','You have successively trashed a user');
         return back();
     }
 

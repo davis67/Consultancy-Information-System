@@ -16,67 +16,25 @@
               <form action="{{route('contacts.store')}}" method="post">
               	@csrf
               	{{-- {{var_dump($errors)}} --}}
-              	<p class="form-text"><strong>Client's personal information</strong></p>
-                      <div class="form-row ">
-                            <div class="form-group col-md-2">
-                                    <label for="inputState">Title</label>
-                                    <select name="name_title" class="form-control {{ $errors->has('name_title') ? ' is-invalid' : '' }} form-control-sm" >
-                                      <option value="">Choose...</option>
-                                      @foreach(['Mr.', 'Mrs.', 'Ms', 'Prof.', 'Doc.', 'Eng.']
-                                      as $value => $text)
-                                      <option value="{{$value}}">{{$text}}</option>
-                                      @endforeach
-                                    </select>
-                                  </div>
-                        <div class="form-group col-md-5">
-                          <label for="inputProject">First Name</label>
-                          <input type="text" class="form-control {{ $errors->has('first_name') ? ' is-invalid' : '' }} form-control-sm" name="first_name" placeholder="Enter First name">
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="inputProject">Last Name</label>
-                            <input type="text" class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }} form-control-sm" name="last_name" placeholder="Enter Last name">
-                        </div>
-                        
-                      </div>
 
-                        <div class="form-row ">
-
+                        <p class="form-text"><strong>Organisation's information</strong></p>
+                        <div class="form-row">
                         <div class="form-group col-md-4">
-                          <label for="inputProject">Office Phone</label>
-                          <input type="text" class="form-control {{ $errors->has('office_telephone') ? ' is-invalid' : '' }} form-control-sm" name="office_telephone" placeholder="Enter office phone">
+                            <label for="inputProject">Organisation Name</label>
+                            <input type="text" class="form-control {{ $errors->has('department') ? ' is-invalid' : '' }} form-control-sm" name="department" placeholder="Enter department name">
+                         </div>
+                         <div class="form-group col-md-4">
+                            <label for="inputProject">Country</label>
+                            <input type="text" class="form-control {{ $errors->has('job-title') ? ' is-invalid' : '' }} form-control-sm" name="job-title" placeholder="Enter job Title ">
                         </div>
-                           
                         <div class="form-group col-md-4">
-                          <label for="inputProject">Mobile</label>
-                          <input type="text" class="form-control {{ $errors->has('mobile_telephone') ? ' is-invalid' : '' }} form-control-sm" name="mobile_telephone" placeholder="Enter mobile phone">
+                            <label for="inputProject">Email Address</label>
+                            <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }} form-control-sm" name="email" placeholder="Enter Email Address ">
+                         </div>
+                                      
                         </div>
-                      </div>
-
-                      <div class="form-row ">
-                               
-                            <div class="form-group col-md-4">
-                              <label for="inputProject">Department</label>
-                              <input type="text" class="form-control {{ $errors->has('department') ? ' is-invalid' : '' }} form-control-sm" name="department" placeholder="Enter department name">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputProject">Title</label>
-                                <input type="text" class="form-control {{ $errors->has('job-title') ? ' is-invalid' : '' }} form-control-sm" name="job-title" placeholder="Enter job Title ">
-                            </div>
-                            <div class="form-group col-md-4">
-                                    <label for="inputProject">Email</label>
-                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }} form-control-sm" name="email" placeholder="Enter Email Address ">
-                                </div>
-                            
-                          </div>
-                         
-                          <div class="form-row ">
-                                <div class="form-group col-md-12">
-                                  <label for="inputProject">Client Name</label>
-                                  <input type="text" class="form-control {{ $errors->has('client_name') ? ' is-invalid' : '' }} form-control-sm" name="client_name" placeholder="Enter Client name">
-                                </div>
-                          </div>
-                          <hr>
-						<p class="form-text"><strong>Client's personal address</strong></p>
+                        <p class="form-text"><strong>Organisation's address</strong></p>
+                        <hr/>
                           <div class="form-row ">    	   
                                 <div class="form-group col-md-6">
                                     <div class="card">
@@ -120,10 +78,41 @@
                               <label for="description" class="form-text"><strong>Description:</strong></label>
                               <textarea class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }} form-control-sm" rows="2" name="description" placeholder="Enter description"></textarea>
                       </div>
-                      <div class="form-group ">
-                          <label for="inputProject" class="form-text"><strong>Assigned To:</strong> </label>
-                          <input type="text" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" name="assigned_to" placeholder="Enter name of a consultant">
+                      <hr/>
+                      <p class="form-text"><strong>Contact person's information</strong></p>
+                      <div class="form-row ">
+                        <div class="form-group col-md-4">
+                          <label for="inputProject">Full Name</label>
+                          <input type="text" class="form-control {{ $errors->has('first_name') ? ' is-invalid' : '' }} form-control-sm" name="first_name" placeholder="Enter First name">
+                        </div>                       
+                        <div class="form-group col-md-4">
+                          <label for="inputProject">Office Phone</label>
+                          <input type="text" class="form-control {{ $errors->has('office_telephone') ? ' is-invalid' : '' }} form-control-sm" name="office_telephone" placeholder="Enter office phone">
+                        </div>
+                           
+                        <div class="form-group col-md-4">
+                          <label for="inputProject">Mobile</label>
+                          <input type="text" class="form-control {{ $errors->has('mobile_telephone') ? ' is-invalid' : '' }} form-control-sm" name="mobile_telephone" placeholder="Enter mobile phone">
+                        </div>
                       </div>
+
+                      <div class="form-row ">
+                               
+                            <div class="form-group col-md-4">
+                              <label for="inputProject">Department</label>
+                              <input type="text" class="form-control {{ $errors->has('department') ? ' is-invalid' : '' }} form-control-sm" name="department" placeholder="Enter department name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputProject">Title</label>
+                                <input type="text" class="form-control {{ $errors->has('job-title') ? ' is-invalid' : '' }} form-control-sm" name="job-title" placeholder="Enter job Title ">
+                            </div>
+                            <div class="form-group col-md-4">
+                                    <label for="inputProject">Email-Address</label>
+                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }} form-control-sm" name="email" placeholder="Enter Email Address ">
+                                </div>
+                            
+                          </div>
+                    
                       <div class="pull-left">
                       <button type="submit" class="btn btn-outline-danger btn-lg">Save Client's info</button>
                       <a href="#" class="align-right"><i class="far fa-arrow-alt-circle-up display-4"></i> </a>

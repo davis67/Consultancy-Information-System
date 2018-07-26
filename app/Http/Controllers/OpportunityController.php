@@ -7,6 +7,7 @@ use App\Opportunity;
 use Session;
 use App\User;
 use DB;
+use Auth;
 class OpportunityController extends Controller
 {
     public function __construct(){
@@ -21,8 +22,15 @@ class OpportunityController extends Controller
      */
     public function index()
     {
-        $opportunities = Opportunity::all(); 
+        //$opportunities = DB::table('opportunities')->where('assigned_To', Auth::user()->name)->get();
+        // dd($opportunities);
+        $opportunities=Opportunity::all();
         return view('opportunities.index', compact('opportunities'));
+    }
+
+    public function viewAll(){
+        $opportunities = Opportunity::all();
+        return view('opportunities.viewall', compact('opportunities'));
     }
     /**
      * Show the form for creating a new resource.
@@ -47,15 +55,11 @@ class OpportunityController extends Controller
     {
         $opportunity = new Opportunity();
         $latest = $opportunity->latestOmnumber();   
-        $assigned= $request->input('assigned_to'); 
-        $assigned = implode(',', $assigned);     
-        //  dd($assigned);
-      Opportunity::create(request()->validate([
+      $this->validate($request,[
            'opportunity_name'=>'required',
-            'business_number'=>'required',
            'client_name'=>'required',
            'country'=>'required',
-            'date'=>'required',
+            'expected_date'=>'required',
             'revenue'=>'required',
             'currency'=>'required',
             'leads_name'=>'required',
@@ -68,9 +72,32 @@ class OpportunityController extends Controller
            'partners'=>'required',
            'funded_by'=>'required',
            'year'=>'required',
+           'assigned_to'=>'required',
            'description'=>'nullable'
            
-        ])+['OM_number'=>$latest + 1, 'assigned_to' => $assigned]);
+        ]);
+        $opportunity=Opportunity::create([
+            'opportunity_name'=>$request->opportunity_name,
+            'client_name'=>$request->client_name,
+            'country'=>$request->country,
+             'expected_date'=>$request->expected_date,
+             'revenue'=>$request->revenue,
+             'currency'=>$request->currency,
+             'leads_name'=>$request->leads_name,
+             'internal_deadline'=>$request->internal_deadline,
+             'team'=>$request->team,
+            'probability'=>$request->probability,
+             'reference_number'=>$request->reference_number,
+            'next_step'=>$request->next_step,
+             'number_of_licence'=>$request->number_of_licence,
+            'partners'=>$request->partners,
+            'funded_by'=>$request->funded_by,
+            'year'=>$request->year,
+            'description'=>$request->description
+            
+         ]+['OM_number'=>$latest + 1]);
+         $opportunity->users()->attach($request->assigned_to);
+
         Session::flash('success', "You have successively created an opportunity");
         return redirect()->route('opportunities.index');
     }
@@ -107,31 +134,52 @@ class OpportunityController extends Controller
      */
     public function update(Request $request, Opportunity $opportunity)
     {
-        //  dd(request()->all());
+         // dd(request()->all());
         // $opportunity = new Opportunity();
-        $latest = $opportunity->latestOmnumber();          
-      $opportunity->update(request()->validate([
-           'opportunity_name'=>'required',
-            'business_number'=>'required',
-           'client_name'=>'required',
-           'country'=>'required',
-            'date'=>'required',
-            'revenue'=>'required',
-            'currency'=>'required',
-            'leads_name'=>'required',
-            'internal_deadline'=>'required',
-            'team'=>'required',
-           'probability'=>'required',
-            'reference_number'=>'nullable',
-           'next_step'=>'required',
-            'number_of_licence'=>'nullable',
-           'partners'=>'required',
-           'funded_by'=>'required',
-           'year'=>'required',
-           'description'=>'nullable',
-           'assigned_to'=>'required'
+        $latest = $opportunity->latestOmnumber();
+        $this->validate($request,[
+            'opportunity_name'=>'required',
+            'client_name'=>'required',
+            'country'=>'required',
+             'expected_date'=>'required',
+             'revenue'=>'required',
+             'currency'=>'required',
+             'leads_name'=>'required',
+             'internal_deadline'=>'required',
+             'team'=>'required',
+            'probability'=>'required',
+             'reference_number'=>'nullable',
+            'next_step'=>'required',
+             'number_of_licence'=>'nullable',
+            'partners'=>'required',
+            'funded_by'=>'required',
+            'year'=>'required',
+            'assigned_to'=>'required',
+            'description'=>'nullable'
+            
+         ]);          
+      $opportunity->update([
+        'opportunity_name'=>$request->opportunity_name,
+        'client_name'=>$request->client_name,
+        'country'=>$request->country,
+         'expected_date'=>$request->expected_date,
+         'revenue'=>$request->revenue,
+         'currency'=>$request->currency,
+         'leads_name'=>$request->leads_name,
+         'internal_deadline'=>$request->internal_deadline,
+         'team'=>$request->team,
+        'probability'=>$request->probability,
+         'reference_number'=>$request->reference_number,
+        'next_step'=>$request->next_step,
+         'number_of_licence'=>$request->number_of_licence,
+        'partners'=>$request->partners,
+        'funded_by'=>$request->funded_by,
+        'year'=>$request->year,
+        'description'=>$request->description
            
-        ])+['OM_number'=>$latest]);
+        ]+['OM_number'=>$latest]);
+        $opportunity->users()->sync($request->assigned_to);
+
         Session::flash('success', "You have successively updated an opportunity");
         return redirect()->route('opportunities.index');
     }
@@ -142,13 +190,18 @@ class OpportunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Opportunity $opportunity)
     {
-        $opportunity= Opportunity::find($id);
-        $opportunity->delete();
-        return redirect()->route('opportunities.index');
+        $opportunity->forceDelete();
+        Session::flash('success', 'You have successively trashed an opportunity');
+        return redirect()->back();
     }
-  
+  /**
+     * change the status of an opportunity
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
      public function changeStatus(Request $request){
             $opportunityName= $request->input('opportunity_name');
             $salesStage= $request->input('sales_stage');
@@ -157,30 +210,27 @@ class OpportunityController extends Controller
             $opportunity->update([
                'sales_stage' => $salesStage
             ]);
-            if($salesStage == 'Closed Lost'||$salesStage == 'Did Not Persue' ||$salesStage == 'Not Submitted'){
-                $opportunity->delete();
-                return redirect()->back();
-            }elseif($salesStage == 'Closed Won'){
+            if($salesStage == 'Closed Won'){
                 return view('projects.create');
             }
             Session::flash('success', 'You have successively updated an opportunity');
             return redirect()->back();
              
      }
-     public function trashed(){
-        $users = Opportunity::onlyTrashed()->get();
-        return view('users.lists', compact('users'));
-    }
-     public function removeOpportunity($id){
-        $opportunity = Opportunity::withTrashed()->where('id', $id);
-        $opportunity->forceDelete();
-        Session::flash('success', 'You have Completely deleted an opportunity');
-        return view('opportunities.lists');
-     }
-     public function restoreOpportunity($id){
-        $opportunity = Opportunity::withTrashed()->where('id', $id);
-        $opportunity->restore();
-        Session::flash('success', 'You have Completely restored an opportunity');
-        return view('opportunities.lists');
-     }
+    //  public function trashed(){
+    //     $opportunities = Opportunity::onlyTrashed()->get();
+    //     return view('opportunities.lists', compact('opportunities'));
+    // }
+    //  public function removeOpportunity($id){
+    //     $opportunity = Opportunity::withTrashed()->where('id', $id);
+    //     $opportunity->forceDelete();
+    //     Session::flash('success', 'You have Completely deleted an opportunity');
+    //     return view('opportunities.lists');
+    //  }
+    //  public function restoreOpportunity($id){
+    //     $opportunity = Opportunity::withTrashed()->where('id', $id);
+    //     $opportunity->restore();
+    //     Session::flash('success', 'You have Completely restored an opportunity');
+    //     return view('opportunities.lists');
+    //  }
 }

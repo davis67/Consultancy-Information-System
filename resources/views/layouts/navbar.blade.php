@@ -1,8 +1,8 @@
    <!-- partial:partials/_navbar.html -->
    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-      <a class="navbar-brand brand-logo" href=""><img src="/uploads/ah.jpeg" alt="logo"/></a>
-      <a class="navbar-brand brand-logo-mini" href=""><img src="/uploads/ah.jpeg" alt="logo"/></a>
+      <a class="navbar-brand brand-logo" href=""><img src="/uploads/company_logo.png" alt="logo"/></a>
+      <a class="navbar-brand brand-logo-mini" href=""><img src="/uploads/company_logo.png" alt="logo"/></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
       <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -20,15 +20,21 @@
             </div>
           </a>
           <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{ route('users.index') }}">
               <i class="mdi mdi-account mr-2 text-success"></i>
               Users
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <i class="mdi mdi-logout mr-2 text-primary"></i>
-              Signout
-            </a>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();"
+          >
+           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+            <i class="mdi mdi-logout mr-2 text-primary"></i>
+            Signout
+          </a>
           </div>
         </li>
         <li class="nav-item  dropdown">

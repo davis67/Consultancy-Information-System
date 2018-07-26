@@ -23,7 +23,6 @@
 							<th>End Date</th>
 							<th>Priority</th>
 							<th>Team</th>
-							<th>Assigned To</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -37,7 +36,6 @@
 							<td>{{$task->end_date}}</td>
 							<td>{{$task->priority}}</td>
 							<td>{{$task->team}}</td>
-							<td>{{ $task->assigned_to}}</td>
 							<td>
 							<form action="{{ route('tasks.destroy', $task->id)}}" method="post">
 									@csrf

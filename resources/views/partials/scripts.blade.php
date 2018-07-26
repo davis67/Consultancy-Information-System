@@ -1,4 +1,4 @@
-<script src="{{  asset('/js/app.js')}}" type="text/javascript"></script>
+{{-- <script src="{{  asset('/js/app.js')}}" type="text/javascript"></script> --}}
  <!-- plugins:js -->
  <script src="/vendors/js/vendor.bundle.base.js"></script>
  <script src="/vendors/js/vendor.bundle.addons.js"></script>
@@ -16,7 +16,9 @@
  <script src="/js/dashboard.js"></script>
  <!-- End custom js for this page-->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" ></script>
-<script src="{{ asset('/js/script.js')}}" ></script>
+ <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" ></script>
+ <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js" ></script>
+ <script src="{{ asset('/js/script.js')}}" ></script>
 <script>
     $(document).ready(function() {
     $('#material-tabs').each(function() {

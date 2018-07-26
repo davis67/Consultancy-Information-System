@@ -1,51 +1,11 @@
 @extends('layouts.app')
 @section('content')
-        {{-- <div class="page-header">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Opportunities</a></li>
-                <li class="breadcrumb-item active" aria-current="page">View Opportunities</li>
-              </ol>
-            </nav>
-            <h3 class="page-title">
-              <span class="page-title-icon bg-gradient-danger text-white mr-2">
-                <i class="mdi mdi-folder-outline"></i>                 
-              </span> 
-              <a class="btn btn-sm btn-gradient-danger mt-2" href="{{ route('opportunities.create') }}">+Create Opportunity</a>
-            </h3>
-          </div> --}}
+
           <div class="row">
           	<div class="col-lg-12 grid-margin stretch-card">
           	<div class="card">
 			
 			<div class="card-body">
-			<form method="post" action="opportunities/changeStatus">
-				@csrf
-				<div class="form-row" style="margin-bottom:30px;">
-						<div class="form-group col-md-6">
-								<label for="inputSalesStage"><b>Opportunity Name</b></label>
-								<select id="inputSalesStage" name="opportunity_name" class="form-control {{ $errors->has('opportunity_name') ? ' is-invalid' : '' }}" style="width:400px;">
-									<option value="">Choose...</option>
-									@foreach( $opportunities as $opportunity)
-								<option value="{{ $opportunity->opportunity_name }}" {{ old('opportunity_name')==$opportunity->opportunity_name? 'selected':'' }}>{{ $opportunity->opportunity_name }}</option>
-								@endforeach       
-								</select>
-						</div>
-					<div class="form-group col-md-6">
-							<label for="inputSalesStage"><b>Sales Stage:</b></label>
-							<select id="inputSalesStage" name="sales_stage" class="form-control {{ $errors->has('sales_stage') ? ' is-invalid' : '' }}" style="width:400px;">
-								<option value="">Choose...</option>
-								@foreach(['Prospecting', 'Qualification', 'EOI', 'Needs Analysis', 'Value Proposition', 'Id Decision Makers', 'Perception Analysis', 'Proposal/Price Quote',
-								'Negotiation/Review', 'Closed Won', 'Closed Lost','Did Not Persue', 'Not Submitted'] as $value => $text)
-							<option value="{{ $text }}" {{ old('sales_stage')==$text? 'selected':'' }}>{{$text}}</option>
-							@endforeach       
-							</select>
-					</div>
-					<div class="form-group">
-								<button type="submit" class="btn btn-outline-danger btn-sm ">Update</button>
-								</div>
-				</div>
-			</form>
 				<div class="card-title row">
 					<div class="text col-md-4">
 							Showing all Opportunities
@@ -76,22 +36,17 @@
 							@foreach($opportunities as $opportunity)
 							<tr>
 							<td>{{$opportunity->opportunity_name}}</td>
-							<td>{{$opportunity->date}}</td>
+							<td>{{$opportunity->expected_date}}</td>
 							<td><strong>AH-{{$opportunity->OM_number}}-OM</strong></td>
 							<td class="text-success"><i>{{ $opportunity->sales_stage }}</i></td>
 							<td>{{$opportunity->team}}</td>
 							<td>{{$opportunity->funded_by}}</td>
 							<td>{{$opportunity->assigned_to}}</td>
 							<td>
-									<form action="{{ route('opportunities.destroy', $opportunity->id)}}" method="post">
-											@csrf
-										<input name="_method" type="hidden" value="DELETE">
 										<div class="btn-group">
-												<a href="{{ route('opportunities.edit', $opportunity->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-eye"></i></a>
-												<a href="{{ route('opportunities.edit', $opportunity->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-edit"></i></a>
-												<button type="submit" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button>
-												</div>
-									</form>
+												<a href="{{ route('opportunities.show', $opportunity->id) }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-eye"></i></a>
+										</div>
+								
 							</td>
 							</tr>
 							@endforeach

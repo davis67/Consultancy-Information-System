@@ -16,13 +16,13 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('document_file');
-            $table->integer('status');
+            $table->string('status');
             $table->string('document_name');
             $table->string('revision');
-            $table->string('publish_date');
-            $table->string('expiration_date');
-            $table->integer('team');
-            $table->integer('category');
+            $table->date('publish_date');
+            $table->date('expiration_date');
+            $table->string('team');
+            $table->string('category');
             $table->string('description')->nullable;
             $table->string('assigned_to');
             $table->timestamps();

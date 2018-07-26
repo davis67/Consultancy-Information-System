@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/tests', function () {
-    return Auth::user()->name;
+    return App\Opportunity::find(1)->users;
 });
 Route::get('/test', function () {
     return App\Leave::find(1)->user;
@@ -14,6 +14,7 @@ Route::get('/opportunities/trashed', 'OpportunityController@trashed');
 Route::post('opportunities/changeStatus', 'OpportunityController@changeStatus');
 Route::get('/removeOpportunities/{id}', 'OpportunityConroller@removeOpportunities');
 Route::get('/restoreOpportunities/{id}', 'OpportunityController@restoreOpportunities');
+Route::get('opportunities/viewall', 'OpportunityController@viewAll');
 Route::resource('opportunities', 'OpportunityController');
 
 
