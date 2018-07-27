@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Opportunity;
 use App\Project;
+use App\Task;
 
 class ProjectsController extends Controller
 {
@@ -100,5 +101,12 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
+    }
+
+    public function projectdetails(){
+
+        $tasks = Task::all();
+        // $tasks->orderBy('sortorder')->get();
+        dd($tasks);
     }
 }

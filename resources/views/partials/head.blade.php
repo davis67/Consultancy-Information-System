@@ -17,10 +17,18 @@
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
+  <link href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css" rel="stylesheet">
+  <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
+
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <!-- endinject -->
   <title>COINS</title>
+  <style type="text/css">
+    html, body{
+        overflow: hidden;
+    }
+</style>
   <!-- stack anything in the head -->
   @stack("head")
 </head>

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Session;
-use App\Task;
+use App\OppTask;
 use App\User;
 use Illuminate\Http\Request;
 
-class TasksController extends Controller
+class OppsTaskController extends Controller
 {
     public function __construct()
     {

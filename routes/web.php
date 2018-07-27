@@ -3,8 +3,8 @@
 Route::get('/tests', function () {
     return App\Opportunity::find(1)->users;
 });
-Route::get('/test', function () {
-    return App\Leave::find(1)->user;
+Route::get('/projectmanager', function () {
+    return view('projects.project');
 
 });
 /**
@@ -38,7 +38,8 @@ Route::resource('tasks', 'TasksController');
 Route::resource('documents', 'DocumentsController');
 Route::get('/projects/create/{id}/', 'ProjectsController@createProject')->name('projects.create');
 Route::post('/projects/store', 'ProjectsController@store')->name('projects.store');
-Route::get('/projects/index', 'ProjectsController@index')->name('projects');
+Route::get('/projects/projectdetails', 'ProjectsController@projectdetails');
+
 
 Route::get('/users/admin/{id}', 'UsersController@admin')->name('users.admin');
 Route::get('/users/not-admin/{id}', 'UsersController@not_admin')->name('users.not.admin');
@@ -50,5 +51,3 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('associates', 'AssociatesController');
-
-Route::resource('projectmanagers', 'ProjectmanagersController');
