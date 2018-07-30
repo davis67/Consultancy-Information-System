@@ -11,4 +11,9 @@ class Task extends Model
 	public function getOpenAttribute(){
 		return true;
 	}
+	public function project(){
+
+        return $this->belongsTo(Project::class);
+        
+    }
 }

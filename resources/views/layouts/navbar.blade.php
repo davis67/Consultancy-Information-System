@@ -24,6 +24,10 @@
               <i class="mdi mdi-account mr-2 text-success"></i>
               Users
             </a>
+            <a class="dropdown-item" href="{{ route('users.index') }}">
+              <i class="mdi mdi-account mr-2 text-success"></i>
+              Profile
+            </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();

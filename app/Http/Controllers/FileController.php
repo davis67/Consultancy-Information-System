@@ -21,10 +21,9 @@ class FileController extends Controller
      */
     public function index()
     {
-        // $files = File::orderBy('created_at','DESC')->paginate(30);
-        $files=File::all();
-        dd($files);
-        return view('files.index', ['files' => $files]);
+         $files = File::orderBy('created_at','DESC')->paginate(30);
+     
+        return view('files.index', compact('files'));
     }
 
     /**
@@ -57,6 +56,7 @@ class FileController extends Controller
             File::create([
                 'title' => $document->getClientOriginalName(),
                 'path' => $document->store('public/storage'),
+                'size' =>$document->getSize(),
                 'publish_date' =>$request->publish_date,
                 'description'=>$request->description,
                 'expiration_date'=>$request->expiration_date,

@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description')->nullable();
+            $table->string('size');
             $table->string('path');
             $table->dateTime('publish_date')->nullable();
             $table->dateTime('expiration_date')->nullable();
