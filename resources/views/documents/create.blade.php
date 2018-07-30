@@ -18,7 +18,7 @@
                       <div class="form-group col-md-6">
                         <label for="inputProject">Document</label>
                         <div class="custom-file">
-                            <input type="file" name="document_file" class="custom-file-input" id="customFile">
+                            <input type="file" name="document_file" id="customFile">
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                       </div>

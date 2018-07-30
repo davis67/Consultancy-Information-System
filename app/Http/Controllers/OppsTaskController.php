@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
-use App\OppTask;
+use App\OppsTask;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class OppsTaskController extends Controller
     public function index()
     {
        
-        $tasks = Task::all();
+        $tasks = OppsTask::all();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -58,7 +58,7 @@ class OppsTaskController extends Controller
             'related_to' => 'required',
             'description' => 'nullable',
            ]);
-           $task = Task::create([
+           $task = OppsTask::create([
             'task_name' => $request->task_name,
             'task_status' => $request->task_status,
             'priority' => $request->priority,
@@ -82,7 +82,7 @@ class OppsTaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show(OppsTask $task)
     {
       return view('tasks.show', compact('task'));
     }
@@ -94,7 +94,7 @@ class OppsTaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
+    public function edit(OppsTask $task)
     {
         $users = User::all();
       return view('tasks.edit', compact('task','users'));
@@ -145,7 +145,7 @@ class OppsTaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy(OppsTask $task)
     {
         $task->delete();
         Session::flash('success', "You have successively deleted a task");

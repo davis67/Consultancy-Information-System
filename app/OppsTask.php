@@ -8,7 +8,7 @@ use Session;
 use App\Mail\TaskMail;
 class OppsTask extends Model
 {
-    protected $table = 'opp_tasks';
+    protected $table = 'opps_tasks';
     protected $guarded = [];
 
     public static function serviceLines()

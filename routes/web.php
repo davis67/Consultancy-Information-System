@@ -34,7 +34,7 @@ Route::get('leaves/approveLeave', 'leavesController@approveLeave');
 Route::get('leaves/rejectLeave/{id}', 'leavesController@rejectLeave');
 
 
-Route::resource('tasks', 'TasksController');
+Route::resource('tasks', 'OppsTaskController');
 Route::resource('documents', 'DocumentsController');
 Route::get('/projects/create/{id}/', 'ProjectsController@createProject')->name('projects.create');
 Route::post('/projects/store', 'ProjectsController@store')->name('projects.store');
@@ -51,3 +51,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('associates', 'AssociatesController');
+Route::resource('files', 'FileController');
+// Route::get('/files','FileController@index')->name('viewfile');
+// Route::get('/files/upload','FileController@create')->name('formfile');
+// Route::post('/files/upload','FileController@store')->name('uploadfile');
+// Route::delete('/files/{id}','FileController@destroy')->name('deletefile');
+// Route::get('/files/download/{id}','FileController@show')->name('downloadfile');
+// Route::get('/files/email/{id}','FileController@edit')->name('emailfile');
+// Route::post('/files/dropzone','FileController@dropzone')->name('dropzone');
+// Route::post('/files/uploadfiledata','FileController@uploadfiledata')->name('uploadfiledata');
+
