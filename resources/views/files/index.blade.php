@@ -1,19 +1,6 @@
 @extends('layouts.app')
 @section('content')
-        {{-- <div class="page-header">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Documents</a></li>
-                <li class="breadcrumb-item active" aria-current="page">View Documents</li>
-              </ol>
-            </nav>
-            <h3 class="page-title">
-         <span class="page-title-icon bg-gradient-danger text-white mr-2">
-                <i class="mdi mdi-folder-outline"></i>                 
-              </span> 
-              <a class="btn btn-sm btn-gradient-danger mt-2" href="{{ route('opportunities.create') }}">+Create Document</a>
-            </h3>
-          </div> --}}
+
           <div class="row">
           	<div class="col-lg-12 grid-margin stretch-card">
           	<div class="card">

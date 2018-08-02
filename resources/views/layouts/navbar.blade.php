@@ -20,11 +20,11 @@
             </div>
           </a>
           <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-            <a class="dropdown-item" href="{{ route('users.index') }}">
+            <a class="dropdown-item" href="{{ route('users') }}">
               <i class="mdi mdi-account mr-2 text-success"></i>
               Users
             </a>
-            <a class="dropdown-item" href="{{ route('users.index') }}">
+            <a class="dropdown-item" href="{{ route('users') }}">
               <i class="mdi mdi-account mr-2 text-success"></i>
               Profile
             </a>

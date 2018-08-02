@@ -41,11 +41,11 @@ Route::post('/projects/store', 'ProjectsController@store')->name('projects.store
 Route::get('/projects/projectdetails', 'ProjectsController@projectdetails');
 
 
-Route::get('/users/admin/{id}', 'UsersController@admin')->name('users.admin');
-Route::get('/users/not-admin/{id}', 'UsersController@not_admin')->name('users.not.admin');
-Route::get('/users/trashed','UsersController@trashed');
-Route::get('/users/removeUser/{id}','UsersController@removeUser');
-Route::resource('users','UsersController');
+// Route::get('/users/admin/{id}', 'UsersController@admin')->name('users.admin');
+// Route::get('/users/not-admin/{id}', 'UsersController@not_admin')->name('users.not.admin');
+// Route::get('/users/trashed','UsersController@trashed');
+// Route::get('/users/removeUser/{id}','UsersController@removeUser');
+// Route::resource('users','UsersController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -61,3 +61,51 @@ Route::get('/files/email/{id}','FileController@edit')->name('emailfile');
 // Route::post('/files/dropzone','FileController@dropzone')->name('dropzone');
 // Route::post('/files/uploadfiledata','FileController@uploadfiledata')->name('uploadfiledata');
 
+// Registered, activated, and is admin routes.
+Route::group(['middleware' => ['activity']], function () {
+    Route::resource('/users/deleted', 'SoftDeletesController', [
+        'only' => [
+            'index', 'show', 'update', 'destroy',
+        ],
+    ]);
+
+    Route::resource('users', 'UsersManagementController', [
+        'names' => [
+            'index'   => 'users'
+        ],
+        'except' => [
+            'deleted',
+        ],
+    ]);
+    Route::post('search-users', 'UsersManagementController@search')->name('search-users');
+
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    Route::resource('deletes', 'SoftDeletesController');
+
+
+    // User Profile and Account Routes
+    Route::resource(
+        'profile',
+        'ProfilesController', [
+            'only' => [
+                'show',
+                'edit',
+                'update',
+                'create',
+            ],
+        ]
+    );
+    Route::put('profile/{username}/updateUserAccount', [
+        'as'   => '{username}',
+        'uses' => 'ProfilesController@updateUserAccount',
+    ]);
+    Route::put('profile/{username}/updateUserPassword', [
+        'as'   => '{username}',
+        'uses' => 'ProfilesController@updateUserPassword',
+    ]);
+    Route::delete('profile/{username}/deleteUserAccount', [
+        'as'   => '{username}',
+        'uses' => 'ProfilesController@deleteUserAccount',
+    ]);
+
+ });

@@ -65,12 +65,12 @@
     <div class="collapse" id="document">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item"> 
-          <a class="nav-link" href="{{ route('documents.create') }}">
+          <a class="nav-link" href="{{ route('files.create') }}">
             Create Document
           </a>
         </li>
         <li class="nav-item">
-         <a class="nav-link" href="{{ route('documents.index') }}">
+         <a class="nav-link" href="{{ route('files.index') }}">
            View Document
          </a>
        </li>

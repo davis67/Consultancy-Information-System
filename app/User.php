@@ -5,30 +5,84 @@ use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 
 class User extends Authenticatable
 {
+     use HasRoleAndPermission;
     use Notifiable;
     use SoftDeletes;
 	protected $dates = ['deleted_at'];
-    
+     protected $table = 'users';
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = ['id'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'is_permitted','team','assigned_to','employeeNo','password'];
-       
+    protected $fillable = [
+        'name',
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'activated',
+        'token',
+        'signup_ip_address',
+        'signup_confirmation_ip_address',
+        'signup_sm_ip_address',
+        'admin_ip_address',
+        'updated_ip_address',
+        'deleted_ip_address',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-   
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'activated',
+        'token',
     ];
+
+    // User Profile Setup - SHould move these to a trait or interface...
+
+    public function profiles()
+    {
+        return $this->belongsToMany(App\Profile::class)->withTimestamps();
+    }
+
+    public function hasProfile($name)
+    {
+        foreach ($this->profiles as $profile) {
+            if ($profile->name == $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function assignProfile($profile)
+    {
+        return $this->profiles()->attach($profile);
+    }
+
+    public function removeProfile($profile)
+    {
+        return $this->profiles()->detach($profile);
+    }
     public function leaves(){
 
         return $this->hasMany(Leave::class);
