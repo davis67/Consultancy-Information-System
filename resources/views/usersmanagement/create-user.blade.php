@@ -15,9 +15,9 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            Create New User
+                            <a href="{{ route('titles.create') }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i>Add Title</a>
                             <div class="pull-right">
-                                <a href="{{ route('users') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="@lang('usersmanagement.tooltips.back-users')">
+                                <a href="{{ route('users') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Users">
                                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                                     <span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">Users</span>
                                 </a>
@@ -29,7 +29,7 @@
                     <div class="card-body">
                         {!! Form::open(array('route' => 'users.store', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
 
-                            {!! csrf_field() !!}
+                            @csrf
 
                             <div class="form-group has-feedback row {{ $errors->has('email') ? ' has-error ' : '' }}">
                                 {!! Form::label('email', 'Email', array('class' => 'col-md-3 control-label')); !!}
@@ -132,9 +132,77 @@
                                     @endif
                                 </div>
                             </div>
-
+                            <div class="form-group has-feedback row {{ $errors->has('team') ? ' has-error ' : '' }}">
+                                {!! Form::label('team', 'Team', array('class' => 'col-md-3 control-label')); !!}
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <select class="custom-select form-control" name="team" id="team">
+                                            <option value="">Select A Team</option>
+                                            @if ($teams)
+                                                @foreach($teams as $team)
+                                                    <option value="{{ $team->team }}">{{ $team->team }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        <div class="input-group-append">
+                                            <label class="input-group-text" for="role">
+                                                <i class="fa fa-fw fa-shield" aria-hidden="true"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    @if ($errors->has('team'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('team') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback row {{ $errors->has('assigned_to') ? ' has-error ' : '' }}">
+                                {!! Form::label('rassigned_to', 'Assigned To(Supervisor)', array('class' => 'col-md-3 control-label')); !!}
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <select class="custom-select form-control" name="assigned_to" id="assigned_to">
+                                            <option value="">Select A User</option>
+                                            @if ($users)
+                                                @foreach($users as $user)
+                                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select> 
+                                        </select>
+                                        <div class="input-group-append">
+                                            <label class="input-group-text" for="role">
+                                                <i class="fa fa-fw fa-shield" aria-hidden="true"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    @if ($errors->has('assigned_to'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('assigned_to') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback row {{ $errors->has('employee_no') ? ' has-error ' : '' }}">
+                                {!! Form::label('employee_no', 'Employee No', array('class' => 'col-md-3 control-label')); !!}
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        {!! Form::text('employee_no', NULL, array('id' => 'employee_no', 'class' => 'form-control', 'placeholder' => 'Employee No')) !!}
+                                        <div class="input-group-append">
+                                            <label class="input-group-text" for="employee_no">
+                                                <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    @if ($errors->has('employee_no'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('employee_no') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="form-group has-feedback row {{ $errors->has('password') ? ' has-error ' : '' }}">
-                                {!! Form::label('password', 'Confirm Password', array('class' => 'col-md-3 control-label')); !!}
+                                {!! Form::label('password', 'Password', array('class' => 'col-md-3 control-label')); !!}
                                 <div class="col-md-9">
                                     <div class="input-group">
                                         {!! Form::password('password', array('id' => 'password', 'class' => 'form-control ', 'placeholder' => 'Create a password')) !!}

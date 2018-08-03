@@ -42,6 +42,9 @@ class User extends Authenticatable
         'admin_ip_address',
         'updated_ip_address',
         'deleted_ip_address',
+        'team',
+        'assigned_to',
+        'employee_no'
     ];
 
     /**
@@ -133,6 +136,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Opportunity::class);
     }
     public function tasks(){
-        return $this->belongsToMany(Task::class);
+        return $this->belongsToMany(OppsTask::class);
     }
 }

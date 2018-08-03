@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
   <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet">
   <script src="{{ asset('js/dropzone.js') }}"></script>
-
+  @yield('links')
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <!-- endinject -->

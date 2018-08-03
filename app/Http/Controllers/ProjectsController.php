@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Opportunity;
 use App\Project;
 use App\Task;
-
+use DB;
 class ProjectsController extends Controller
 {
     public function __construct()
@@ -21,9 +21,10 @@ class ProjectsController extends Controller
      */
     public function index()
     {
+        $tasks = DB::table('tasks')->orderBy('parent','sortorder')->get();
         $projects = Project::all();
 
-        return view('projects.index', compact('projects'));
+        return view('projects.index', compact('projects', 'tasks'));
     }
 
     /**

@@ -1,7 +1,10 @@
 <?php
+Route::get('/', function () {
+    return view('auth.login');
 
+});
 Route::get('/tests', function () {
-    return App\Opportunity::find(2)->users;
+    return App\User::find(1)->tasks;
 });
 Route::get('/projectmanager', function () {
     return view('projects.project');
@@ -16,8 +19,9 @@ Route::get('/removeOpportunities/{id}', 'OpportunityConroller@removeOpportunitie
 Route::get('/restoreOpportunities/{id}', 'OpportunityController@restoreOpportunities');
 Route::get('opportunities/viewall', 'OpportunityController@viewAll');
 Route::resource('opportunities', 'OpportunityController');
-
-
+Route::resource('titles', 'TitleController');
+Route::resource('teams', 'TeamController');
+Route::resource('projects', 'ProjectsController');
 /**
  * contacts
  */

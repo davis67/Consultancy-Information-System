@@ -1,6 +1,6 @@
  <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item nav-profile">
+    {{-- <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
           <img src="/uploads/avatr.jpeg" alt="profile">
@@ -28,7 +28,7 @@
         </div>
         <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
       </a>
-    </li>
+    </li> --}}
     <li class="nav-item">
       <a class="nav-link" href="{{route('home')}}">
         <span class="menu-title">Dashboard</span>

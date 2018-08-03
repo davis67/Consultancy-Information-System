@@ -18,7 +18,7 @@
 					</div>
 				 </div>
 				 
-				<table class="table example" >
+				<table class="table example table-responsive" >
 					<thead>
 						<tr>
 							<th>Opportunity Name</th>

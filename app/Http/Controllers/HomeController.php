@@ -7,6 +7,8 @@ use App\Activity;
 use App\Opportunity;
 use DB;
 use Auth;
+use App\Task;
+use App\Team;
 class HomeController extends Controller
 {
     /**
@@ -24,15 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $projects = Project::all();
-        $opportunities = Opportunity::all();
-        $activities = Activity::with('user')->get();
-        // $doneopportunities = DB::table('opportunities')->where('assigned_To', Auth::user()->name);
-        // $donetasks = DB::table('tasks')->where('assigned_To', Auth::user()->name)->get();
-
-
-        // dd($doneopportunities);
-        return view('home', compact('projects', 'opportunities','activities', 'doneopportunities', 'donetasks'));
+        $tasks = DB::table('tasks')->orderBy('parent')->get();
+        $teams = Team::all();
+          $opportunities= DB::table('opportunities')
+                    ->selectRaw("count('id') as opportunitiesdone,sales_stage" )
+                    ->where('team', 'TCS')
+                    ->groupBy("sales_stage")
+                    ->get();
+        return view('home', compact('projects', 'opportunities','teams', 'doneopportunities'));
     }
 }

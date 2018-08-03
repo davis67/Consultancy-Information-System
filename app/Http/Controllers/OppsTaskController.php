@@ -6,7 +6,7 @@ use Session;
 use App\OppsTask;
 use App\User;
 use Illuminate\Http\Request;
-
+use Auth;
 class OppsTaskController extends Controller
 {
     public function __construct()
@@ -22,7 +22,7 @@ class OppsTaskController extends Controller
     public function index()
     {
        
-        $tasks = OppsTask::all();
+        $tasks = User::find(Auth::User()->id)->tasks;
         return view('tasks.index', compact('tasks'));
     }
 

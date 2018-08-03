@@ -37,7 +37,7 @@
                                   <div class="form-group col-md-6">
                                         <label for="inputState">Service Line</label>
                                 <select id="inputState" name="service_line" class="form-control {{ $errors->has('service_line') ? ' is-invalid' : '' }} form-control-sm">
-		                          @foreach(App\Task::serviceLines() as $item => $value)
+		                          @foreach(App\OppsTask::serviceLines() as $item => $value)
                                   <option value="{{$value}} @if($task->service_line==$value) selected @endif">{{$value}}</option>
 		                          @endforeach
 		                      </select>

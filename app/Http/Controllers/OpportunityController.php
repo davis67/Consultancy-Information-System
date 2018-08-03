@@ -22,9 +22,9 @@ class OpportunityController extends Controller
      */
     public function index()
     {
-        //$opportunities = DB::table('opportunities')->where('assigned_To', Auth::user()->name)->get();
+        $opportunities = User::find(Auth::User()->id)->opportunities;
         // dd($opportunities);
-        $opportunities=Opportunity::all();
+        // $opportunities=Opportunity::all();
         return view('opportunities.index', compact('opportunities'));
     }
 

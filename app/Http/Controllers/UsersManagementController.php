@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Profile;
 use App\User;
+use App\Team;
 use App\Traits\CaptureIpTrait;
 use Auth;
 use Illuminate\Http\Request;
@@ -45,12 +46,10 @@ class UsersManagementController extends Controller
     public function create()
     {
         $roles = Role::all();
+        $teams = Team::all();
+        $users = User::all();
 
-        $data = [
-            'roles' => $roles,
-        ];
-
-        return view('usersmanagement.create-user')->with($data);
+        return view('usersmanagement.create-user', compact('roles', 'teams', 'users'));
     }
 
     /**
@@ -71,6 +70,9 @@ class UsersManagementController extends Controller
                 'password'              => 'required|min:6|max:20|confirmed',
                 'password_confirmation' => 'required|same:password',
                 'role'                  => 'required',
+                'employee_no'           =>  'required',
+                'assigned_to'          =>  'nullable',
+                'team'                 =>  'required'
             ],
             [
                 'name.unique'         => 'This name is already taken',
@@ -102,6 +104,9 @@ class UsersManagementController extends Controller
             'token'            => str_random(64),
             'admin_ip_address' => $ipAddress->getClientIp(),
             'activated'        => 1,
+            'team'             => $request->team,
+            'assigned_to'      =>$request->assigned_to,
+            'employee_no'     =>$request->employee_no
         ]);
 
         $user->profile()->save($profile);
