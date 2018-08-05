@@ -7,6 +7,7 @@ use App\Opportunity;
 use App\Project;
 use App\Task;
 use DB;
+use Session;
 class ProjectsController extends Controller
 {
     public function __construct()
@@ -49,14 +50,31 @@ class ProjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Opportunity $opportunity)
+    public function store(Request $request)
     {
-        dd($request::all());
-        Project::create(request()->validate([
+        // dd($request->all());
+        $this->validate($request, [
             'start_date' => 'required',
             'end_date' => 'required',
-            'opportunity_id' => $opportunity->id,
-         ]));
+            'contractRefNo'=>'required',
+            'team' => 'required',
+            'assigned_to'=>'required',
+            'manager'=> 'required'
+         ]);
+         $project = Project::create([
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'contractRefNo'=>$request->contractRefNo,
+            'team' => $request->team,
+            'opportunity_id'=>$request->opportunityid,
+            'manager'=> $request->manager,
+            'user_id'=>$request->manager
+         ]);
+        //  $project->associates()->attach($request->associate);
+         $project->users()->attach($request->assigned_to);
+         Session::flash('success', 'You have successfully created a project');
+         return redirect()->route('projects.index');
+
     }
 
     /**

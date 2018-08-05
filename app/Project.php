@@ -12,15 +12,6 @@ class Project extends Model
     {
         return $this->belongsTo(Opportunity::class);
     }
-
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function ($project) {
-            $project->opportunity_id = opportunity()->id();
-            dd($project);
-        });
-    }
     public function associate(){
 
         return $this->hasMany(Associate::class);
@@ -28,7 +19,11 @@ class Project extends Model
     }
     public function tasks(){
 
-        return $this->hasMany(Task::class);
+        return $this->belongsToMany(Task::class);
         
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 }
