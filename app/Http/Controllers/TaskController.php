@@ -3,9 +3,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
-
+use App\Project;
+use App\User;
 class TaskController extends Controller
 {
+	public function create(){
+		$projects = Project::all();
+		$users = User::all();
+		return view('tasks.create', compact('projects', 'users'));
+	}
 	public function store(Request $request){
 		$task = new Task();
 
@@ -17,7 +23,7 @@ class TaskController extends Controller
 		$task->sortorder = Task::max("sortorder") + 1;;
 
 		$task->save();
-
+		
 		return response()->json([
 			"action"=> "inserted",
 			"tid" => $task->id

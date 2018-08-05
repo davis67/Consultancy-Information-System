@@ -19,7 +19,9 @@ class CreateTasksTable extends Migration
 			$table->integer('duration');
 			$table->float('progress');
 			$table->dateTime('start_date');
-			$table->integer('parent');
+			$table->integer('project_id');
+			$table->integer('priority')->default(0) ;
+            $table->boolean('completed')->default(0);
 			$table->timestamps();
 		});
 	}

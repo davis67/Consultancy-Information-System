@@ -1,130 +1,171 @@
 @extends('layouts.app')
 
-@push("head")
-<script>
-  window.APP_USERS={!! $users->toJson() !!}
-</script>
-@endpush
+
+@section('styles')
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}">
+
+@stop
+
+
 @section('content')
-	 	<div class="card">
-         <div class="card-body">
-           <h2 class="card-title">Create Tasks</h2>
-            <form action="{{route('tasks.store')}}" method="post">
-            	@csrf
-                    <div class="form-row ">
-                      <div class="form-group col-md-6">
-                        <label for="inputTask">Task Name</label>
-                        <input type="text" name="task_name" class="form-control {{ $errors->has('task_name') ? ' is-invalid' : '' }} form-control-sm" placeholder="Enter task name">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="inputState">Status</label>
-                        <select  class="form-control {{ $errors->has('task_status') ? 'is-invalid' : '' }} form-control-sm" name="task_status">
-                          <option value="">Choose...</option>
-                          @foreach(['Not started', 'In Progress', 'Completed', 'Pending input', 'Deffered'] as $item => $value)
-                          <option value="{{$value}}">{{$value}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
 
-                    <div class="form-row ">
-                            <div class="form-group col-md-6">
-                                    <label for="inputState">Priority</label>
-                                    <select id="inputState" name="priority" class="form-control {{ $errors->has('priority') ? ' is-invalid' : '' }}">
-                                      <option value="">Choose...</option>
-                                      <option value="High">High</option>
-                                      <option value="Medium">Medium</option>
-                                      <option value="Low">Low</option>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-md-6">
-                                        <label for="inputState">Service Line</label>
-                                <select id="inputState" name="service_line" class="form-control {{ $errors->has('service_line') ? ' is-invalid' : '' }} form-control-sm">
-                                   <option value="">Choose...</option>
-		                          @foreach(App\OppsTask::serviceLines() as $item => $value)
-                                  <option value="{{$value}}">{{$value}}</option>
-		                          @endforeach
-		                      </select>
-                             </div>
-                         </div>   
-                    <div class="form-row">
-                      <div class="form-group col-md-3">
-                        <label for="inputCity">Start Date</label>
-                        <input type="date" class="form-control {{ $errors->has('start_date') ? ' is-invalid' : '' }} form-control-sm" name="start_date" id="inputCity">
-                        
-                      </div>
-                      <div class="form-group col-md-3">
-                            <label for="inputZip">End Date</label>
-                            <input type="date" name="end_date" class="form-control {{ $errors->has('end_time') ? ' is-invalid' : '' }} form-control-sm" id="inputZip">
-                      </div>
-                      <div class="form-group col-md-3">
-                            <label for="inputTeam">Team </label>
-                            <select id="inputTeam" class="form-control {{ $errors->has('team') ? ' is-invalid' : '' }} form-control-sm" name="team">
-                                <option value="">Choose...</option>
-                                @foreach(App\Team::names() as  $team)
-                                <option value="{{$team}}">{{$team}}</option>
-                                @endforeach
-                              </select>     
-                      </div>
+<div class="card">
+<div class="card-body">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:40px;">
+        <a href="{{ route('users.create') }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-plus"></i>Add  a Associate</a>
+        <div class="pull-right">
+            <a href="{{ route('users') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to users">
+                <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
+                <span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">Users</span>
+            </a>
+        </div>
+    </div>
+<form id="task_form" action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <div class="row">
+    <div class="col-md-8">
+        <label>Create new task <span class="fa fa-plus" aria-hidden="true"></span></label>
 
-                            <div class="form-group col-md-3">
-                                <label for="inputState">Related To:</label>
-                                    <select id="inputState" name="related_to" class="form-control {{ $errors->has('related_to') ? ' is-invalid' : '' }} form-control-sm">
-                                      <option value="">Choose...</option>
-                                      @foreach(['Bug', 'Case', 'Client', 'Contact', 'Lead', 'Opportunity','Project', 'project task', 'Target', 'Task'] as $value => $item)
-                                      <option value="{{$item}}">{{$item}}</option>
-                                      @endforeach
-                                    </select>
-                                  </div>  
-                          </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter Task Title" name="task_title">
+        </div>
 
-                    <div class="form-group">
-                            <label for="description">Description:</label>
-                            <textarea class="form-control form-control-sm" name="description" rows="2" id="description" placeholder="Enter description of the project"></textarea>
-                    </div>
-                    <div class="form-group ">
-                        <label for="assignees">Assigned To: </label>
-                        <select  name="assigned_to[]" class="form-control {{ $errors->has('assigned_to') ? ' is-invalid' : '' }} form-control-sm" id="assignees" multiple></select>
-                    </div>
-                    <div class="pull-left">
-                    <button type="submit" class="btn btn-outline-danger btn-lg">Save a task</button>
-                    </div>
-                  </form>
-              </div>
+        <label>Add Project Files (png,gif,jpeg,jpg,txt,pdf,doc) <span class="glyphicon glyphicon-file" aria-hidden="true"></span></label>
+		<div class="form-group">
+           	<input type="file" class="form-control" name="photos[]" multiple>
+       	</div>
+
+        <div class="form-group">
+            <textarea class="form-control my-editor" rows="10" id="task" name="task"></textarea>
+        </div>
         
-      </div>
-      	
-@endSection
+    </div>
 
-@push("scripts")
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Assign to Project <span class="fa fa-pushpin" aria-hidden="true"></span></label>
+            <select name="project_id" class="form-control selectpicker" data-style="btn-primary" style="width:100%;">
+                @foreach( $projects as $project )
+                    <option value="{{ $project->id }}">{{ $project->opportunity->opportunity_name }}</option>
+                 @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Assign to: <span class="glyphicon glyphicon-user" aria-hidden="true"></span></label>
+            <select id="user" name="user" class="form-control selectpicker" data-style="btn-info" style="width:100%;">
+				@foreach ( $users as $user)
+					<option value="{{ $user->id }}">{{ $user->name }}</option>
+				@endforeach
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Select Priority <span class="fa fa-warning-sign" aria-hidden="true"></span></label>
+            <select name="priority" class="form-control selectpicker" data-style="btn-info" style="width:100%;">
+              <option value="0">Normal</option>
+              <option value="1">High</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Select Due Date <span class="fa fa-calendar" aria-hidden="true"></span></label>
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='date' class="form-control" name="duedate">
+                <span class="input-group-addon">
+                {{-- <span class="fa fa-calendar"></span> --}}
+                </span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <input class="btn btn-outline-danger" type="submit" value="Submit" onclick="return validateForm()">
+            <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
+        </div>
+    </div>
+    </div>
+
+</form>
+</div>
+</div>
+@stop
+
+
+
+
+@section('script')
+
+    <script src="{{ asset('js/moment.js') }}"></script> 
+
+    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>  
+
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function() {
+
+            jQuery(function() {
+                jQuery('#datetimepicker1').datetimepicker( {
+                    defaultDate:'now',  // defaults to today
+                    format: 'YYYY-MM-DD hh:mm:ss',  // YEAR-MONTH-DAY hour:minute:seconds
+                    minDate:new Date()  // Disable previous dates, minimum is todays date
+                });
+            });
+        });
+    </script>
+
 <script>
-var team = document.getElementById("inputTeam");
-var assignees = document.getElementById("assignees");
+  console.log(" {{ url('/') }}" ) ;
+  var editor_config = {
+    //path_absolute : "/",
+    path_absolute:"{{ url('/') }}/",
+    selector: "textarea.my-editor",
+    plugins: [
+      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+      "searchreplace wordcount visualblocks visualchars code fullscreen",
+      "insertdatetime media nonbreaking save table contextmenu directionality",
+      "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+    relative_urls: false,
+    file_browser_callback : function(field_name, url, type, win) {
+      var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+      var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+      var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+      if (type == 'image') {
+        cmsURL = cmsURL + "&type=Images";
+      } else {
+        cmsURL = cmsURL + "&type=Files";
+      }
+
+      tinyMCE.activeEditor.windowManager.open({
+        file : cmsURL,
+        title : 'Filemanager',
+        width : x * 0.8,
+        height : y * 0.8,
+        resizable : "yes",
+        close_previous : "no"
+      });
+    },
+    //  Add Bootstrap Image Responsive class for inserted images
+    image_class_list: [
+        {title: 'None', value: ''},
+        {title: 'Bootstrap responsive image', value: 'img-responsive'},
+    ]   
 
 
-team.addEventListener("change", updateAssignees);
+  };
 
-function updateAssignees(event) {
-  assignees.innerHTML=null;
-  var options = document.createDocumentFragment();
-  //add an empty option
-  options.appendChild(createOption("--select--", ""));
-  //bail out for empty selections
-  if (!team.value) return;
-  window.APP_USERS.forEach(function(user) {
-    if (user.team === team.value) {
-      //add an option to the assigns
-      options.appendChild(createOption(user.name, user.id));
-    }
-  });
-  assignees.appendChild(options);
-}
-function createOption(text, value) {
-  var option = document.createElement("option");
-  option.text = text;
-  option.value = value;
-  return option;
-}
+  tinymce.init(editor_config);
 </script>
 
-@endpush
+
+@stop
+
+
+
+
+
