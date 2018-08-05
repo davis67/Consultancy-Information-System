@@ -4,7 +4,7 @@ Route::get('/', function () {
 
 });
 Route::get('/tests', function () {
-    return App\User::find(1)->tasks;
+    return App\User::find(1)->opportunities;
 });
 Route::get('/projectmanager', function () {
     return view('projects.project');
@@ -14,7 +14,7 @@ Route::get('/projectmanager', function () {
  * opportunities
  */
 Route::get('/opportunities/trashed', 'OpportunityController@trashed');
-Route::post('opportunities/changeStatus', 'OpportunityController@changeStatus');
+Route::post('/opportunities/changeStatus/', 'OpportunityController@changeStatus');
 Route::get('/removeOpportunities/{id}', 'OpportunityConroller@removeOpportunities');
 Route::get('/restoreOpportunities/{id}', 'OpportunityController@restoreOpportunities');
 Route::get('opportunities/viewall', 'OpportunityController@viewAll');
@@ -38,7 +38,8 @@ Route::get('leaves/approveLeave', 'leavesController@approveLeave');
 Route::get('leaves/rejectLeave/{id}', 'leavesController@rejectLeave');
 
 
-Route::resource('tasks', 'OppsTaskController');
+Route::resource('opptasks', 'OppsTaskController');
+Route::resource('tasks', 'TaskController');
 Route::resource('documents', 'DocumentsController');
 Route::get('/projects/create/{id}/', 'ProjectsController@createProject')->name('projects.create');
 Route::post('/projects/store', 'ProjectsController@store')->name('projects.store');

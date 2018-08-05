@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 @include('partials.head')
+@yield('styles')
 <body>
  <div class="container-scroller">
   @if(!Auth::guest())

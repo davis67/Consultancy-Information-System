@@ -23,8 +23,6 @@ class OpportunityController extends Controller
     public function index()
     {
         $opportunities = User::find(Auth::User()->id)->opportunities;
-        // dd($opportunities);
-        // $opportunities=Opportunity::all();
         return view('opportunities.index', compact('opportunities'));
     }
 
@@ -203,15 +201,20 @@ class OpportunityController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function changeStatus(Request $request){
+        
             $opportunityName= $request->input('opportunity_name');
             $salesStage= $request->input('sales_stage');
-            $opportunity = DB::table('opportunities') 
-            ->where('opportunity_name',$opportunityName);
+                $opportunity = DB::table('opportunities') 
+                ->where('opportunity_name',$opportunityName);
+                
+            
             $opportunity->update([
                'sales_stage' => $salesStage
             ]);
             if($salesStage == 'Closed Won'){
-                return view('projects.create');
+                $users = User::all();
+                $opportunityName= $request->input('opportunity_name');
+                return view('projects.create', compact('users','opportunityName'));
             }
             Session::flash('success', 'You have successively updated an opportunity');
             return redirect()->back();

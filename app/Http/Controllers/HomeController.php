@@ -30,7 +30,7 @@ class HomeController extends Controller
         $teams = Team::all();
           $opportunities= DB::table('opportunities')
                     ->selectRaw("count('id') as opportunitiesdone,sales_stage" )
-                    ->where('team', 'TCS')
+                    ->where('team', 'MCS')
                     ->groupBy("sales_stage")
                     ->get();
         return view('home', compact('projects', 'opportunities','teams', 'doneopportunities'));

@@ -138,4 +138,8 @@ class User extends Authenticatable
     public function tasks(){
         return $this->belongsToMany(OppsTask::class);
     }
+
+    public function projects(){
+        return $this->belongsToMany(User::class);
+    }
 }
