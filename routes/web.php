@@ -67,7 +67,6 @@ Route::get('/files/email/{id}','FileController@edit')->name('emailfile');
 // Route::post('/files/uploadfiledata','FileController@uploadfiledata')->name('uploadfiledata');
 
 // Registered, activated, and is admin routes.
-Route::group(['middleware' => ['activity']], function () {
     Route::resource('/users/deleted', 'SoftDeletesController', [
         'only' => [
             'index', 'show', 'update', 'destroy',
@@ -113,5 +112,3 @@ Route::group(['middleware' => ['activity']], function () {
         'uses' => 'ProfilesController@deleteUserAccount',
     ]);
     Route::get('/tasks/completed/{id}','TaskController@completed')->name('task.completed');
-
- });
