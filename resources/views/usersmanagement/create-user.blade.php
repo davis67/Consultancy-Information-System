@@ -15,9 +15,9 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <a href="{{ route('titles.create') }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i>Add Title</a>
+                            <a href="{{ route('titles.create') }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-plus"></i>Add Title</a>
                             <div class="pull-right">
-                                <a href="{{ route('users') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Users">
+                                <a href="{{ route('users') }}" class="btn btn-outline-danger btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Users">
                                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                                     <span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">Users</span>
                                 </a>
@@ -237,7 +237,7 @@
                                     @endif
                                 </div>
                             </div>
-                            {!! Form::button('Create New User', array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','type' => 'submit' )) !!}
+                            {!! Form::button('Create New User', array('class' => 'btn btn-outline-danger margin-bottom-1 mb-1 float-right','type' => 'submit' )) !!}
                         {!! Form::close() !!}
                     </div>
 

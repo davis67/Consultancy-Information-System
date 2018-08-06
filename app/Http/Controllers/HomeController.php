@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasks = DB::table('tasks')->orderBy('parent')->get();
+        $tasks = DB::table('tasks')->orderBy('id')->get();
         $teams = Team::all();
           $opportunities= DB::table('opportunities')
                     ->selectRaw("count('id') as opportunitiesdone,sales_stage" )

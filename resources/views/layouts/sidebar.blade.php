@@ -53,6 +53,11 @@
              View Opportunity
            </a>
          </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{{ asset('opportunities/viewall') }}">
+            View All Opportunity
+          </a>
+        </li>
        </ul>
      </div>
    </li>

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-	protected $appends = ["open"];
-
-	public function getOpenAttribute(){
-		return true;
-	}
+	
+	protected $fillable = [ 
+    	'project_id','user_id', 'task_title', 'task' , 'priority', 'duedate'
+     ] ;
+	
 	public function project(){
 
         return $this->belongsTo(Project::class);

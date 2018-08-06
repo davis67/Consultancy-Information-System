@@ -112,5 +112,6 @@ Route::group(['middleware' => ['activity']], function () {
         'as'   => '{username}',
         'uses' => 'ProfilesController@deleteUserAccount',
     ]);
+    Route::get('/tasks/completed/{id}','TaskController@completed')->name('task.completed');
 
  });

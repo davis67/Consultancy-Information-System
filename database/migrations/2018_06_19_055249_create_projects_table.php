@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->integer('opportunity_id');
             $table->string('contractRefNo');
             $table->integer('user_id');
+            $table->boolean('isComplete')->default(0);
             $table->string('manager');
             $table->timestamps();
         });

@@ -211,6 +211,5 @@ Editing User{{  $user->name}}'s information'
     @if(config('usersmanagement.tooltipsEnabled'))
     @include('scripts.tooltips')
     @endif
-  @include('scripts.save-modal-script')
   @include('scripts.check-changed')
 @endsection

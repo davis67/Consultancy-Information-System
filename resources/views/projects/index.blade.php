@@ -8,7 +8,7 @@
 										<div class="card-body">
 											<div class="row">
 												<div class="col-md-4">
-														<a class="btn btn-outline-danger btn-sm" href=""><i class="mdi mdi-reply"></i>ViewProjects</a>
+														<a class="btn btn-outline-danger btn-sm" href="{{ route('tasks.create') }}"><i class="mdi mdi-plus"></i>Add tasks</a>
 										</div>
 		
 											</div>

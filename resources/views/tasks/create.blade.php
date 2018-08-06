@@ -15,14 +15,15 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:40px;">
         <a href="{{ route('users.create') }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-plus"></i>Add  a Associate</a>
         <div class="pull-right">
-            <a href="{{ route('users') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to users">
+            <a href="{{ route('users') }}" class="btn btn-outline-danger btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to users">
                 <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                 <span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">Users</span>
             </a>
         </div>
     </div>
+    {{ var_dump($errors)}}
 <form id="task_form" action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
-    {{ csrf_field() }}
+    @csrf
     <div class="row">
     <div class="col-md-8">
         <label>Create new task <span class="fa fa-plus" aria-hidden="true"></span></label>
@@ -82,7 +83,6 @@
 
         <div class="btn-group">
             <input class="btn btn-outline-danger" type="submit" value="Submit" onclick="return validateForm()">
-            <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
         </div>
     </div>
     </div>

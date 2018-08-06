@@ -22,7 +22,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $tasks = DB::table('tasks')->orderBy('parent','sortorder')->get();
+        $tasks = DB::table('tasks')->orderBy('id')->get();
         $projects = Project::all();
 
         return view('projects.index', compact('projects', 'tasks'));

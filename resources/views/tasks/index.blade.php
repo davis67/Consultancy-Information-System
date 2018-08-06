@@ -14,7 +14,7 @@
 								<a href="{{ route('tasks.create') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>Create a Task</a>
 							</div>
 						 </div>
-				<table  class="table mdl-data-table example" >
+				{{-- <table  class="table mdl-data-table example" >
 					<thead>
 						<tr>
 							<th>Task Name</th>
@@ -30,8 +30,8 @@
 						
 							@foreach($tasks as $task)
 							<tr>
-							<td>{{$task->task_name}}</td>
-							<td>{{$task->task_status}}</td>
+							<td>{{$task->task_title}}</td>
+							<td>{{$task->compl}}</td>
 							<td>{{$task->start_date}}</td>
 							<td>{{$task->end_date}}</td>
 							<td>{{$task->priority}}</td>
@@ -51,7 +51,62 @@
 							@endforeach
 						
 					</tbody>
+				</table> --}}
+				<table class="table table-striped example">
+					<thead>
+					  <tr>
+						<th>Task Title</th>
+						<th>Project Name</th>
+						<th>Priority</th>
+						<th>Status</th>
+						<th>Sub Task</th>
+						<th>Actions</th>
+					  </tr>
+					</thead>
+				
+					<tbody>
+					@foreach ( $tasks as $task)
+					  <tr>
+						<td>{{ $task->task_title }} </td>
+						<td>{{ $task->project->project_name }}</td>
+						<td>
+							@if ( $task->priority == 0 )
+								<span class="label label-info">Normal</span>
+							@else
+								<span class="label label-danger">High</span>
+							@endif
+						</td>
+						<td>
+							@if ( !$task->completed )
+								<a href="{{ route('task.completed', ['id' => $task->id]) }}" class="btn btn-outline-success btn-xs"> Mark as completed</a>
+							@else
+								<span class="label label-success text-success"><i class="fa fa-check"></i></span>
+								<span class="label label-success text-success"><i class="fa fa-check"></i></span>
+							@endif
+						</td>
+						<td>
+							<a href="">
+								<i class="mdi mdi-plus"></i>
+							</a>
+						</td>
+						<td>
+							<form action="{{ route('tasks.destroy', $task->id)}}" method="post">
+									@csrf
+								<input name="_method" type="hidden" value="DELETE">
+								<div class="btn-group">
+										<a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-eye"></i></a>
+										<a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-edit"></i></a>
+										<button type="submit" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button>
+										</div>
+							</form>
+							</td>
+					  </tr>
+				
+					@endforeach
+					</tbody>
+				
 				</table>
+				
 			</div>
 		</div>
 	</div>
