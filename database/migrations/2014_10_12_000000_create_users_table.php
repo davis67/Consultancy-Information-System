@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('employee_no');
             $table->rememberToken();
             $table->boolean('activated')->default(false);
+            $table->string('token');
             $table->timestamps();
             $table->softDeletes();
         });
