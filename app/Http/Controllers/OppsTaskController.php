@@ -23,7 +23,7 @@ class OppsTaskController extends Controller
     {
        
         $tasks = User::find(Auth::User()->id)->tasks;
-        return view('tasks.index', compact('tasks'));
+        return view('opptasks.index', compact('tasks'));
     }
 
     /**
@@ -35,7 +35,7 @@ class OppsTaskController extends Controller
     {
         $users = User::all();
 
-        return view('tasks.create', compact('users'));
+        return view('opptasks.create', compact('users'));
     }
 
     /**
@@ -72,7 +72,7 @@ class OppsTaskController extends Controller
             $task->users()->attach($request->assigned_to);
         Session::flash('success', 'You have successfully created a task');
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('opptasks.index');
     }
 
     /**
@@ -84,7 +84,7 @@ class OppsTaskController extends Controller
      */
     public function show(OppsTask $task)
     {
-      return view('tasks.show', compact('task'));
+      return view('opptasks.show', compact('task'));
     }
 
     /**
@@ -97,7 +97,7 @@ class OppsTaskController extends Controller
     public function edit(OppsTask $task)
     {
         $users = User::all();
-      return view('tasks.edit', compact('task','users'));
+      return view('opptasks.edit', compact('task','users'));
     }
 
     /**
@@ -135,7 +135,7 @@ class OppsTaskController extends Controller
             $task->users()->sync($request->assigned_to);
         Session::flash('success', 'You have successfully updated a task');
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('opptasks.index');
     }
 
     /**
@@ -149,6 +149,6 @@ class OppsTaskController extends Controller
     {
         $task->delete();
         Session::flash('success', "You have successively deleted a task");
-        return redirect()->route('tasks.index');
+        return redirect()->route('opptasks.index');
     }
 }

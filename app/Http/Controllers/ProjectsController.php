@@ -84,8 +84,10 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
+        $tasks = DB::table('tasks')->where('project_id', $project->id)->get();
+        return view('projects.show', compact('project', 'tasks'));
     }
 
     /**

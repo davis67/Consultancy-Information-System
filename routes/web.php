@@ -40,6 +40,9 @@ Route::get('leaves/rejectLeave/{id}', 'leavesController@rejectLeave');
 
 Route::resource('opptasks', 'OppsTaskController');
 Route::resource('tasks', 'TaskController');
+Route::resource('subtasks', 'SubtaskController');
+Route::get('/subtasks/createtask/{id}/', 'SubtaskController@createtask')->name('subtasks.createtask');
+
 Route::resource('documents', 'DocumentsController');
 Route::get('/projects/create/{id}/', 'ProjectsController@createProject')->name('projects.create');
 Route::post('/projects/store', 'ProjectsController@store')->name('projects.store');

@@ -85,7 +85,7 @@
 							@endif
 						</td>
 						<td>
-							<a href="{{ route('subtasks.createtask',['id' => $task->id])}}" onclick="return confirm('Are you sure you want to leave this page?')">
+							<a href="" onclick="return confirm('Are you sure you want to leave this page?')">
 								<i class="mdi mdi-plus"></i>
 							</a>
 						</td>

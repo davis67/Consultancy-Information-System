@@ -1,34 +1,5 @@
  <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    {{-- <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
-        <div class="nav-profile-image">
-          <img src="/uploads/avatr.jpeg" alt="profile">
-          <span class="login-status online"></span> <!--change to offline or busy as needed-->              
-        </div>
-        <div class="nav-profile-text d-flex flex-column">
-          <span class="font-weight-bold mb-2">{{ Auth::user()->name }}</span>
-          <span class="text-secondary text-small">
-            @if(Auth::user()->is_permitted ==7)
-                Managing Director
-            @elseif(Auth::user()->is_permitted ==6)
-            Chief Of Staffs
-            @elseif(Auth::user()->is_permitted ==5)
-            Deputy Managing Director
-            @elseif(Auth::user()->is_permitted ==4)
-            CEO
-            @elseif(Auth::user()->is_permitted ==3)
-            Director
-            @elseif(Auth::user()->is_permitted ==2)
-            Assistant Manager
-            @else
-            Consultant
-            @endif
-          </span>
-        </div>
-        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-      </a>
-    </li> --}}
     <li class="nav-item">
       <a class="nav-link" href="{{route('home')}}">
         <span class="menu-title">Dashboard</span>
@@ -112,12 +83,12 @@
   <div class="collapse" id="tasks">
     <ul class="nav flex-column sub-menu">
       <li class="nav-item"> 
-        <a class="nav-link" href="{{ route('tasks.create') }}">
+        <a class="nav-link" href="{{ route('opptasks.create') }}">
           Create a Task
         </a>
       </li>
       <li class="nav-item">
-       <a class="nav-link" href="{{ route('tasks.index') }}">
+       <a class="nav-link" href="{{ route('opptasks.index') }}">
          View Tasks
        </a>
      </li>
