@@ -203,9 +203,21 @@ class TaskController extends Controller
     public function completed($id)
     {
         $task_complete = Task::find($id) ;
-        $task_complete->completed = 1;
-        $task_complete->save() ;
-        return redirect()->back();
+       foreach(Task::find($id)->subtasks as $subtask){
+           if($subtask->isComplete == 0){
+               Session::flash('info', "You have unfinished task..");
+               return back();
+           }else{
+            $task_complete->completed = 1;
+            $task_complete->save() ;
+            Session::flash('success', "You have successfully completed a task..");
+
+            return redirect()->back();
+           }
+       }
+       return redirect()->back();
+
+        
     }
 
 /*===============================================

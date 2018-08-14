@@ -79,15 +79,19 @@
 						<td>
 							@if ( !$task->completed )
 								<a href="{{ route('task.completed', ['id' => $task->id]) }}" class="btn btn-outline-success btn-xs"> Mark as completed</a>
+								
 							@else
 								<span class="label label-success text-success"><i class="fa fa-check"></i></span>
 								<span class="label label-success text-success"><i class="fa fa-check"></i></span>
 							@endif
 						</td>
 						<td>
+								
 							<a href="{{ route('subtasks.createtask',['id' => $task->id])}}" onclick="return confirm('Are you sure you want to leave this page?')">
 								<i class="mdi mdi-plus"></i>
+								<i class="badge"> {{ count(App\Task::find($task->id)->subtasks) }}</i>
 							</a>
+						
 						</td>
 						<td>
 							<form action="{{ route('tasks.destroy', $task->id)}}" method="post">

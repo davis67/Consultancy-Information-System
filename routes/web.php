@@ -4,7 +4,7 @@ Route::get('/', function () {
 
 });
 Route::get('/tests', function () {
-    return App\User::find(1)->opportunities;
+    return App\Task::find(1)->subtasks;
 });
 Route::get('/projectmanager', function () {
     return view('projects.project');

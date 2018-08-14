@@ -33,31 +33,45 @@
     <div class="card">
         <div class="card-body">
             <h4 class="text-center">Project Tasks</h4>
-            @foreach ($tasks as $task )
-                <p>{{ $task->task_title }}</p>
-            @endforeach
+            @foreach ($tasks as $task )   
             <ul >
-                    <li>
-                      <a class="nav-link" data-toggle="collapse" href="#re" aria-expanded="false" aria-controls="re">
+                    <li style="list-style:none;">
+                      <a class="nav-link text-dark" style="text-decoration:none;" data-toggle="collapse" href="#re{{ $task->id }}" aria-expanded="false" aria-controls="re{{ $task->id }}">
                       <i class="fa fa-caret-right"></i>
-                        <span class="menu-title">Opportunities</span>
+                        <span class="menu-title">{{ $task->task_title }}</span>
                       </a>
-                      <div class="collapse" id="re">
+                      <div class="collapse" id="re{{ $task->id }}">
                         <ul class="nav flex-column sub-menu">
                           <li class="nav-item"> 
-                            <a class="nav-link" href="{{ route('opportunities.create') }}">
-                                    <i class="fa fa-arrow-right"></i> Create Opportunity
-                            </a>
+                            
+                                    @foreach (App\Task::find($task->id)->subtasks as $subtask)
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                                <p class="nav-link" href="">
+                                                        <i class="fa fa-arrow-right"></i> 
+                                                    {{ $subtask->task_title }}
+                                                </p>
+                                        </div>
+                                        <div class="col-md-4" style="float:right">
+                                                @if($subtask->isComplete == 0)
+                                                  <a class="btn btn-xs btn-outline-success">  pending</a>
+                                                @else
+                                              
+                                                <a class="btn btn-xs btn-outline-danger">completed</a>
+
+                                                @endif
+                                            </div>
+                                    </div>
+                                    
+                                    @endforeach
+                           
                           </li>
-                          <li class="nav-item">
-                           <a class="nav-link" href="{{ route('opportunities.index') }}">
-                                <i class="fa fa-arrow-right"></i>  View Opportunity
-                           </a>
-                         </li>
+
                         </ul>
                       </div>
                     </li>
             </ul>
+            @endforeach
         </div>
     </div>
 </div>

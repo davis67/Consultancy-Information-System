@@ -87,6 +87,7 @@ class ProjectsController extends Controller
     public function show(Project $project)
     {
         $tasks = DB::table('tasks')->where('project_id', $project->id)->get();
+       // dd($tasks);
         return view('projects.show', compact('project', 'tasks'));
     }
 
@@ -124,10 +125,5 @@ class ProjectsController extends Controller
     {
     }
 
-    public function projectdetails(){
-
-        $tasks = Task::all();
-        // $tasks->orderBy('sortorder')->get();
-        dd($tasks);
-    }
+  
 }

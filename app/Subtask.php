@@ -9,6 +9,6 @@ class Subtask extends Model
     protected $guarded = [];
 
     public function task(){
-        return $this->belongsTo(App\Task::class);
+        return $this->belongsTo(Task::class);
     }
 }

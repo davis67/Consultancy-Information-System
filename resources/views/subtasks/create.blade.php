@@ -21,7 +21,7 @@
             </a>
         </div>
     </div>
-    {{ var_dump($errors)}}
+    {{-- {{ var_dump($errors)}} --}}
 <form id="task_form" action="{{ route('subtasks.store') }}" method="POST">
     @csrf
     <div class="row">
