@@ -82,7 +82,6 @@ Route::get('/files/email/{id}','FileController@edit')->name('emailfile');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::resource('deletes', 'SoftDeletesController');
 
-
     // User Profile and Account Routes
     Route::resource('users.profile','ProfileController');
     Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
