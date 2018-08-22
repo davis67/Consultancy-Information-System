@@ -120,20 +120,6 @@
           </div>
         </div>
           </div>
-          <br>
-          <div class="row">
-            <div class="col-md-12">
-                <div class="card shadow">
-                    <div class="card-header bg-success text-white">
-                        Change Password
-                      <i class="far fa-user-circle" aria-hidden="true" style="float:right;"></i>
-                    </div>
-                  <div class="card-body">
-                      @include('pages.changepassword')
-                  </div>
-                </div>
-            </div>
-          </div>
         </div>
           </div>
         </div>

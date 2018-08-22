@@ -163,61 +163,40 @@ class UsersManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        $currentUser = Auth::user();
-        $user = User::find($id);
-        $emailCheck = ($request->input('email') != '') && ($request->input('email') != $user->email);
-        $ipAddress = new CaptureIpTrait();
-
-        if ($emailCheck) {
-            $validator = Validator::make($request->all(), [
-                'name'     => 'required|max:255|unique:users',
-                'email'    => 'email|max:255|unique:users',
-                'password' => 'present|confirmed|min:6',
+         dd($user);
+        $this->validate($request, [
+            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             ]);
-        } else {
-            $validator = Validator::make($request->all(), [
-                'name'     => 'required|max:255|unique:users',
-                'password' => 'nullable|confirmed|min:6',
+       $user->update([
+        'name' => $request->name,
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
             ]);
-        }
+        // $userRole = $request->input('role');
+        // if ($userRole != null) {
+        //     $user->detachAllRoles();
+        //     $user->attachRole($userRole);
+        // }
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
 
-        $user->name = $request->input('name');
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
+        // switch ($userRole) {
+        //     case 3:
+        //         $user->activated = 0;
+        //         break;
 
-        if ($emailCheck) {
-            $user->email = $request->input('email');
-        }
+        //     default:
+        //         $user->activated = 1;
+        //         break;
+        // }
 
-        if ($request->input('password') != null) {
-            $user->password = bcrypt($request->input('password'));
-        }
-
-        $userRole = $request->input('role');
-        if ($userRole != null) {
-            $user->detachAllRoles();
-            $user->attachRole($userRole);
-        }
-
-        $user->updated_ip_address = $ipAddress->getClientIp();
-
-        switch ($userRole) {
-            case 3:
-                $user->activated = 0;
-                break;
-
-            default:
-                $user->activated = 1;
-                break;
-        }
-
-        $user->save();
+        // $user->save();
 
         return back()->with('success', 'You have successfully updated a user');
     }

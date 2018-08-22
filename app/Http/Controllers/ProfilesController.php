@@ -19,7 +19,7 @@ use App\Serviceline;
 use PDF;
 use DB;    //Use DB to run custom SELECT statements
 
-class PagesController extends Controller
+class ProfilesController extends Controller
 {
     public function __construct()
     {
