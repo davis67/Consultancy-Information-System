@@ -44,16 +44,18 @@ class leavesController extends Controller
      */
     public function store(Request $request, User $user)
     {
-       
-       $leave = Leave::create($request->validate([
-            'description'=>'required',
-            'start_date'=>'required',
-            'end_date'=>'required',
-            'leave_type'=>'required'
-        ])+['user_id' =>auth()->id()]);
+              
+       $leaves = Leave::create(request()->validate(
+            ['leaveType'=>'required',
+            'startdate'=>'required|date|after:tommorrow',
+            'enddate'=>'required|date|after:startdate',
+            'leavedetail'=>'required',
+            'status'=>'required'
+            ])+['user_id'=>Auth::user()->id]
+        );
         Session::flash('success', "You have successfully requested for a leave");
 
-        return redirect()->route('leaves.create');
+        return redirect()->back();
     }
 
     /**

@@ -14,7 +14,8 @@ Route::get('/projectmanager', function () {
  * opportunities
  */
 Route::get('/opportunities/trashed', 'OpportunityController@trashed');
-Route::post('/opportunities/changeStatus/', 'OpportunityController@changeStatus');
+Route::post('/opportunities/changeStatus', 'OpportunityController@changeStatus')->name('changeStatus');
+Route::post('/home/fusion', 'HomeController@fusion');
 Route::get('/removeOpportunities/{id}', 'OpportunityConroller@removeOpportunities');
 Route::get('/restoreOpportunities/{id}', 'OpportunityController@restoreOpportunities');
 Route::get('opportunities/viewall', 'OpportunityController@viewAll');
@@ -40,6 +41,7 @@ Route::get('leaves/rejectLeave/{id}', 'leavesController@rejectLeave');
 
 Route::resource('opptasks', 'OppsTaskController');
 Route::resource('tasks', 'TaskController');
+Route::resource('holidays', 'HolidaysController');
 Route::resource('subtasks', 'SubtaskController');
 Route::get('/subtasks/createtask/{id}/', 'SubtaskController@createtask')->name('subtasks.createtask');
 
@@ -91,21 +93,13 @@ Route::get('/files/email/{id}','FileController@edit')->name('emailfile');
 
 
     // User Profile and Account Routes
-    Route::resource(
-        'profile',
-        'ProfilesController', [
-            'only' => [
-                'show',
-                'edit',
-                'update',
-                'create',
-            ],
-        ]
-    );
+    Route::get('profile','PagesController@profile');
     Route::put('profile/{username}/updateUserAccount', [
         'as'   => '{username}',
         'uses' => 'ProfilesController@updateUserAccount',
     ]);
+
+Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
     Route::put('profile/{username}/updateUserPassword', [
         'as'   => '{username}',
         'uses' => 'ProfilesController@updateUserPassword',

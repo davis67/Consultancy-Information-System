@@ -16,7 +16,7 @@ use App\Division;
 use App\Associate;
 use App\Holiday;
 use App\Serviceline;
-use PDF;
+use Hash;
 use DB;    //Use DB to run custom SELECT statements
 
 class PagesController extends Controller
@@ -29,6 +29,7 @@ class PagesController extends Controller
     public function index(){
         return view('pages.dashboard');
     }
+    
     public function admin(){
         $roles = Role::all();
         $teams = Team::all();
@@ -43,6 +44,7 @@ class PagesController extends Controller
         return view('pages.admin',
         ['roles'=>$roles,
         'teams'=>$teams,
+        'meats'=>$meats,
         'leaves'=>$leaves,
         'divisions'=>$divisions,
         'associates'=>$associates,
@@ -51,9 +53,13 @@ class PagesController extends Controller
         'leavesettings'=>$leavesettings
         ]);
     }
+    public function support(){
+        return view('pages.support');
+    }
+
     //Individual profile page shows meats, leave, projects and opportunities for a user who is logged in
     public function profile(){
-         $leaves = Leave::where('user_id', Auth::user()->id)->get();
+        $leaves = Leave::where('user_id', Auth::user()->id)->get();
         // $meats = Meat::where('user_id', Auth::user()->id)->get();
         // $worked = $meats->sum('duration');
         // $wopps = Meat::where('user_id', Auth::user()->id)->where('beneficiary','Opportunities')->get();
@@ -70,8 +76,10 @@ class PagesController extends Controller
         return view('pages.profile',[
             'leaves'=>$leaves,
             // 'meats'=>$meats,
-            // 'worked'=>$worked,'woppsum'=>$woppsum,
-            // 'adminw'=>$adminw,'personalw'=>$personalw
+            // 'worked'=>$worked,
+            // 'woppsum'=>$woppsum,
+            // 'adminw'=>$adminw,
+            // 'personalw'=>$personalw
             ]);
     }
 
@@ -94,4 +102,7 @@ class PagesController extends Controller
         $pdf = PDF::loadview('pages.pdf', $title);
         return $pdf->download('Document.pdf');
     }
+
+
+    
 }

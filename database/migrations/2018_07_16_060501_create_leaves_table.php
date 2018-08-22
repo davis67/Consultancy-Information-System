@@ -15,12 +15,14 @@ class CreateLeavesTable extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('status')->default('submitted');
-            $table->string('description');
-            $table->string('start_date');
-            $table->string('leave_type');
-            $table->string('end_date');
             $table->integer('user_id');
+            $table->string('requested_by')->nullable();
+            $table->string('leaveType');
+            $table->string('startdate');
+            $table->string('enddate');
+            $table->string('leavedetail');
+            $table->integer('duration');
+            $table->string('status');
             $table->timestamps();
         });
     }

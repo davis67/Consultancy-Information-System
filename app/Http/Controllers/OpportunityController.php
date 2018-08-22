@@ -201,14 +201,11 @@ class OpportunityController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function changeStatus(Request $request){
-        
             $opportunityName= $request->input('opportunity_name');
             $salesStage= $request->input('sales_stage');
-                $opportunity = DB::table('opportunities') 
-                ->where('opportunity_name',$opportunityName);
-                
-            
-            $opportunity->update([
+            DB::table('opportunities') 
+            ->where('opportunity_name',$opportunityName)
+            ->update([
                'sales_stage' => $salesStage
             ]);
             if($salesStage == 'Closed Won'){
@@ -220,20 +217,5 @@ class OpportunityController extends Controller
             return redirect()->back();
              
      }
-    //  public function trashed(){
-    //     $opportunities = Opportunity::onlyTrashed()->get();
-    //     return view('opportunities.lists', compact('opportunities'));
-    // }
-    //  public function removeOpportunity($id){
-    //     $opportunity = Opportunity::withTrashed()->where('id', $id);
-    //     $opportunity->forceDelete();
-    //     Session::flash('success', 'You have Completely deleted an opportunity');
-    //     return view('opportunities.lists');
-    //  }
-    //  public function restoreOpportunity($id){
-    //     $opportunity = Opportunity::withTrashed()->where('id', $id);
-    //     $opportunity->restore();
-    //     Session::flash('success', 'You have Completely restored an opportunity');
-    //     return view('opportunities.lists');
-    //  }
+   
 }

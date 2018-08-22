@@ -62,21 +62,8 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-12">
                   <div class="add-items d-flex">
-                      <select class="form-control form-control-sm">
-                        <option value="">Select the team</option>
-                        @foreach($teams as $team)
-                        <option value="{{ $team->team }}">{{ $team->team }}</option>
-                        @endforeach
-                      </select>
-                      <button class="add btn btn-gradient-danger btn-sm font-weight-bold">View</button>
-                    </div>
-            {{-- <div class="clearfix">
-              <h4 class="card-title float-left">Project Statistics according to Departments</h4>
-              <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>                                     
-            </div>
-            <canvas id="visit-sale-chart" class="mt-4"></canvas> --}}
             <?php
 
             $arrData = [
@@ -136,21 +123,14 @@
             }
             $jsonEncodedData = json_encode($arrData);
 
-            $barChart = new FusionCharts("bar2d", "myFirstChart" , 500, 400, "chart-container", "json",$jsonEncodedData);
+            $barChart = new FusionCharts("bar2d", "myFirstChart" , 700, 500, "chart-container", "json",$jsonEncodedData);
             $barChart->render();
         ?>
         <div id="chart-container">Opportunities Fusion Charts will render here</div>
-              </div>
-              <div class="col-md-4">
-               <h4> Team:</h4>
-               <span> </span>
-              </div>
-       
-        
           </div>
         </div>
       </div>
-      <div class="col-md-4 grid-margin stretch-card">
+      {{-- <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Opportunities Summary</h4>
@@ -158,7 +138,7 @@
             <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>                                                      
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
     <div class="row">
       <div class="col-md-7 grid-margin stretch-card">

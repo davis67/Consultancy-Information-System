@@ -5,7 +5,7 @@
           	<div class="card">
 			
 			<div class="card-body">
-			<form method="post" action="/opportunities/changeStatus">
+			<form method="post" action="{{route('changeStatus')}}">
 				@csrf
 				<div class="form-row" style="margin-bottom:30px;">
 						<div class="form-group col-md-6">
@@ -13,7 +13,7 @@
 								<select id="inputSalesStage" name="opportunity_name" class="form-control {{ $errors->has('opportunity_name') ? ' is-invalid' : '' }}" style="width:400px;">
 									<option value="">Choose...</option>
 									@foreach( $opportunities as $opportunity)
-								<option value="{{ $opportunity->id }}" {{ old('opportunity_name')==$opportunity->opportunity_name? 'selected':'' }}>{{ $opportunity->opportunity_name }}</option>
+								<option value="{{ $opportunity->opportunity_name }}" {{ old('opportunity_name')==$opportunity->opportunity_name? 'selected':'' }}>{{ $opportunity->opportunity_name }}</option>
 								@endforeach       
 								</select>
 						</div>

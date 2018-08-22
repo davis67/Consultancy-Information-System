@@ -13,8 +13,8 @@
                         <a href="{{ route('contacts.index') }}" style="float:right" class="btn btn-outline-danger btn-sm pull-right"><i class="fa fa-fw fa-reply-all"></i>View All Contacts</a>
                     </div>
                     </div>
-                    {{var_dump($errors)}} 
-              <form action="{{route('contacts.store')}}" method="post">
+{{--                     {{var_dump($errors)}} 
+ --}}              <form action="{{route('contacts.store')}}" method="post">
               	@csrf
             
 
